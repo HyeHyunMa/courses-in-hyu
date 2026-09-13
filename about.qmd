@@ -1,16 +1,19 @@
 ---
 title: "About"
+toc: false
+page-layout: full
 ---
 
 **Hye Hyun Ma**
 
-Department of Advertising & Public Relations  
+Lecturer  
+Dept. of Advertising & Public Relations  
+College of Communication & Culture  
 Hanyang University ERICA
 
-My teaching and research interests include data analytics, quantitative research methods, and emerging technologies.
 
 ## Contact & Links
 
-- **Email:** hyehyunma96@gmail.com, gogus8281@hanyang.ac.kr
-- **Website:** [Personal website](https://hyehyunma.github.io)
-- **ORCID:** [0009-0009-9278-0289](https://orcid.org/0009-0009-9278-0289)
+- **Email:** [hyehyunma96@gmail.com](mailto:hyehyunma96@gmail.com), [gogus8281@hanyang.ac.kr](mailto:gogus8281@hanyang.ac.kr)
+- **Website:** <https://hyehyunma.github.io>
+- **ORCID:** <https://orcid.org/0009-0009-9278-0289>

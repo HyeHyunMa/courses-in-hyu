@@ -1,18 +1,110 @@
 ---
 title: "Courses in HYU"
 subtitle: "Fall 2026"
+toc: false
+page-layout: full
 ---
 
-This site provides course materials and lecture notes for courses taught at Hanyang University.
+This site provides course materials, lecture notes, and selected teaching resources for courses taught at Hanyang University.
 
-## Courses
+::: {.grid}
 
-### APR3044 Advanced Data Analytics
-Undergraduate course on data analytics, visualization, and AI agent workflows.
+::: {.g-col-12 .g-col-md-6}
 
-[Course materials →](apr3044/index.qmd)
+::: {.card}
+::: {.card-body}
 
-### APR8025 Data Analytics
-Graduate course on quantitative data analysis for social science research.
+## APR3044 Advanced Data Analytics
 
-[Course materials →](apr8025/index.qmd)
+**Undergraduate Course**
+
+A practice-oriented course on data analytics, visualization, and AI agent workflows.
+
+**Main topics**
+
+- Introduction to R programming
+- Exploratory data analysis and basic visualization
+- Interactive data visualization (R, Tableau and Plotly)
+- Basic AI agents and agentic workflows
+- RAG, context engineering, multi-agent systems, etc
+
+::: {.course-buttons}
+[Course materials →](apr3044/index.qmd){.btn .btn-primary .btn-sm}
+
+[Syllabus PDF](syllabus/APR3044_syllabus_2026_fall.pdf){.btn .btn-outline-primary .btn-sm target="_blank"}
+:::
+
+:::
+:::
+
+:::
+
+::: {.g-col-12 .g-col-md-6}
+
+::: {.card}
+::: {.card-body}
+
+## APR8025 Data Analytics
+
+**Graduate Course**
+
+A graduate-level course on quantitative data analysis for social science research.
+
+**Main topics**
+
+- Introduction to R programming
+- Descriptive and inferential statistics
+- Sampling distributions and hypothesis testing
+- t-tests and chi-squared tests
+- ANOVA and regression
+
+::: {.course-buttons}
+[Course materials →](apr8025/index.qmd){.btn .btn-primary .btn-sm}
+
+[Syllabus PDF](syllabus/APR8025_syllabus_2026_fall.pdf){.btn .btn-outline-primary .btn-sm target="_blank"}
+:::
+
+:::
+:::
+
+:::
+
+:::
+
+
+
+## Syllabus
+
+::: {.grid}
+
+::: {.g-col-12 .g-col-md-6}
+
+### APR3044
+
+<div class="syllabus-preview">
+<iframe
+  src="syllabus/APR3044_syllabus_2026_fall.pdf"
+  width="100%"
+  height="520px">
+</iframe>
+</div>
+
+
+:::
+
+::: {.g-col-12 .g-col-md-6}
+
+### APR8025
+
+<div class="syllabus-preview">
+<iframe
+  src="syllabus/APR8025_syllabus_2026_fall.pdf"
+  width="100%"
+  height="520px">
+</iframe>
+</div>
+
+
+:::
+
+:::
