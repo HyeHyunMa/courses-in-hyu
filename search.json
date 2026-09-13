@@ -1,0 +1,44 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Courses in HYU",
+    "section": "",
+    "text": "This site provides course materials, lecture notes, and selected teaching resources for courses taught at Hanyang University."
+  },
+  {
+    "objectID": "index.html#apr3044-advanced-data-analytics",
+    "href": "index.html#apr3044-advanced-data-analytics",
+    "title": "Courses in HYU",
+    "section": "APR3044 Advanced Data Analytics",
+    "text": "APR3044 Advanced Data Analytics\nUndergraduate Course\nA practice-oriented course on data analytics, visualization, and AI agent workflows.\nMain topics\n\nIntroduction to R programming\nExploratory data analysis and basic visualization\nInteractive data visualization (R, Tableau and Plotly)\nBasic AI agents and agentic workflows\nRAG, context engineering, multi-agent systems, etc\n\n\nCourse materials →\nSyllabus PDF"
+  },
+  {
+    "objectID": "index.html#apr8025-data-analytics",
+    "href": "index.html#apr8025-data-analytics",
+    "title": "Courses in HYU",
+    "section": "APR8025 Data Analytics",
+    "text": "APR8025 Data Analytics\nGraduate Course\nA graduate-level course on quantitative data analysis for social science research.\nMain topics\n\nIntroduction to R programming\nDescriptive and inferential statistics\nSampling distributions and hypothesis testing\nt-tests and chi-squared tests\nANOVA and regression\n\n\nCourse materials →\nSyllabus PDF"
+  },
+  {
+    "objectID": "index.html#syllabus",
+    "href": "index.html#syllabus",
+    "title": "Courses in HYU",
+    "section": "Syllabus",
+    "text": "Syllabus\n\n\nAPR3044\n\n\n\n\n\n\nAPR8025"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "Hye Hyun Ma\nLecturer\nDept. of Advertising & Public Relations\nCollege of Communication & Culture\nHanyang University ERICA"
+  },
+  {
+    "objectID": "about.html#contact-links",
+    "href": "about.html#contact-links",
+    "title": "About",
+    "section": "Contact & Links",
+    "text": "Contact & Links\n\nEmail: hyehyunma96@gmail.com, gogus8281@hanyang.ac.kr\nWebsite: https://hyehyunma.github.io\nORCID: https://orcid.org/0009-0009-9278-0289"
+  }
+]

@@ -1,0 +1,35 @@
+/* css styles */
+.course-buttons {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.course-buttons .btn {
+  margin: 0;
+}
+
+.syllabus-preview {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  background: white;
+}
+
+.syllabus-preview iframe {
+  display: block;
+  border: 0;
+}
+
+.card {
+  height: 100%;
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+#syllabus {
+  margin-top: 2.5rem;
+}
