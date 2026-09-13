@@ -2,20 +2,200 @@ project:
   type: website
 
 website:
-  title: "apr3044"
+  title: "Courses in HYU"
+  description: "Course materials, lecture notes, and hands-on exercises for courses taught at Hanyang University."
+
   navbar:
+    background: primary
+    foreground: light
     left:
       - href: index.qmd
         text: Home
-      - about.qmd
+
+      - text: Courses
+        menu:
+          - href: apr3044/index.qmd
+            text: APR3044 Advanced Data Analytics
+          - href: apr8025/index.qmd
+            text: APR8025 Data Analytics
+
+      - href: about.qmd
+        text: About
+
+    right:
+      - icon: github
+        href: https://github.com/HyeHyunMa/courses-in-hyu
+        aria-label: GitHub
+
+  sidebar:
+
+    - title: "APR3044 Advanced Data Analytics"
+      style: docked
+      search: true
+      contents:
+        - href: apr3044/index.qmd
+          text: Course Overview
+
+        - href: apr3044/syllabus.qmd
+          text: Syllabus
+
+        - section: "Part I. Data Analytics with R"
+          contents:
+            - href: apr3044/week01.qmd
+              text: "Week 01 · Orientation & Introduction to R I"
+
+            - href: apr3044/week02.qmd
+              text: "Week 02 · Introduction to R II & Data Preprocessing"
+
+            - href: apr3044/week03.qmd
+              text: "Week 03 · Exploratory Data Analysis"
+
+            - href: apr3044/week04.qmd
+              text: "Week 04 · Data Visualization in R"
+
+            - href: apr3044/week05.qmd
+              text: "Week 05 · Interactive Visualization I: Tableau"
+
+            - href: apr3044/week06.qmd
+              text: "Week 06 · Interactive Visualization II: Plotly"
+
+            - href: apr3044/week07.qmd
+              text: "Week 07 · Data Visualization Workshop"
+
+        - section: "Part II. AI Agents"
+          contents:
+            - href: apr3044/week08.qmd
+              text: "Week 08 · Introduction to AI Agents"
+
+            - href: apr3044/week09.qmd
+              text: "Week 09 · Designing AI Agent Workflows"
+
+            - href: apr3044/week10.qmd
+              text: "Week 10 · Prompting, Tools, and Data-Grounded Responses"
+
+            - href: apr3044/week11.qmd
+              text: "Week 11 · Agentic RAG and Context Engineering"
+
+            - href: apr3044/week12.qmd
+              text: "Week 12 · Planning, Memory, and Multi-Agent Collaboration"
+
+            - href: apr3044/week13.qmd
+              text: "Week 13 · Responsible and Trustworthy AI Agents"
+
+            - href: apr3044/week14.qmd
+              text: "Week 14 · AI Agent Project Workshop"
+
+            - href: apr3044/week15.qmd
+              text: "Week 15 · Final Presentation"
+
+            - href: apr3044/week16.qmd
+              text: "Week 16 · Course Wrap-up"
+
+        - href: apr3044/assignments.qmd
+          text: Assignments
+
+        - href: apr3044/project.qmd
+          text: Team Project
+
+        - href: policies.qmd
+          text: Course Policies
+
+
+    - title: "APR8025 Data Analytics"
+      style: docked
+      search: true
+      contents:
+        - href: apr8025/index.qmd
+          text: Course Overview
+
+        - href: apr8025/syllabus.qmd
+          text: Syllabus
+
+        - section: "Part I. Foundations"
+          contents:
+            - href: apr8025/week01.qmd
+              text: "Week 01 · Orientation"
+
+            - href: apr8025/week02.qmd
+              text: "Week 02 · Introduction to R"
+
+            - href: apr8025/week03.qmd
+              text: "Week 03 · Descriptive Statistics"
+
+        - section: "Part II. Statistical Inference"
+          contents:
+            - href: apr8025/week05.qmd
+              text: "Week 05 · Sampling Distributions & Hypothesis Testing"
+
+            - href: apr8025/week06.qmd
+              text: "Week 06 · Research Design, Statistical Planning & Open Science"
+
+            - href: apr8025/week07.qmd
+              text: "Week 07 · t-test"
+
+            - href: apr8025/week08.qmd
+              text: "Week 08 · Chi-Squared Test"
+
+            - href: apr8025/week09.qmd
+              text: "Week 09 · ANOVA I"
+
+            - href: apr8025/week10.qmd
+              text: "Week 10 · ANOVA II"
+
+        - section: "Part III. Regression"
+          contents:
+            - href: apr8025/week11.qmd
+              text: "Week 11 · Correlation & Simple Regression"
+
+            - href: apr8025/week12.qmd
+              text: "Week 12 · Multiple Regression I"
+
+            - href: apr8025/week13.qmd
+              text: "Week 13 · Multiple Regression II"
+
+            - href: apr8025/week14.qmd
+              text: "Week 14 · Regression Diagnostics"
+
+            - href: apr8025/week15.qmd
+              text: "Week 15 · Final Exam"
+
+            - href: apr8025/week16.qmd
+              text: "Week 16 · Final Wrap-up"
+
+        - href: apr8025/readings.qmd
+          text: Readings
+
+        - href: apr8025/problem-sets.qmd
+          text: Problem Sets
+
+        - href: policies.qmd
+          text: Course Policies
+
 
 format:
   html:
     theme:
-      - cosmo
-      - brand
-    css: styles.css
+      light: cosmo
+      dark: darkly
+
     toc: true
+    toc-depth: 3
+    toc-location: right
 
-editor: visual
+    code-copy: true
+    code-overflow: wrap
+    code-fold: false
 
+    anchor-sections: true
+    smooth-scroll: true
+
+    date-format: "YYYY-MM-DD"
+
+    css: styles.css
+
+execute:
+  echo: true
+  warning: false
+  message: false
+
+lang: en
