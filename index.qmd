@@ -16,8 +16,8 @@ This site provides course materials, lecture notes, and selected teaching resour
 
 ## APR3044 Advanced Data Analytics
 
-**Undergraduate Course**
-
+**Undergraduate Course**  
+*Teaching this course in Fall 2026 while Dr. Byoungkwan Lee is on sabbatical.*  
 A practice-oriented course on data analytics, visualization, and AI agent workflows.
 
 **Main topics**
@@ -46,8 +46,8 @@ A practice-oriented course on data analytics, visualization, and AI agent workfl
 
 ## APR8025 Data Analytics
 
-**Graduate Course**
-
+**Graduate Course**  
+*Teaching this course in Fall 2026 while Dr. Byoungkwan Lee is on sabbatical.*  
 A graduate-level course on quantitative data analysis for social science research.
 
 **Main topics**
