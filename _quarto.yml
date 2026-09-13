@@ -17,7 +17,7 @@ website:
         menu:
           - href: apr3044/index.qmd
             text: "APR3044 Advanced Data Analytics"
-          - href: apr8025/index.qmd
+          - href: apr8025/introduction-r.qmd
             text: "APR8025 Data Analytics"
 
       - href: about.qmd
