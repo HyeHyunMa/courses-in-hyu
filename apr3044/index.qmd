@@ -3,7 +3,7 @@ title: "Course Orientation"
 toc: false
 ---
 
-## Course Orientation
+## Why This Course?
 
 <iframe
   src="slides/W01_OT.pdf"

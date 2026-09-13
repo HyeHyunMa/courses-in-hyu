@@ -33,3 +33,39 @@
 #syllabus {
   margin-top: 2.5rem;
 }
+
+.quarto-title .quarto-subtitle,
+.quarto-title p.subtitle {
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* 공통 콘텐츠 폭 */
+main.content {
+  max-width: 1100px;
+}
+
+/* 제목 간격 */
+.quarto-title-block {
+  margin-bottom: 1.5rem;
+}
+
+/* h1, h2 공통 크기 */
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+/* sidebar 폭/간격 */
+.sidebar {
+  font-size: 0.95rem;
+}
+
+/* iframe PDF */
+iframe {
+  width: 100%;
+  border-radius: 8px;
+}

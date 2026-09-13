@@ -47,13 +47,13 @@ website:
           contents:
 
             - href: apr3044/introduction-r-data-preprocessing.qmd
-              text: "Introduction to R & Data Preprocessing"
+              text: "Introduction to R"
 
             - href: apr3044/exploratory-data-analysis.qmd
               text: "Exploratory Data Analysis"
 
             - href: apr3044/data-visualization-r.qmd
-              text: "Choosing the Right Chart & Visualization in R"
+              text: "Basic Visualization in R"
 
             - href: apr3044/tableau.qmd
               text: "Interactive Data Visualization I: Tableau"
@@ -150,7 +150,7 @@ format:
 
     theme:
       light: cosmo
-      dark: darkly
+      dark: cosmo
 
     toc: true
     toc-depth: 3

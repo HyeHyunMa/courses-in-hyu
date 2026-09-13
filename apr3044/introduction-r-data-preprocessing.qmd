@@ -1,0 +1,500 @@
+---
+title: "R Programming Basics"
+subtitle: "*이병관 (2023). 사회과학 연구자를 위한 R을 활용한 기초 통계. 한양대학교출판부.*"
+class-date: "Sep 9, 2026"
+---
+**Class date:** {{< meta class-date >}}
+
+## 1.3 R 실행하기
+
+**Basic principles of R syntax (applied in the Sources tab)**
+
+- Pressing *ENTER* moves the cursor to the next line, it does not command the code to run.
+
+- To run a line of code, use *CTRL+ENTER, CMD+ENTER*, or press the *RUN* button.
+
+- Inserting *\#* prevents the code from running.
+
+**How to set my working directory**
+
+```{r}
+getwd()
+```
+
+### 1.3.1 R 패키지 설치하기
+
+**Package**
+
+- 특정 로직 및 코드의 집합 (특정 주제 또는 분석과 관련된 함수를 모아놓은 꾸러미)
+
+- 패키지 설치 시, 패키지 명은 반드시 따옴표("") 안에 입력해야 함.
+
+**Library**
+
+- 패키지가 저장 혹은 설치된 디렉토리
+
+- `library()`: 패키지를 불러오는 함수
+
+```{r}
+#install.packages("here")
+library(here)
+here()
+
+#install.packages("psych")
+library(psych)
+??psych
+```
+
+**R the calculator**
+
+- Elementary arithmetic + a
+
+```{r}
+1+1
+5-3
+2/4
+2*4
+2^3
+sqrt(16)
+
+set.seed(1234)
+rnorm(15)
+```
+
+### 1.3.2 벡터 연산
+
+**Vectorization**
+
+- Vector: 1개 이상의 동일한 타입의 데이터(ex. 숫자, 문자) 집합
+
+```{r}
+x <- 2
+x
+
+x; x+x; x-x
+```
+
+- `c()`를 사용해 만들 수 있음. (cf. c = concatenate의 약자)
+
+```{r}
+?c
+weight <- c(61, 72, 57, 90, 95, 72)
+weight
+height <- c(1.75, 1.80, 1.65, 1.90, 1.74, 1.91)
+height
+
+bmi <- weight/height^2
+bmi
+
+mean(weight); sd(weight)
+```
+
+```{r}
+#character vectors
+fruits <- c("banana", "apple", "딸기")
+fruits
+
+#logical vectors
+c("T", T, F, T)
+bmi
+bmi >= 20
+```
+
+**등차수열로 벡터만들기**
+
+- sequence의 약자인 `seq()` 함수를 사용
+
+- `seq(시작, 끝, 간격)`의 형태로 입력
+
+- `by` 옵션으로 간격 설정(옵션명 생략 가능), `length, length.out` 옵션으로 벡터 길이 설정
+
+```{r}
+seq(4, 9)
+seq(4, 9, 2)
+4:9
+```
+
+**반복함수로 벡터만들기**
+
+- replicate의 약자인 `rep()` 함수를 사용
+
+- `rep(데이터, 반복횟수)`의 형태로 입력
+
+- `each` 옵션으로 각 데이터의 반복횟수 설정(옵션명 생략 가능), `times` 옵션으로 전체 시행의 반복횟수 설정
+
+```{r}
+rep(1, 10)
+x <- c(7, 9, 13)
+rep(x, 3)
+rep(x, 1:3)
+
+rep(1:5, each=2)
+rep(1:5, times=2)
+
+rep(1:2, 10) #male n=10, female n=10
+rep(c("male", "female"), 10) #male n=10, female n=10
+
+rep(1:2, c(10,15)) #male n=10, female n=15
+rep(c("male", "female"), c(10,15)) #male n=10, female n=15
+```
+
+**특별연산자**
+
+- 나머지 연산자 %%
+
+```{r}
+x <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)
+y <- c(4)
+x %% y
+x[x %% y == c(0)]
+```
+
+- 정수 나누기 연산자 %/%
+
+```{r}
+x %/% y
+```
+
+- 행렬 곱하기 연산자 %\*%
+
+```{r}
+d <- 1:3
+f <- 4:6
+d%*%f
+```
+
+- 벡터 내 특정 값의 포함 여부를 확인하는 확인 연산자 %in%
+
+```{r}
+x1 <- c(1,5,10,20,20,24,45)
+x1 %in% 20
+sum(x1 %in% 20)
+
+x2 <- 1:10
+y2 <- 6:20
+x2 %in% y2
+any(x2 %in% y2)
+sum(x2 %in% y2)
+which(x2 %in% y2)
+```
+
+### 1.3.3 행렬
+
+- 행과 열로 이루어진 2차원의 데이터 타입, `matrix()` 함수를 사용
+
+- `matrix(데이터, 행의 수, 열의 수, byrow=T/F)`의 형태로 입력. 이때 `byrow` 옵션의 디폴트값은 열(column)이며, `TRUE`(or T)를 지정하면 행을 기준으로 생성됨.
+
+```{r}
+matrix(1:12, nrow=4, ncol=3, byrow = T)
+```
+
+- 관련 함수: `rownames(), colnames(), t(), solve(), cbind(), rbind()`, etc.
+
+```{r}
+x <- matrix(1:12, nrow=3, byrow=T)
+rownames(x) <- LETTERS[1:3]
+colnames(x) <- c("spiderman", "batman", "X-man", "superman")
+x
+t(x)
+
+A <- matrix(c(5, 1, 0, 3,-1, 2, 4, 0,-1), nrow=3, byrow=T)
+det(A)
+solve(A)
+
+cbind(1:3,4:6,7:9)
+rbind(1:3,4:6,7:9)
+```
+
+### 1.3.4 요인
+
+- R에서 범주형 변수(categorical variable)를 의미하는 데이터 형식
+
+- `factor()` 함수를 사용하며, `factor(data, levels=, labels=)` 형태로 입력 (생략 가능)
+
+```{r}
+pain <- c(0,3,2,2,1)
+f.pain <- factor(pain, levels=0:3)
+levels(f.pain) <- c("none","mild","medium","severe")
+f.pain
+
+gender <- c(1,1,1,1,2,2,2,1,2,2,1,1,2,2,1,2)
+f.gender <- factor(gender,
+                   levels = c(1,2),
+                   labels = c("Male", "Female"))
+str(f.gender)
+f.gender
+```
+
+## 1.4 데이터 프레임 작성과 데이터 세트 불러오기
+
+### 1.4.1 데이터 프레임
+
+- 데이터 유형에 상관없이 이루어진 2차원 데이터 구조
+
+- `data.frame()` 함수를 사용
+
+```{r}
+winner <- c(188, 185, 185, 182, 182, 188, 188, 188, 185, 185, 177, 182, 182, 192, 183, 179, 179, 175)
+opponent <- c(165, 187, 175, 193, 185, 187, 188, 173, 180, 177, 183, 185, 180, 180, 182, 178, 178, 173)
+year <- seq(2016, 1948, -4)
+president.height <- data.frame(year, winner, opponent)
+
+head(president.height)
+tail(president.height)
+
+president.height$year
+```
+
+### 1.4.2 csv 데이터와 txt 데이터 불러오기
+
+- 데이터 다운로드: <https://drive.google.com/drive/u/0/folders/1zgZN_cZAQwfSDjn2JQlo8VQQEbg94G01>
+
+```{r}
+# st <- read.csv("data/st.csv", header=T)
+# st <- read.csv(here("data", "st.csv"), header = T)
+# names(st)
+# names(st)[1] <- "States"
+# colnames(st)[2:4] <- c("인구","소득","문맹률")
+# names(st)
+```
+
+```{r}
+# st_txt <- read.table("st.txt", header=T, sep="\t")
+# names(st_txt)
+```
+
+### 1.4.3 Excel 데이터 불러오기
+
+```{r}
+library(readxl)
+# st_excel <- read_excel("st.xlsx",sheet = "Sheet1")
+#names(st_excel)
+```
+
+### 1.4.4 SPSS 데이터 불러오기
+
+```{r}
+library(foreign)
+# st_spss <- read.spss("st.sav", to.data.frame=TRUE, 
+#                      use.value.labels=TRUE)
+# names(st_spss)
+```
+
+## 1.5 데이터 핸들링
+
+### 1.5.1 인덱싱
+
+```{r}
+winner[3]; opponent[16]
+winner[c(3,5,7)]
+winner[-c(3,5,7)]
+winner[1:5]
+v <- c(3,5,7)
+winner[v]
+
+president.height[5,3]
+president.height[,3]
+president.height[5,]
+president.height$opponent
+president.height["opponent"]
+
+president.height[president.height$winner > 185,]
+```
+
+### 1.5.2 조건적 선택
+
+```{r}
+winner[opponent > 180]
+winner[opponent > 175 & opponent <= 179]
+```
+
+### 1.5.3 루프
+
+**Basic structure of "For" loops**
+
+for (val in sequence) { statement }
+
+```{r}
+for (x in 1:8) {
+  print(x)
+}
+
+fruits <- list("apple", "banana", "cherry")
+for (x1 in fruits) {
+  print(x1)
+}
+
+for (x2 in 1:10) {
+  y = 4*x2 + 8
+  print(y)
+}
+
+for(i in 1:10) {
+  x3 <- i^2
+  print(x3)
+  if(i >= 5) {
+    break
+  }
+}
+```
+
+**Basic structure of "While" loops**
+
+while (logical condition) { commands }
+
+```{r}
+i <- 1
+
+while (i <= 4) {
+  print(i)
+  i <- i + 1
+}
+
+i <- 1
+
+while (i <= 4) {
+  i <- i + 1
+  print(i)
+}
+
+i <- 1
+while(i <= 10) {
+  i <- i + 1
+  if (i == 6) {
+    break
+  }
+  print(i)
+}
+```
+
+**Apply Family: lapply, sapply, tapply**
+
+- apply란? 행렬, 배열 데이터 구조에서 특정 함수를 반복 적용하게 해주는 함수. for loops & while loops에 비해 빠르고 간편.
+
+- apply함수의 기본 로직: `apply(X, MARGIN, FUN, ..., simplify=T/F)`
+
+  - X = 입력 데이터. 주로 데이터프레임, 행렬 or 배열
+
+  - MARGIN = 함수가 적용될 데이터의 차원 (MARGIN=1이면 row 기준, MARGIN=2면 column 기준)
+
+  - FUN = 적용하고 싶은 특정 함수 (ex. mean, sum, ...)
+
+  - ... = FUN에 따른 추가 옵션. 예를 들어 FUN이 `mean`일 때 결측치를 제거하는 옵션인 `na.rm=TRUE`를 뒤에 작성할 수 있음.
+
+  - simplify = 디폴트값은 TRUE, 가능한 경우 결과를 벡터/행렬로 반환. FALSE로 설정하면 결과를 리스트로 반환. (= 즉, 단순화하고 싶은 경우 simplify=T이며, 이는 sapply와 동일한 결과를 반환함)
+
+```{r}
+apply(president.height, 2, mean)
+apply(president.height, 2, function(x){x+1})
+
+lapply(president.height, mean) #return to "list" type
+sapply(president.height, mean) #return to "vector" or "matrix" type
+
+president.height$height[president.height$winner>183.6111] <- "tall"
+president.height$height[president.height$winner<=183.6111] <- "small"
+tapply(president.height$winner, president.height$height, mean)
+```
+
+### 1.5.4 정렬
+
+```{r}
+sort(president.height$winner)
+sort(president.height$winner, decreasing=F) 
+order(president.height$winner)
+```
+
+### 1.5.5 `dplyr` 패키지를 이용한 데이터 핸들링
+
+```{r}
+library(dplyr)
+st <- as.data.frame(state.x77)
+names(st)
+str(st)
+```
+
+- select: 열(=변수) 선택 함수
+
+```{r}
+st.new <- st %>%
+  select(Population, Income, Illiteracy)
+str(st.new)
+
+st.new2 <- st %>%
+  select(-c(Population, Income, Illiteracy))
+str(st.new2)
+
+st.new3 <- st %>% select(starts_with("I"))
+str(st.new3)
+
+st.new4 <- st %>% select(ends_with("tion"))
+str(st.new4)
+```
+
+- filter: 행(=데이터=케이스) 추출 함수
+
+```{r}
+st.new5 <- st %>% filter(Population >= 2800)
+str(st.new5)
+
+st.new6 <- st %>%
+  filter(Population >= 2800 & Area <= 70735)
+str(st.new6)
+```
+
+- arrange: 행 정렬 함수
+
+```{r}
+st.new7 <- st %>% arrange(Population)
+head(st.new7)
+```
+
+- rename: 변수 명 변경 함수
+
+```{r}
+st.new8 <- st %>%
+  rename(education = "HS Grad",
+         murder.rate = "Murder")
+names(st.new8)
+```
+
+- mutate: 열 생성 함수
+
+  - `.keep = "all"`: 생성된 변수 포함 모든 변수 출력
+
+  - `.keep = "used"`: 생성된 변수 + 변수를 생성할때 사용된 변수만 출력
+
+  - `.keep = "unused"`: 생성된 변수 + 변수를 생성할때 사용되지 않은 변수만 출력
+
+  - `.keep = "none"`: 생성된 열 포함 모든 변수 출력
+
+```{r}
+st.new9 <- st %>%
+  mutate(Density = Population/Area)
+names(st.new9)
+
+st.new10 <- st %>%
+  mutate(Density = Population/Area) %>%
+  mutate(인구밀도 = ifelse(Density >= mean(Density), "high", "low"))
+head(st.new10$인구밀도, 10)
+```
+
+```{r}
+names(st.new10)
+
+st.new11 <- st %>%
+  mutate(Density = Population/Area) %>%
+  mutate(인구밀도 = ifelse(Density >= mean(Density), "high", "low"), .keep = "unused")
+names(st.new11)
+```
+
+- group_by & summarise: 범주형 변수의 집단 간의 요약 통계치 생성
+
+```{r}
+st.new10 %>%
+  group_by(인구밀도) %>%
+  summarise("Murder mean"=mean(Murder), "Murder sd"=sd(Murder))
+
+library(rstatix)
+st.new10 %>% group_by(인구밀도) %>%
+  get_summary_stats(Murder)
+```
