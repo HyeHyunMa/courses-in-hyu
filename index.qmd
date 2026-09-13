@@ -1,11 +1,18 @@
 ---
-title: "apr3044"
+title: "Courses in HYU"
+subtitle: "Fall 2026"
 ---
 
-This is a Quarto website.
+This site provides course materials and lecture notes for courses taught at Hanyang University.
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+## Courses
 
-```{r}
-1 + 1
-```
+### APR3044 Advanced Data Analytics
+Undergraduate course on data analytics, visualization, and AI agent workflows.
+
+[Course materials →](apr3044/index.qmd)
+
+### APR8025 Data Analytics
+Graduate course on quantitative data analysis for social science research.
+
+[Course materials →](apr8025/index.qmd)

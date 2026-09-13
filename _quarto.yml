@@ -3,11 +3,12 @@ project:
 
 website:
   title: "Courses in HYU"
-  description: "Course materials, lecture notes, and hands-on exercises for courses taught at Hanyang University."
+  description: "Course materials and lecture notes for courses taught at Hanyang University."
 
   navbar:
     background: primary
     foreground: light
+
     left:
       - href: index.qmd
         text: Home
@@ -15,9 +16,9 @@ website:
       - text: Courses
         menu:
           - href: apr3044/index.qmd
-            text: APR3044 Advanced Data Analytics
+            text: "APR3044 Advanced Data Analytics"
           - href: apr8025/index.qmd
-            text: APR8025 Data Analytics
+            text: "APR8025 Data Analytics"
 
       - href: about.qmd
         text: About
@@ -29,151 +30,149 @@ website:
 
   sidebar:
 
+    # ============================================================
+    # APR3044 Advanced Data Analytics
+    # ============================================================
+
     - title: "APR3044 Advanced Data Analytics"
       style: docked
       search: true
+
       contents:
+
         - href: apr3044/index.qmd
-          text: Course Overview
+          text: "Course Overview"
 
         - href: apr3044/syllabus.qmd
-          text: Syllabus
+          text: "Syllabus"
 
-        - section: "Part I. Data Analytics with R"
+        - section: "Data Analytics with R"
           contents:
-            - href: apr3044/week01.qmd
-              text: "Week 01 · Orientation & Introduction to R I"
 
-            - href: apr3044/week02.qmd
-              text: "Week 02 · Introduction to R II & Data Preprocessing"
+            - href: apr3044/orientation-introduction-r-1.qmd
+              text: "Orientation & Introduction to R I"
 
-            - href: apr3044/week03.qmd
-              text: "Week 03 · Exploratory Data Analysis"
+            - href: apr3044/introduction-r-2-data-preprocessing.qmd
+              text: "Introduction to R II & Data Preprocessing"
 
-            - href: apr3044/week04.qmd
-              text: "Week 04 · Data Visualization in R"
+            - href: apr3044/exploratory-data-analysis.qmd
+              text: "Exploratory Data Analysis"
 
-            - href: apr3044/week05.qmd
-              text: "Week 05 · Interactive Visualization I: Tableau"
+            - href: apr3044/data-visualization-r.qmd
+              text: "Choosing the Right Chart & Visualization in R"
 
-            - href: apr3044/week06.qmd
-              text: "Week 06 · Interactive Visualization II: Plotly"
+            - href: apr3044/tableau.qmd
+              text: "Interactive Data Visualization I: Tableau"
 
-            - href: apr3044/week07.qmd
-              text: "Week 07 · Data Visualization Workshop"
+            - href: apr3044/plotly.qmd
+              text: "Interactive Data Visualization II: Plotly"
 
-        - section: "Part II. AI Agents"
+            - href: apr3044/data-visualization-workshop.qmd
+              text: "Data Visualization Workshop"
+
+        - section: "AI Agents"
           contents:
-            - href: apr3044/week08.qmd
-              text: "Week 08 · Introduction to AI Agents"
 
-            - href: apr3044/week09.qmd
-              text: "Week 09 · Designing AI Agent Workflows"
+            - href: apr3044/introduction-ai-agents.qmd
+              text: "Introduction to AI Agents"
 
-            - href: apr3044/week10.qmd
-              text: "Week 10 · Prompting, Tools, and Data-Grounded Responses"
+            - href: apr3044/designing-ai-agent-workflows.qmd
+              text: "Designing AI Agent Workflows"
 
-            - href: apr3044/week11.qmd
-              text: "Week 11 · Agentic RAG and Context Engineering"
+            - href: apr3044/prompting-tools-data-grounded-responses.qmd
+              text: "Prompting, Tools, & Data-Grounded Responses"
 
-            - href: apr3044/week12.qmd
-              text: "Week 12 · Planning, Memory, and Multi-Agent Collaboration"
+            - href: apr3044/agentic-rag-context-engineering.qmd
+              text: "Agentic RAG & Context Engineering"
 
-            - href: apr3044/week13.qmd
-              text: "Week 13 · Responsible and Trustworthy AI Agents"
+            - href: apr3044/planning-memory-multi-agent.qmd
+              text: "Planning, Memory, & Multi-Agent Collaboration"
 
-            - href: apr3044/week14.qmd
-              text: "Week 14 · AI Agent Project Workshop"
+            - href: apr3044/responsible-trustworthy-ai.qmd
+              text: "Responsible & Trustworthy AI Agents"
 
-            - href: apr3044/week15.qmd
-              text: "Week 15 · Final Presentation"
+            - href: apr3044/ai-agent-project-workshop.qmd
+              text: "AI Agent Project Workshop"
 
-            - href: apr3044/week16.qmd
-              text: "Week 16 · Course Wrap-up"
+            - href: apr3044/final-presentation.qmd
+              text: "Final Presentation"
 
-        - href: apr3044/assignments.qmd
-          text: Assignments
 
-        - href: apr3044/project.qmd
-          text: Team Project
-
-        - href: policies.qmd
-          text: Course Policies
-
+    # ============================================================
+    # APR8025 Data Analytics
+    # ============================================================
 
     - title: "APR8025 Data Analytics"
       style: docked
       search: true
+
       contents:
+
         - href: apr8025/index.qmd
-          text: Course Overview
+          text: "Course Overview"
 
         - href: apr8025/syllabus.qmd
-          text: Syllabus
+          text: "Syllabus"
 
-        - section: "Part I. Foundations"
+        - section: "Foundations"
           contents:
-            - href: apr8025/week01.qmd
-              text: "Week 01 · Orientation"
 
-            - href: apr8025/week02.qmd
-              text: "Week 02 · Introduction to R"
+            - href: apr8025/orientation.qmd
+              text: "Orientation"
 
-            - href: apr8025/week03.qmd
-              text: "Week 03 · Descriptive Statistics"
+            - href: apr8025/introduction-r.qmd
+              text: "Introduction to R & R Programming Basics"
 
-        - section: "Part II. Statistical Inference"
+            - href: apr8025/descriptive-statistics.qmd
+              text: "Descriptive Statistics"
+
+        - section: "Statistical Inference"
           contents:
-            - href: apr8025/week05.qmd
-              text: "Week 05 · Sampling Distributions & Hypothesis Testing"
 
-            - href: apr8025/week06.qmd
-              text: "Week 06 · Research Design, Statistical Planning & Open Science"
+            - href: apr8025/sampling-distributions-hypothesis-testing.qmd
+              text: "Sampling Distributions & Hypothesis Testing"
 
-            - href: apr8025/week07.qmd
-              text: "Week 07 · t-test"
+            - href: apr8025/research-design-statistical-planning-open-science.qmd
+              text: "Research Design, Statistical Planning, & Open Science"
 
-            - href: apr8025/week08.qmd
-              text: "Week 08 · Chi-Squared Test"
+            - href: apr8025/t-test.qmd
+              text: "t-test"
 
-            - href: apr8025/week09.qmd
-              text: "Week 09 · ANOVA I"
+            - href: apr8025/chi-squared-test.qmd
+              text: "Chi-Squared Test"
 
-            - href: apr8025/week10.qmd
-              text: "Week 10 · ANOVA II"
+            - href: apr8025/anova-1.qmd
+              text: "ANOVA I"
 
-        - section: "Part III. Regression"
+            - href: apr8025/anova-2.qmd
+              text: "ANOVA II"
+
+        - section: "Regression"
           contents:
-            - href: apr8025/week11.qmd
-              text: "Week 11 · Correlation & Simple Regression"
 
-            - href: apr8025/week12.qmd
-              text: "Week 12 · Multiple Regression I"
+            - href: apr8025/correlation-simple-regression.qmd
+              text: "Correlation & Simple Regression"
 
-            - href: apr8025/week13.qmd
-              text: "Week 13 · Multiple Regression II"
+            - href: apr8025/multiple-regression-1.qmd
+              text: "Multiple Regression I"
 
-            - href: apr8025/week14.qmd
-              text: "Week 14 · Regression Diagnostics"
+            - href: apr8025/multiple-regression-2.qmd
+              text: "Multiple Regression II"
 
-            - href: apr8025/week15.qmd
-              text: "Week 15 · Final Exam"
+            - href: apr8025/regression-diagnostics.qmd
+              text: "Regression Diagnostics"
 
-            - href: apr8025/week16.qmd
-              text: "Week 16 · Final Wrap-up"
+            - href: apr8025/final-exam.qmd
+              text: "Final Exam"
 
-        - href: apr8025/readings.qmd
-          text: Readings
 
-        - href: apr8025/problem-sets.qmd
-          text: Problem Sets
-
-        - href: policies.qmd
-          text: Course Policies
-
+  page-footer:
+    left: "© 2026 Hye Hyun Ma"
+    right: "Built with Quarto"
 
 format:
   html:
+
     theme:
       light: cosmo
       dark: darkly
@@ -189,7 +188,7 @@ format:
     anchor-sections: true
     smooth-scroll: true
 
-    date-format: "YYYY-MM-DD"
+    date-format: "MMM D, YYYY"
 
     css: styles.css
 
