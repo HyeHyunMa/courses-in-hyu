@@ -1,5 +1,19 @@
 [
   {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "Hye Hyun Ma\nLecturer\nDept. of Advertising & Public Relations\nCollege of Communication & Culture\nHanyang University ERICA"
+  },
+  {
+    "objectID": "about.html#contact-links",
+    "href": "about.html#contact-links",
+    "title": "About",
+    "section": "Contact & Links",
+    "text": "Contact & Links\n\nEmail: hyehyunma96@gmail.com, gogus8281@hanyang.ac.kr\nWebsite: https://hyehyunma.github.io\nORCID: https://orcid.org/0009-0009-9278-0289"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Courses in HYU",
@@ -26,19 +40,5 @@
     "title": "Courses in HYU",
     "section": "Syllabus",
     "text": "Syllabus\n\n\nAPR3044\n\n\n\n\n\n\nAPR8025"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "Hye Hyun Ma\nLecturer\nDept. of Advertising & Public Relations\nCollege of Communication & Culture\nHanyang University ERICA"
-  },
-  {
-    "objectID": "about.html#contact-links",
-    "href": "about.html#contact-links",
-    "title": "About",
-    "section": "Contact & Links",
-    "text": "Contact & Links\n\nEmail: hyehyunma96@gmail.com, gogus8281@hanyang.ac.kr\nWebsite: https://hyehyunma.github.io\nORCID: https://orcid.org/0009-0009-9278-0289"
   }
 ]
