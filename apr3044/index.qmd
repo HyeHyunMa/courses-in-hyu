@@ -1,0 +1,13 @@
+---
+title: "Course Orientation"
+toc: false
+---
+
+## Course Orientation
+
+<iframe
+  src="slides/W01_OT.pdf"
+  width="100%"
+  height="750px"
+  style="border: 1px solid #ddd; border-radius: 8px;">
+</iframe>

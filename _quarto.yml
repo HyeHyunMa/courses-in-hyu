@@ -41,19 +41,13 @@ website:
       contents:
 
         - href: apr3044/index.qmd
-          text: "Course Overview"
-
-        - href: apr3044/syllabus.qmd
-          text: "Syllabus"
+          text: "Course Orientation"
 
         - section: "Data Analytics with R"
           contents:
 
-            - href: apr3044/orientation-introduction-r-1.qmd
-              text: "Orientation & Introduction to R I"
-
-            - href: apr3044/introduction-r-2-data-preprocessing.qmd
-              text: "Introduction to R II & Data Preprocessing"
+            - href: apr3044/introduction-r-data-preprocessing.qmd
+              text: "Introduction to R & Data Preprocessing"
 
             - href: apr3044/exploratory-data-analysis.qmd
               text: "Exploratory Data Analysis"
@@ -67,8 +61,6 @@ website:
             - href: apr3044/plotly.qmd
               text: "Interactive Data Visualization II: Plotly"
 
-            - href: apr3044/data-visualization-workshop.qmd
-              text: "Data Visualization Workshop"
 
         - section: "AI Agents"
           contents:
@@ -91,12 +83,6 @@ website:
             - href: apr3044/responsible-trustworthy-ai.qmd
               text: "Responsible & Trustworthy AI Agents"
 
-            - href: apr3044/ai-agent-project-workshop.qmd
-              text: "AI Agent Project Workshop"
-
-            - href: apr3044/final-presentation.qmd
-              text: "Final Presentation"
-
 
     # ============================================================
     # APR8025 Data Analytics
@@ -108,20 +94,12 @@ website:
 
       contents:
 
-        - href: apr8025/index.qmd
-          text: "Course Overview"
 
-        - href: apr8025/syllabus.qmd
-          text: "Syllabus"
-
-        - section: "Foundations"
+        - section: "Introduction to R"
           contents:
 
-            - href: apr8025/orientation.qmd
-              text: "Orientation"
-
             - href: apr8025/introduction-r.qmd
-              text: "Introduction to R & R Programming Basics"
+              text: "Introduction to R"
 
             - href: apr8025/descriptive-statistics.qmd
               text: "Descriptive Statistics"
@@ -161,9 +139,6 @@ website:
 
             - href: apr8025/regression-diagnostics.qmd
               text: "Regression Diagnostics"
-
-            - href: apr8025/final-exam.qmd
-              text: "Final Exam"
 
 
   page-footer:
