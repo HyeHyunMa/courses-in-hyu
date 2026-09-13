@@ -53,13 +53,13 @@ A graduate-level course on quantitative data analysis for social science researc
 **Main topics**
 
 - Introduction to R programming
-- Descriptive and inferential statistics
-- Sampling distributions and hypothesis testing
+- Descriptive statistics
+- Basic of Inferential statistics
 - t-tests and chi-squared tests
-- ANOVA and regression
+- ANOVA, regression, and regression diagnostics
 
 ::: {.course-buttons}
-[Course materials →](apr8025/index.qmd){.btn .btn-primary .btn-sm}
+[Course materials →](apr8025/introduction-r.qmd){.btn .btn-primary .btn-sm}
 
 [Syllabus PDF](syllabus/APR8025_syllabus_2026_fall.pdf){.btn .btn-outline-primary .btn-sm target="_blank"}
 :::
