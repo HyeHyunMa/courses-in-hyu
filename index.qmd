@@ -1,11 +1,12 @@
 ---
-title: "Courses in HYU"
-subtitle: "Fall 2026"
+title: "Fall 2026"
+subtitle: "Dept. of Advertising & Public Relations"
 toc: false
 page-layout: full
 ---
 
-This site provides course materials, lecture notes, and selected teaching resources for two courses I am teaching in Fall 2026 while Dr. Byoungkwan Lee is on sabbatical.
+This site provides course materials, lecture notes, and selected teaching resources for two courses taught in Fall 2026 during Dr. Byoungkwan Lee’s sabbatical.
+
 
 ::: {.grid}
 

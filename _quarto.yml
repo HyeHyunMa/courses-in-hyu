@@ -95,23 +95,27 @@ website:
       contents:
 
 
-        - section: "Introduction to R"
+        - section: "Foundations"
           contents:
 
             - href: apr8025/introduction-r.qmd
               text: "Introduction to R"
 
+            - href: apr8025/research-design.qmd
+              text: "Research Design & Statistical Planning"
+
+            - href: apr8025/effect-size-power.qmd
+              text: "Effect Size & Power Analysis"
+
+
+        - section: "Descriptive & Inferential Statistics"
+          contents:
+
             - href: apr8025/descriptive-statistics.qmd
               text: "Descriptive Statistics"
 
-        - section: "Statistical Inference"
-          contents:
-
-            - href: apr8025/sampling-distributions-hypothesis-testing.qmd
-              text: "Sampling Distributions & Hypothesis Testing"
-
-            - href: apr8025/research-design-statistical-planning-open-science.qmd
-              text: "Research Design, Statistical Planning, & Open Science"
+            - href: apr8025/inferential-statistics.qmd
+              text: "Inferential Statistics"
 
             - href: apr8025/t-test.qmd
               text: "t-test"
@@ -119,23 +123,37 @@ website:
             - href: apr8025/chi-squared-test.qmd
               text: "Chi-Squared Test"
 
-            - href: apr8025/anova-1.qmd
-              text: "ANOVA I"
 
-            - href: apr8025/anova-2.qmd
-              text: "ANOVA II"
-
-        - section: "Regression"
+        - section: "Analysis of Variance"
           contents:
 
-            - href: apr8025/correlation-simple-regression.qmd
-              text: "Correlation & Simple Regression"
+            - href: apr8025/one-way-between-anova.qmd
+              text: "One-Way Between-Subjects ANOVA"
 
-            - href: apr8025/multiple-regression-1.qmd
-              text: "Multiple Regression I"
+            - href: apr8025/one-way-within-anova.qmd
+              text: "One-Way Within-Subjects ANOVA"
 
-            - href: apr8025/multiple-regression-2.qmd
-              text: "Multiple Regression II"
+            - href: apr8025/two-way-between-anova.qmd
+              text: "Two-Way Between-Subjects ANOVA"
+
+            - href: apr8025/two-way-within-anova.qmd
+              text: "Two-Way Within-Subjects ANOVA"
+
+            - href: apr8025/two-way-mixed-anova.qmd
+              text: "Two-Way Mixed ANOVA"
+
+
+        - section: "Correlation & Regression"
+          contents:
+
+            - href: apr8025/correlation.qmd
+              text: "Correlation"
+
+            - href: apr8025/simple-regression.qmd
+              text: "Simple Linear Regression"
+
+            - href: apr8025/multiple-regression.qmd
+              text: "Multiple Linear Regression"
 
             - href: apr8025/regression-diagnostics.qmd
               text: "Regression Diagnostics"

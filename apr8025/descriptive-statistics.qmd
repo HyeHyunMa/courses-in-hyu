@@ -1,0 +1,946 @@
+---
+title: "Descriptive Statistics"
+class-date: "Sep 16, 2026"
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+**Class date:** {{< meta class-date >}}\
+<small> Based in part on lecture notes by Prof. Byoungkwan Lee and
+*이병관 (2023). 사회과학 연구자를 위한 R을 활용한 기초 통계.
+한양대학교출판부.* </small>
+
+## 1. What Are Descriptive Statistics?
+
+Descriptive statistics are methods for **organizing, summarizing, and
+presenting observed data**.
+
+We usually summarize data in three ways:
+
+1.  **Tables**
+2.  **Graphs or figures**
+3.  **Statistic:** A rule that reduces data to a single number
+
+Descriptive statistics describe the data we observed.\
+They do **not**, by themselves, tell us whether a pattern generalizes to
+a larger population.
+
+```{r}
+# Example data
+scores <- c(72, 81, 76, 88, 91, 84, 77, 95, 82, 84)
+scores
+```
+
+A quick summary can already tell us a great deal about the dataset.
+
+```{r}
+summary(scores)
+```
+
+## 2. Variables and Levels of Measurement
+
+Before choosing a statistical summary, we should first ask:
+
+> **What kind of variable am I working with?**
+
+![](images/levels-of-measurement.png){fig-align="center"}\
+<small>Source: https://www.ijngp.com/post/measurement-scale-noir
+</small>
+
+A common classification is:
+
+| Level    | Main characteristic                 | Example                    |
+|------------------|-------------------------------|-----------------------|
+| Nominal  | Categories without order            | Gender, media platform     |
+| Ordinal  | Ordered categories                  | Satisfaction level         |
+| Interval | Equal intervals, no true zero       | Temperature in °C          |
+| Ratio    | Equal intervals and meaningful zero | Age, income, reaction time |
+
+<br>
+
+In practice, a simpler distinction is often useful:
+
+- **Categorical variables**: represent groups or categories
+- **Quantitative variables**: represent numerical amounts
+
+![](images/2-branches-of-statistics.png){fig-align="center"}\
+<small>Source: https://www.ijngp.com/post/measurement-scale-noir</small>
+
+## 3. Frequency Distributions
+
+- A tabular summary of data showing the frequency (or number) of items
+  in each of several nonoverlapping classes.
+
+- The objective is to **provide insights** about the data that cannot be
+  quickly obtained by looking only at the original data.
+
+### Example: Hotel Satisfaction
+
+Suppose 20 guests evaluate a hotel using five response categories.
+
+```{r}
+satis <- c(
+  "Below Average", "Average", "Above Average",
+  "Above Average", "Above Average", "Above Average",
+  "Above Average", "Below Average", "Below Average",
+  "Average", "Poor", "Poor",
+  "Above Average", "Excellent", "Above Average",
+  "Average", "Above Average", "Average",
+  "Above Average", "Average"
+)
+
+satis <- factor(
+  satis,
+  levels = c("Poor", "Below Average", "Average",
+             "Above Average", "Excellent"),
+  ordered = TRUE
+)
+```
+
+### Frequency Distribution
+
+```{r}
+table(satis)
+```
+
+Using `dplyr`, we can create a cleaner table.
+
+```{r}
+library(tidyverse)
+
+hotel <- tibble(rating = satis)
+
+hotel %>%
+  count(rating)
+```
+
+Using `KableExtra`, we can format the table for better presentation.
+
+```{r}
+library(kableExtra)
+hotel %>%
+  count(rating) %>% 
+  kbl() %>%
+  kable_styling("hover")
+
+hotel %>%
+  count(rating) %>% 
+  kbl(col.names = c("Rating", "Frequency")) %>%
+  kable_styling("hover")
+```
+
+<br>
+
+Guidelines for Selecting Number of Classes
+
+- Use between 5 and 20 classes.
+
+- Data sets with a larger number of elements usually require a larger
+  number of classes.
+
+- Smaller data sets usually require fewer classes.
+
+<br>
+
+Guidelines for Selecting Width of Classes
+
+- Use classes of equal width.
+
+$$
+\text{Approximate Class Width}
+=
+\frac{\text{Largest Data Value} - \text{Smallest Data Value}}
+{\text{Number of Classes}}
+$$
+
+<br>
+
+### Relative Frequency Distribution
+
+- The **relative frequency** of a class is the fraction or proportion of
+  the total number of data items belonging to the class.
+
+- A **relative frequency distribution** is a tabular summary of a set of
+  data showing the relative frequency for each class.
+
+```{r}
+hotel %>%
+  count(rating) %>%
+  mutate(props = n / sum(n)) %>% 
+  kbl() %>%
+  kable_styling("hover")
+```
+
+Relative frequencies are especially useful when comparing groups with
+different sample sizes.
+
+### Cumulative Frequency Distribution
+
+- Cumulative frequency distribution -- shows the number of items with
+  values less than or equal to the upper limit of each class.
+
+- Cumulative relative frequency distribution -- shows the proportion of
+  items with values less than or equal to the upper limit of each class.
+
+```{r}
+hotel %>%
+  count(rating) %>%
+  mutate(props = n / sum(n),
+         percent = props * 100) %>% 
+  kbl() %>%
+  kable_styling("hover")
+```
+
+## 4. Visualizing Categorical Data
+
+### Bar Plot
+
+- A bar graph is a graphical device for depicting qualitative data.
+
+- On the horizontal axis we specify the labels that are used for each of
+  the classes.
+
+- A frequency, relative frequency, or percent frequency scale can be
+  used for the vertical axis.
+
+- Using a bar of fixed width drawn above each class label, we extend the
+  height appropriately.
+
+- The bars are separated to emphasize the fact that each class is a
+  separate category.
+
+```{r}
+barplot(table(hotel$rating))
+```
+
+Using `ggplot2`, we can create a cleaner plot.
+
+In `ggplot2`, we build a graph by adding layers with `+`.
+
+```{r}
+library(ggplot2)
+ggplot(hotel)
+ggplot(hotel, aes(x=rating))
+ggplot(hotel, aes(x=rating)) + 
+  geom_bar()
+ggplot(hotel, aes(x=rating)) + 
+  geom_bar(fill = "steelblue")
+ggplot(hotel, aes(x=rating)) + 
+  geom_bar(fill = "steelblue", colour = "black")
+ggplot(hotel, aes(x=rating)) + 
+  geom_bar(fill = "steelblue", colour = "black") +
+  labs(title = "Distribution of Hotel Ratings",
+       x = "Hotel Rating",
+       y = "Frequency")
+ggplot(hotel, aes(x=rating)) + 
+  geom_bar(fill = "steelblue", colour = "black") +
+  labs(title = "Distribution of Hotel Ratings",
+       subtitle = "Customer satisfaction ratings from 20 hotel guests",
+       x = "Hotel Rating",
+       y = "Frequency")
+ggplot(hotel, aes(x=rating)) + 
+  geom_bar(fill = "steelblue", colour = "black") +
+  labs(title = "Distribution of Hotel Ratings",
+       subtitle = "Customer satisfaction ratings from 20 hotel guests",
+       x = "Hotel Rating",
+       y = "Frequency") +
+  theme_minimal()
+```
+
+### Pie Chart
+
+- The pie chart is a commonly used graphical device for presenting
+  relative frequency distributions for qualitative data.
+
+- First draw a circle; then use the relative frequencies to subdivide
+  the circle into sectors that correspond to the relative frequency for
+  each class.
+
+- Since there are 360 degrees in a circle, a class with a relative
+  frequency of .25 would consume .25(360) = 90 degrees of the circle.
+
+```{r}
+pie(table(hotel$rating))
+
+ggplot(hotel, aes(x = "", fill = rating)) +
+  geom_bar(color = "black", linewidth = 0.5) +
+  coord_polar(theta = "y") +
+  scale_fill_brewer(palette = "Blues") +
+  labs(title = "Distribution of Hotel Ratings",
+       fill = "Rating") +
+  theme_void()
+
+ggplot(hotel, aes(x = "", fill = rating)) +
+  geom_bar(color = "black", linewidth = 0.5) +
+  geom_text(
+    aes(label = gsub(" ", "\n", rating)),
+    stat = "count",
+    position = position_stack(vjust = 0.5),
+    color = "black",
+    fontface = "bold",
+    size = 4,
+    lineheight = 0.9
+  )+
+  coord_polar(theta = "y") +
+  scale_fill_brewer(palette = "Blues") +
+  labs(title = "Distribution of Hotel Ratings") +
+  theme_void() +
+  theme(legend.position = "none")
+```
+
+<br>
+
+## 5. Visualizing Quantitative Data
+
+### Histogram
+
+- Another common graphical presentation of quantitative data is a
+  histogram.
+
+- The variable of interest is placed on the horizontal axis.
+
+- A rectangle is drawn above each class interval with its height
+  corresponding to the interval’s frequency, relative frequency, or
+  percent frequency.
+
+- Unlike a bar graph, a histogram has no natural separation between
+  rectangles of adjacent classes.
+
+```{r}
+st <- as.data.frame(state.x77)
+names(st)
+
+st %>% 
+  rename(Life.Exp = "Life Exp") %>%
+  ggplot(aes(x = Life.Exp)) +
+  geom_histogram(bins = 6,
+                 fill = "cornflowerblue",
+                 color = "black") +
+  labs(x = "Life Expectancy",
+       y = "Frequency",
+       title = "Distribution of Life Expectancy") +
+  theme_minimal()
+```
+
+<br>
+
+### Bar plot vs. histogram
+
+> **What is the difference between a bar graph and a histogram?**
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-width: 10
+#| fig-height: 4.5
+
+library(dplyr)
+library(ggplot2)
+library(patchwork)
+
+# Bar plot
+p1 <- st %>%
+  rename(Life.Exp = "Life Exp") %>%
+  mutate(
+    Life.Group = cut(
+      Life.Exp,
+      breaks = 6,
+      labels = c("A", "B", "C", "D", "E", "F")
+    )
+  ) %>%
+  ggplot(aes(x = Life.Group)) +
+  geom_bar(
+    fill = "cornflowerblue",
+    color = "black"
+  ) +
+  labs(
+    x = "Life Expectancy Group",
+    y = "Frequency",
+    title = "Bar Plot"
+  ) +
+  theme_minimal()
+
+
+# Histogram
+p2 <- st %>%
+  rename(Life.Exp = "Life Exp") %>%
+  ggplot(aes(x = Life.Exp)) +
+  geom_histogram(
+    bins = 6,
+    fill = "cornflowerblue",
+    color = "black"
+  ) +
+  labs(
+    x = "Life Expectancy",
+    y = "Frequency",
+    title = "Histogram"
+  ) +
+  theme_minimal()
+
+# Arrange side by side
+p1 + p2
+```
+
+A **bar plot** is mainly used for categorical variables.
+
+A **histogram** is used to display the distribution of a quantitative
+variable.
+
+<br>
+
+### Misleading Graphs and Charts: Scale Break
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-width: 10
+#| fig-height: 4.5
+
+salary <- data.frame(
+  year = factor(c("1996", "1997", "1998", "1999")),
+  mean_salary = c(40000, 41500, 43500, 46000)
+)
+
+p1 <- ggplot(salary, aes(x = year, y = mean_salary)) +
+  geom_col(
+    fill = "cornflowerblue",
+    color = "black"
+  ) +
+  coord_cartesian(ylim = c(38000, 48000)) +
+  labs(
+    title = "Vertical axis begins at $38,000",
+    x = "Year",
+    y = "Mean Salary"
+  ) +
+  theme_minimal()
+
+p2 <- ggplot(salary, aes(x = year, y = mean_salary)) +
+  geom_col(
+    fill = "cornflowerblue",
+    color = "black"
+  ) +
+  coord_cartesian(ylim = c(0, 50000)) +
+  labs(
+    title = "Vertical axis begins at zero",
+    x = "Year",
+    y = "Mean Salary"
+  ) +
+  theme_minimal()
+
+p1 + p2
+```
+
+The two graphs display the **same data**, but the truncated y-axis makes
+the increase appear much larger.
+
+For bar charts, changing the baseline can substantially change the
+visual impression of the differences.
+
+<br>
+
+When reading a histogram, examine:
+
+- **center** — where most observations are located,
+- **spread** — how widely observations vary,
+- **shape** — symmetric or skewed,
+- **modality** — one peak or several peaks,
+- **unusual observations** — possible outliers.
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-width: 8
+#| fig-height: 5
+
+st %>%
+  rename(Life.Exp = "Life Exp") %>%
+  ggplot(aes(x = Life.Exp)) +
+  geom_histogram(
+    bins = 8,
+    fill = "cornflowerblue",
+    color = "black"
+  ) +
+  geom_density(
+    aes(y = after_stat(count)),
+    linewidth = 1
+  ) +
+  annotate(
+    "text",
+    x = min(st$`Life Exp`) + 0.4,
+    y = 5,
+    label = "Lower Tail",
+    fontface = "bold"
+  ) +
+  annotate(
+    "text",
+    x = max(st$`Life Exp`) - 0.4,
+    y = 5,
+    label = "Upper Tail",
+    fontface = "bold"
+  ) +
+  labs(
+    title = "Sample Histogram",
+    x = "Life Expectancy",
+    y = "Frequency"
+  ) +
+  theme_minimal()
+```
+
+## 7. Shape of a Distribution
+
+### Symmetry and Skewness
+
+A distribution is **symmetric** when its left and right sides are
+approximately balanced.
+
+A distribution is **right-skewed** when the long tail extends toward
+larger values.
+
+A distribution is **left-skewed** when the long tail extends toward
+smaller values.
+
+```{r}
+set.seed(123)
+
+symmetric_data <- rnorm(1000)
+right_skewed_data <- rexp(1000)
+
+tibble(value = symmetric_data) |>
+  ggplot(aes(x = value)) +
+  geom_histogram(bins = 30) +
+  labs(title = "Approximately Symmetric Distribution") +
+  theme_minimal()
+```
+
+```{r}
+tibble(value = right_skewed_data) |>
+  ggplot(aes(x = value)) +
+  geom_histogram(bins = 30) +
+  labs(title = "Right-Skewed Distribution") +
+  theme_minimal()
+```
+
+### Computing Skewness and Kurtosis in R
+
+The `moments` package provides convenient functions.
+
+```{r}
+# install.packages("moments")  # Run once if needed
+library(moments)
+
+skewness(cost)
+kurtosis(cost)
+```
+
+::: callout-important
+## Interpretation caution
+
+Skewness and kurtosis should not be interpreted using a single universal
+cutoff.
+
+Their practical importance depends on sample size, the statistical
+model, and the purpose of the analysis.\
+Visual inspection of the distribution should accompany numerical
+summaries.
+:::
+
+------------------------------------------------------------------------
+
+## 8. Box Plot, Quartiles, and IQR
+
+A box plot summarizes a quantitative variable using its location and
+spread.
+
+Important components include:
+
+- first quartile: (Q_1)
+- median: (Q_2)
+- third quartile: (Q_3)
+- interquartile range:
+
+\[ IQR = Q_3 - Q_1 \]
+
+```{r}
+quantile(cost)
+IQR(cost)
+```
+
+### Box Plot in R
+
+```{r}
+tibble(cost = cost) |>
+  ggplot(aes(y = cost)) +
+  geom_boxplot() +
+  labs(
+    y = "Parts Cost",
+    title = "Box Plot of Parts Costs"
+  ) +
+  theme_minimal()
+```
+
+### Potential Outliers Using the 1.5 × IQR Rule
+
+A commonly used rule identifies observations outside:
+
+\[ Q_1 - 1.5(IQR) \]
+
+and
+
+\[ Q_3 + 1.5(IQR) \]
+
+as **potential outliers**.
+
+```{r}
+q1 <- quantile(cost, 0.25)
+q3 <- quantile(cost, 0.75)
+iqr <- IQR(cost)
+
+lower_bound <- q1 - 1.5 * iqr
+upper_bound <- q3 + 1.5 * iqr
+
+lower_bound
+upper_bound
+
+cost[cost < lower_bound | cost > upper_bound]
+```
+
+::: callout-warning
+An observation flagged by the 1.5 × IQR rule should not automatically be
+deleted.
+
+It may reflect a data-entry error, a rare but valid observation, or an
+important feature of the population.
+:::
+
+------------------------------------------------------------------------
+
+## 9. Measures of Central Tendency
+
+The three common measures of central tendency are:
+
+- **Mean**: arithmetic average
+- **Median**: middle value after ordering the data
+- **Mode**: most frequently observed value
+
+### Mean
+
+For a sample,
+
+\[ \bar{x} = \frac{1}{n}\sum\_{i=1}\^{n}x_i \]
+
+```{r}
+mean(cost)
+```
+
+The mean uses every observation, so it can be sensitive to extreme
+values.
+
+### Median
+
+The median divides the ordered observations into two halves.
+
+```{r}
+median(cost)
+```
+
+The median is less sensitive to extreme observations than the mean.
+
+### Mode
+
+Base R does not provide a direct statistical-mode function, but we can
+obtain it from a frequency table.
+
+```{r}
+get_mode <- function(x) {
+  frequency <- table(x)
+  names(frequency)[frequency == max(frequency)]
+}
+
+get_mode(hotel)
+```
+
+------------------------------------------------------------------------
+
+## 10. Mean and Median Under Skewness
+
+The relationship between the mean and median often provides information
+about the shape of a distribution.
+
+For a roughly symmetric distribution:
+
+\[ Mean \approx Median \]
+
+For a strongly right-skewed distribution, large observations tend to
+pull the mean upward.
+
+```{r}
+income <- c(30, 32, 35, 36, 38, 40, 41, 42, 45, 150)
+
+mean(income)
+median(income)
+```
+
+Here, one very large value has a much stronger effect on the mean than
+on the median.
+
+------------------------------------------------------------------------
+
+## 11. Measures of Variation
+
+Measures of central tendency tell us where a distribution is located.
+
+Measures of variation tell us **how dispersed the observations are**.
+
+Common measures include:
+
+- Range
+- Variance
+- Standard deviation
+- Interquartile range
+
+### Range
+
+\[ Range = Maximum - Minimum \]
+
+```{r}
+max(cost) - min(cost)
+range(cost)
+```
+
+### Variance
+
+For a sample,
+
+\[ s\^2 = \frac{\sum_{i=1}^{n}(x_i-\bar{x})^2}{n-1} \]
+
+```{r}
+var(cost)
+```
+
+### Standard Deviation
+
+The standard deviation is the square root of the variance.
+
+\[ s = \sqrt{s^2} \]
+
+```{r}
+sd(cost)
+```
+
+Because the standard deviation is expressed in the same unit as the
+original variable, it is usually easier to interpret than variance.
+
+------------------------------------------------------------------------
+
+## 12. Describing a Dataset in R
+
+R provides several ways to obtain descriptive statistics quickly.
+
+### Base R
+
+```{r}
+summary(cost)
+mean(cost)
+median(cost)
+sd(cost)
+var(cost)
+IQR(cost)
+range(cost)
+```
+
+### Using `dplyr`
+
+```{r}
+tibble(cost = cost) |>
+  summarise(
+    n = n(),
+    mean = mean(cost),
+    median = median(cost),
+    sd = sd(cost),
+    variance = var(cost),
+    min = min(cost),
+    max = max(cost),
+    iqr = IQR(cost)
+  )
+```
+
+### Grouped Descriptive Statistics
+
+One of the most common tasks in social-science data analysis is to
+compare descriptive statistics across groups.
+
+```{r}
+set.seed(123)
+
+survey <- tibble(
+  condition = rep(c("Control", "Treatment"), each = 50),
+  outcome = c(
+    rnorm(50, mean = 5.0, sd = 1.2),
+    rnorm(50, mean = 5.6, sd = 1.1)
+  )
+)
+
+survey |>
+  group_by(condition) |>
+  summarise(
+    n = n(),
+    mean = mean(outcome),
+    sd = sd(outcome),
+    median = median(outcome)
+  )
+```
+
+This type of summary is often the first step before conducting
+inferential analyses such as a *t*-test or ANOVA.
+
+------------------------------------------------------------------------
+
+## 13. The Empirical Rule
+
+For an approximately normal distribution:
+
+- about **68%** of observations fall within (\pm 1) standard deviation
+  of the mean,
+- about **95%** fall within (\pm 2) standard deviations,
+- about **99.7%** fall within (\pm 3) standard deviations.
+
+Suppose IQ scores have:
+
+\[ \mu = 100, \qquad \sigma = 16 \]
+
+Then approximately 68% of scores are expected to fall between:
+
+```{r}
+mean_iq <- 100
+sd_iq <- 16
+
+c(
+  lower = mean_iq - sd_iq,
+  upper = mean_iq + sd_iq
+)
+```
+
+Approximately 95% fall between:
+
+```{r}
+c(
+  lower = mean_iq - 2 * sd_iq,
+  upper = mean_iq + 2 * sd_iq
+)
+```
+
+The 68–95–99.7 rule is an approximation that applies when the
+distribution is approximately normal.
+
+------------------------------------------------------------------------
+
+## 14. Putting It Together
+
+A good descriptive analysis usually combines **numerical summaries and
+visualization**.
+
+```{r}
+survey |>
+  group_by(condition) |>
+  summarise(
+    n = n(),
+    mean = mean(outcome),
+    sd = sd(outcome),
+    median = median(outcome),
+    iqr = IQR(outcome)
+  )
+```
+
+```{r}
+survey |>
+  ggplot(aes(x = condition, y = outcome)) +
+  geom_boxplot() +
+  labs(
+    x = "Condition",
+    y = "Outcome",
+    title = "Outcome by Experimental Condition"
+  ) +
+  theme_minimal()
+```
+
+The table tells us **how much** the groups differ.
+
+The plot helps us see **how the observations are distributed**,
+including spread, asymmetry, and possible outliers.
+
+------------------------------------------------------------------------
+
+## 15. Practice
+
+### Exercise 1
+
+Use the following data:
+
+```{r}
+practice <- c(12, 15, 15, 16, 18, 19, 20, 21, 22, 35)
+```
+
+Calculate:
+
+1.  Mean
+2.  Median
+3.  Standard deviation
+4.  IQR
+5.  Minimum and maximum
+
+Then create:
+
+1.  A histogram
+2.  A box plot
+
+Finally, answer:
+
+> Does the value 35 affect the mean and median equally?
+
+### Exercise 2
+
+Use `mtcars` and examine the variable `mpg`.
+
+```{r}
+head(mtcars)
+```
+
+1.  Compute the mean, median, SD, and IQR of `mpg`.
+2.  Draw a histogram.
+3.  Draw a box plot.
+4.  Describe the center, spread, and shape of the distribution.
+
+## 5. Frequency Distributions for Quantitative Data
+
+For a quantitative variable, observations can be grouped into numerical
+intervals.
+
+Consider the following parts-cost data.
+
+```{r}
+cost <- c(
+  91, 78, 93, 57, 75, 52, 99, 80, 97, 62,
+  71, 69, 72, 89, 66, 75, 79, 75, 72, 76,
+  104, 74, 62, 68, 97, 105, 77, 65, 80, 109,
+  85, 97, 88, 68, 83, 68, 71, 69, 67, 74,
+  62, 82, 98, 101, 79, 105, 79, 69, 62, 73
+)
+```
+
+We can group the data into intervals.
+
+```{r}
+cost_group <- cut(
+  cost,
+  breaks = seq(50, 110, by = 10),
+  right = FALSE
+)
+
+table(cost_group)
+
+
+```
