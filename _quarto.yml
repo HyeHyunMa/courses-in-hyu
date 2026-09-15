@@ -5,6 +5,8 @@ website:
   title: "Courses in HYU"
   description: "Course materials and lecture notes for courses taught at Hanyang University."
 
+  reader-mode: true
+
   navbar:
     background: primary
     foreground: light
@@ -37,6 +39,7 @@ website:
     - title: "APR3044 Advanced Data Analytics"
       style: docked
       search: true
+      collapse-level: 1
 
       contents:
 
@@ -91,6 +94,7 @@ website:
     - title: "APR8025 Data Analytics"
       style: docked
       search: true
+      collapse-level: 1
 
       contents:
 
@@ -184,6 +188,10 @@ format:
     date-format: "MMM D, YYYY"
 
     css: styles.css
+
+    include-in-header:
+      text: |
+        <script src="/sidebar-toggle.js" defer></script>
 
 execute:
   echo: true
