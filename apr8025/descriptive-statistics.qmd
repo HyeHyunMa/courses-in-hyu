@@ -532,6 +532,14 @@ The `moments` package provides convenient functions.
 # install.packages("moments")  # Run once if needed
 library(moments)
 
+cost <- c(
+  91, 78, 93, 57, 75, 52, 99, 80, 97, 62,
+  71, 69, 72, 89, 66, 75, 79, 75, 72, 76,
+  104, 74, 62, 68, 97, 105, 77, 65, 80, 109,
+  85, 97, 88, 68, 83, 68, 71, 69, 67, 74,
+  62, 82, 98, 101, 79, 105, 79, 69, 62, 73
+)
+
 skewness(cost)
 kurtosis(cost)
 ```
