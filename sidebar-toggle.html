@@ -1,0 +1,254 @@
+<style>
+  /* =========================================================
+     Course sidebar toggle
+     ========================================================= */
+
+  #course-sidebar-toggle {
+    position: fixed;
+
+    /* JS에서 실제 위치 계산 */
+    top: var(--course-sidebar-toggle-top, 150px);
+    left: var(--course-sidebar-toggle-left, 300px);
+
+    z-index: 2000;
+
+    width: 14px;
+    height: 14px;
+
+    padding: 0;
+    margin: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 2.5px;
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    outline: none !important;
+
+    cursor: pointer;
+  }
+
+
+  /* Thin hamburger lines */
+  #course-sidebar-toggle span {
+    display: block;
+
+    width: 13px;
+    height: 1px;
+
+    background-color: #777;
+
+    border: none;
+    border-radius: 0;
+
+    transition: background-color 0.15s ease;
+  }
+
+
+  /* No button-like hover */
+  #course-sidebar-toggle:hover,
+  #course-sidebar-toggle:focus,
+  #course-sidebar-toggle:active {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+  }
+
+
+  /* Same blue as site links */
+  #course-sidebar-toggle:hover span {
+    background-color: #2761e3;
+  }
+
+
+  /* =========================================================
+     Left course sidebar only
+     ========================================================= */
+
+  #quarto-sidebar {
+    transition:
+      transform 0.25s ease,
+      opacity 0.20s ease;
+  }
+
+
+  body.course-sidebar-collapsed #quarto-sidebar {
+    transform: translateX(-105%);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+
+  /* When collapsed, keep icon on the left
+     but preserve the same vertical position */
+  body.course-sidebar-collapsed #course-sidebar-toggle {
+    left: 24px;
+  }
+
+
+  /* Mobile: use Quarto's built-in navigation */
+  @media (max-width: 991.98px) {
+    #course-sidebar-toggle {
+      display: none;
+    }
+  }
+</style>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  const sidebar =
+    document.querySelector("#quarto-sidebar");
+
+  if (!sidebar) return;
+
+
+  /* ---------------------------------------------------------
+     Create toggle
+     --------------------------------------------------------- */
+
+  const button =
+    document.createElement("button");
+
+  button.id = "course-sidebar-toggle";
+  button.type = "button";
+
+  button.setAttribute(
+    "aria-label",
+    "Toggle course sidebar"
+  );
+
+  button.innerHTML = `
+    <span></span>
+    <span></span>
+    <span></span>
+  `;
+
+  document.body.appendChild(button);
+
+
+  /* ---------------------------------------------------------
+     Find Quarto breadcrumb
+     --------------------------------------------------------- */
+
+  function getBreadcrumb() {
+
+    return (
+      document.querySelector(".quarto-title-breadcrumbs") ||
+      document.querySelector("nav.breadcrumb") ||
+      document.querySelector(".breadcrumb")
+    );
+
+  }
+
+
+  /* ---------------------------------------------------------
+     Position toggle
+
+     Vertical:
+     align with breadcrumb:
+     "Data Analytics with R > Introduction to R"
+
+     Horizontal:
+     align near right edge of sidebar,
+     similar to section chevrons
+     --------------------------------------------------------- */
+
+  function updatePosition() {
+
+    const breadcrumb = getBreadcrumb();
+
+
+    /* Vertical position */
+    if (breadcrumb) {
+
+      const breadcrumbRect =
+        breadcrumb.getBoundingClientRect();
+
+      const top =
+        breadcrumbRect.top +
+        breadcrumbRect.height / 2;
+
+      document.documentElement.style.setProperty(
+        "--course-sidebar-toggle-top",
+        top + "px"
+      );
+
+    }
+
+
+    /* Horizontal position */
+    if (
+      !document.body.classList.contains(
+        "course-sidebar-collapsed"
+      )
+    ) {
+
+      const sidebarRect =
+        sidebar.getBoundingClientRect();
+
+      document.documentElement.style.setProperty(
+        "--course-sidebar-toggle-left",
+        (sidebarRect.right - 18) + "px"
+      );
+
+    }
+
+  }
+
+
+  /* Initial position */
+  updatePosition();
+
+
+  /* Recalculate if window size changes */
+  window.addEventListener(
+    "resize",
+    updatePosition
+  );
+
+
+  /* ---------------------------------------------------------
+     Toggle sidebar
+     --------------------------------------------------------- */
+
+  button.addEventListener("click", function () {
+
+    const collapsed =
+      document.body.classList.toggle(
+        "course-sidebar-collapsed"
+      );
+
+
+    button.setAttribute(
+      "aria-label",
+      collapsed
+        ? "Expand course sidebar"
+        : "Collapse course sidebar"
+    );
+
+
+    if (!collapsed) {
+
+      setTimeout(
+        updatePosition,
+        260
+      );
+
+    }
+
+  });
+
+});
+</script>
