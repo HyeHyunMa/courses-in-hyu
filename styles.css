@@ -77,3 +77,91 @@ html[data-bs-theme="dark"] body {
 html[data-bs-theme="dark"] .sidebar {
   background-color: #1f1f1f;
 }
+
+/* =========================================================
+   Collapsible left sidebar
+   ========================================================= */
+
+/* Toggle button */
+#sidebar-toggle {
+  position: fixed;
+  left: 245px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1050;
+
+  width: 28px;
+  height: 48px;
+
+  border: 1px solid #d9d9d9;
+  border-left: none;
+  border-radius: 0 6px 6px 0;
+
+  background: white;
+  color: #555;
+
+  font-size: 24px;
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    left 0.25s ease,
+    background-color 0.2s ease;
+}
+
+#sidebar-toggle:hover {
+  background: #f3f3f3;
+}
+
+
+/* Sidebar animation */
+#quarto-sidebar {
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease;
+}
+
+
+/* ---------------------------------------------------------
+   Collapsed state
+   --------------------------------------------------------- */
+
+body.sidebar-hidden #quarto-sidebar {
+  transform: translateX(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+/* Move toggle button to left edge */
+body.sidebar-hidden #sidebar-toggle {
+  left: 0;
+}
+
+
+/* Give the main page the freed sidebar space */
+body.sidebar-hidden #quarto-content {
+  grid-template-columns:
+    [screen-start] 1.5em
+    [screen-start-inset] 0
+    [page-start] 0
+    [page-start-inset] 0
+    [body-start-outset] 0
+    [body-start] minmax(0, 1fr)
+    [body-end] 1.5em
+    [body-end-outset] 0
+    [page-end-inset] minmax(200px, 300px)
+    [page-end] 0
+    [screen-end-inset] 1.5em
+    [screen-end];
+}
+
+
+/* Hide custom toggle on small screens:
+   Quarto already handles mobile navigation */
+@media (max-width: 991.98px) {
+  #sidebar-toggle {
+    display: none;
+  }
+}
