@@ -108,7 +108,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
-<script src="../sidebar-toggle.js" defer=""></script>
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -329,11 +328,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
-  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
-  <div class="quarto-reader-toggle-btn">
-  <i class="bi"></i>
-  </div>
-</a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -470,20 +464,104 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#before-we-get-started" id="toc-before-we-get-started" class="nav-link active" data-scroll-target="#before-we-get-started">Before We Get Started</a></li>
-  <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning objectives</a></li>
-  <li><a href="#before-eda-understand-what-one-row-means" id="toc-before-eda-understand-what-one-row-means" class="nav-link" data-scroll-target="#before-eda-understand-what-one-row-means">1. Before EDA: understand what one row means</a></li>
-  <li><a href="#variable-types" id="toc-variable-types" class="nav-link" data-scroll-target="#variable-types">2. Variable types</a>
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link active" data-scroll-target="#getting-started">Getting started</a>
+  <ul class="collapse">
+  <li><a href="#before-we-get-started" id="toc-before-we-get-started" class="nav-link" data-scroll-target="#before-we-get-started">Before We Get Started</a></li>
+  <li><a href="#main-idea" id="toc-main-idea" class="nav-link" data-scroll-target="#main-idea">Main idea</a></li>
+  </ul></li>
+  <li><a href="#understanding-the-data" id="toc-understanding-the-data" class="nav-link" data-scroll-target="#understanding-the-data">Understanding the data</a>
+  <ul class="collapse">
+  <li><a href="#understand-what-one-row-means" id="toc-understand-what-one-row-means" class="nav-link" data-scroll-target="#understand-what-one-row-means">Understand what one row means</a></li>
+  <li><a href="#variable-types" id="toc-variable-types" class="nav-link" data-scroll-target="#variable-types">Variable types</a>
   <ul class="collapse">
   <li><a href="#numeric-variables" id="toc-numeric-variables" class="nav-link" data-scroll-target="#numeric-variables">Numeric variables</a></li>
   <li><a href="#categorical-variables" id="toc-categorical-variables" class="nav-link" data-scroll-target="#categorical-variables">Categorical variables</a></li>
   </ul></li>
-  <li><a href="#what-is-exploratory-data-analysis-eda" id="toc-what-is-exploratory-data-analysis-eda" class="nav-link" data-scroll-target="#what-is-exploratory-data-analysis-eda">3. What is exploratory data analysis (EDA)?</a></li>
-  <li><a href="#a-practical-data-audit-checklist" id="toc-a-practical-data-audit-checklist" class="nav-link" data-scroll-target="#a-practical-data-audit-checklist">4. A practical data-audit checklist</a></li>
-  <li><a href="#case-study-nyc-motor-vehicle-collisions" id="toc-case-study-nyc-motor-vehicle-collisions" class="nav-link" data-scroll-target="#case-study-nyc-motor-vehicle-collisions">5. Case study: NYC Motor Vehicle Collisions</a>
+  <li><a href="#what-is-exploratory-data-analysis-eda" id="toc-what-is-exploratory-data-analysis-eda" class="nav-link" data-scroll-target="#what-is-exploratory-data-analysis-eda">What is exploratory data analysis (EDA)?</a></li>
+  <li><a href="#a-practical-data-audit-checklist" id="toc-a-practical-data-audit-checklist" class="nav-link" data-scroll-target="#a-practical-data-audit-checklist">A practical data-audit checklist</a></li>
+  </ul></li>
+  <li><a href="#case-study-nyc-motor-vehicle-collisions" id="toc-case-study-nyc-motor-vehicle-collisions" class="nav-link" data-scroll-target="#case-study-nyc-motor-vehicle-collisions">Case study: NYC Motor Vehicle Collisions</a>
   <ul class="collapse">
-  <li><a href="#load-packages" id="toc-load-packages" class="nav-link" data-scroll-target="#load-packages">5.1 Load packages</a></li>
-  <li><a href="#download-a-reproducible-sample" id="toc-download-a-reproducible-sample" class="nav-link" data-scroll-target="#download-a-reproducible-sample">5.2 Download a reproducible sample</a></li>
+  <li><a href="#load-packages" id="toc-load-packages" class="nav-link" data-scroll-target="#load-packages">Load packages</a></li>
+  <li><a href="#load-the-data" id="toc-load-the-data" class="nav-link" data-scroll-target="#load-the-data">Load the data</a></li>
+  <li><a href="#first-look" id="toc-first-look" class="nav-link" data-scroll-target="#first-look">First look</a></li>
+  <li><a href="#keep-variables-we-need-for-class" id="toc-keep-variables-we-need-for-class" class="nav-link" data-scroll-target="#keep-variables-we-need-for-class">Keep variables we need for class</a></li>
+  </ul></li>
+  <li><a href="#audit-data-quality" id="toc-audit-data-quality" class="nav-link" data-scroll-target="#audit-data-quality">Audit data quality</a>
+  <ul class="collapse">
+  <li><a href="#check-dimensions-names-and-data-types" id="toc-check-dimensions-names-and-data-types" class="nav-link" data-scroll-target="#check-dimensions-names-and-data-types">Check dimensions, names, and data types</a></li>
+  <li><a href="#missing-values" id="toc-missing-values" class="nav-link" data-scroll-target="#missing-values">Missing values</a>
+  <ul class="collapse">
+  <li><a href="#count-missing-values-by-variable" id="toc-count-missing-values-by-variable" class="nav-link" data-scroll-target="#count-missing-values-by-variable">Count missing values by variable</a></li>
+  <li><a href="#missing-values-are-not-all-the-same" id="toc-missing-values-are-not-all-the-same" class="nav-link" data-scroll-target="#missing-values-are-not-all-the-same">Missing values are not all the same</a></li>
+  <li><a href="#explicit-na-vs-coded-missing-values" id="toc-explicit-na-vs-coded-missing-values" class="nav-link" data-scroll-target="#explicit-na-vs-coded-missing-values">Explicit NA vs coded missing values</a></li>
+  </ul></li>
+  <li><a href="#duplicates-and-identifiers" id="toc-duplicates-and-identifiers" class="nav-link" data-scroll-target="#duplicates-and-identifiers">Duplicates and identifiers</a>
+  <ul class="collapse">
+  <li><a href="#exact-duplicate-rows" id="toc-exact-duplicate-rows" class="nav-link" data-scroll-target="#exact-duplicate-rows">Exact duplicate rows</a></li>
+  <li><a href="#duplicated-ids" id="toc-duplicated-ids" class="nav-link" data-scroll-target="#duplicated-ids">Duplicated IDs</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#prepare-analysis-ready-data" id="toc-prepare-analysis-ready-data" class="nav-link" data-scroll-target="#prepare-analysis-ready-data">Prepare analysis-ready data</a>
+  <ul class="collapse">
+  <li><a href="#convert-dates-and-times" id="toc-convert-dates-and-times" class="nav-link" data-scroll-target="#convert-dates-and-times">Convert dates and times</a></li>
+  <li><a href="#inspect-ranges-and-impossible-values" id="toc-inspect-ranges-and-impossible-values" class="nav-link" data-scroll-target="#inspect-ranges-and-impossible-values">Inspect ranges and impossible values</a>
+  <ul class="collapse">
+  <li><a href="#numeric-ranges" id="toc-numeric-ranges" class="nav-link" data-scroll-target="#numeric-ranges">Numeric ranges</a></li>
+  <li><a href="#rule-based-checks" id="toc-rule-based-checks" class="nav-link" data-scroll-target="#rule-based-checks">Rule-based checks</a></li>
+  </ul></li>
+  <li><a href="#outliers-inspect-first-decide-later" id="toc-outliers-inspect-first-decide-later" class="nav-link" data-scroll-target="#outliers-inspect-first-decide-later">Outliers: inspect first, decide later</a>
+  <ul class="collapse">
+  <li><a href="#summary-statistics" id="toc-summary-statistics" class="nav-link" data-scroll-target="#summary-statistics">Summary statistics</a></li>
+  <li><a href="#iqr-rule-as-a-flagging-tool" id="toc-iqr-rule-as-a-flagging-tool" class="nav-link" data-scroll-target="#iqr-rule-as-a-flagging-tool">IQR rule as a flagging tool</a></li>
+  <li><a href="#when-might-we-transform-an-extreme-value" id="toc-when-might-we-transform-an-extreme-value" class="nav-link" data-scroll-target="#when-might-we-transform-an-extreme-value">When might we transform an extreme value?</a></li>
+  </ul></li>
+  <li><a href="#clean-text-and-categories" id="toc-clean-text-and-categories" class="nav-link" data-scroll-target="#clean-text-and-categories">Clean text and categories</a>
+  <ul class="collapse">
+  <li><a href="#remove-extra-whitespace" id="toc-remove-extra-whitespace" class="nav-link" data-scroll-target="#remove-extra-whitespace">Remove extra whitespace</a></li>
+  <li><a href="#inspect-category-frequencies" id="toc-inspect-category-frequencies" class="nav-link" data-scroll-target="#inspect-category-frequencies">Inspect category frequencies</a></li>
+  <li><a href="#collapse-categories-when-substantively-reasonable" id="toc-collapse-categories-when-substantively-reasonable" class="nav-link" data-scroll-target="#collapse-categories-when-substantively-reasonable">Collapse categories when substantively reasonable</a></li>
+  </ul></li>
+  <li><a href="#handling-missing-data-practical-options" id="toc-handling-missing-data-practical-options" class="nav-link" data-scroll-target="#handling-missing-data-practical-options">Handling missing data: practical options</a>
+  <ul class="collapse">
+  <li><a href="#keep-missing-values" id="toc-keep-missing-values" class="nav-link" data-scroll-target="#keep-missing-values">Keep missing values</a></li>
+  <li><a href="#filter-missing-values-for-a-specific-analysis" id="toc-filter-missing-values-for-a-specific-analysis" class="nav-link" data-scroll-target="#filter-missing-values-for-a-specific-analysis">Filter missing values for a specific analysis</a></li>
+  <li><a href="#create-an-explicit-unknown-category" id="toc-create-an-explicit-unknown-category" class="nav-link" data-scroll-target="#create-an-explicit-unknown-category">Create an explicit “Unknown” category</a></li>
+  <li><a href="#imputation" id="toc-imputation" class="nav-link" data-scroll-target="#imputation">Imputation</a></li>
+  </ul></li>
+  <li><a href="#create-useful-derived-variables" id="toc-create-useful-derived-variables" class="nav-link" data-scroll-target="#create-useful-derived-variables">Create useful derived variables</a>
+  <ul class="collapse">
+  <li><a href="#severe-collision-indicator" id="toc-severe-collision-indicator" class="nav-link" data-scroll-target="#severe-collision-indicator">Severe collision indicator</a></li>
+  <li><a href="#time-of-day" id="toc-time-of-day" class="nav-link" data-scroll-target="#time-of-day">Time of day</a></li>
+  </ul></li>
+  <li><a href="#reshape-data-for-analysis-and-visualization" id="toc-reshape-data-for-analysis-and-visualization" class="nav-link" data-scroll-target="#reshape-data-for-analysis-and-visualization">Reshape data for analysis and visualization</a></li>
+  <li><a href="#optional-one-hot-encoding" id="toc-optional-one-hot-encoding" class="nav-link" data-scroll-target="#optional-one-hot-encoding">Optional: one-hot encoding</a></li>
+  </ul></li>
+  <li><a href="#finalize-and-explore" id="toc-finalize-and-explore" class="nav-link" data-scroll-target="#finalize-and-explore">Finalize and explore</a>
+  <ul class="collapse">
+  <li><a href="#final-quality-check" id="toc-final-quality-check" class="nav-link" data-scroll-target="#final-quality-check">Final quality check</a></li>
+  <li><a href="#keep-a-preprocessing-log" id="toc-keep-a-preprocessing-log" class="nav-link" data-scroll-target="#keep-a-preprocessing-log">Keep a preprocessing log</a></li>
+  <li><a href="#save-the-cleaned-dataset" id="toc-save-the-cleaned-dataset" class="nav-link" data-scroll-target="#save-the-cleaned-dataset">Save the cleaned dataset</a></li>
+  <li><a href="#quick-eda-after-preprocessing" id="toc-quick-eda-after-preprocessing" class="nav-link" data-scroll-target="#quick-eda-after-preprocessing">Quick EDA after preprocessing</a>
+  <ul class="collapse">
+  <li><a href="#one-numeric-variable" id="toc-one-numeric-variable" class="nav-link" data-scroll-target="#one-numeric-variable">One numeric variable</a></li>
+  <li><a href="#one-categorical-variable" id="toc-one-categorical-variable" class="nav-link" data-scroll-target="#one-categorical-variable">One categorical variable</a></li>
+  <li><a href="#two-variables" id="toc-two-variables" class="nav-link" data-scroll-target="#two-variables">Two variables</a></li>
+  </ul></li>
+  <li><a href="#a-small-preview-of-visualization" id="toc-a-small-preview-of-visualization" class="nav-link" data-scroll-target="#a-small-preview-of-visualization">A small preview of visualization</a>
+  <ul class="collapse">
+  <li><a href="#collisions-by-borough" id="toc-collisions-by-borough" class="nav-link" data-scroll-target="#collisions-by-borough">Collisions by borough</a></li>
+  <li><a href="#collisions-by-hour" id="toc-collisions-by-hour" class="nav-link" data-scroll-target="#collisions-by-hour">Collisions by hour</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#in-class-practice-audit-a-dataset" id="toc-in-class-practice-audit-a-dataset" class="nav-link" data-scroll-target="#in-class-practice-audit-a-dataset">In-class practice: audit a dataset</a>
+  <ul class="collapse">
+  <li><a href="#structure" id="toc-structure" class="nav-link" data-scroll-target="#structure">Structure</a></li>
+  <li><a href="#missingness" id="toc-missingness" class="nav-link" data-scroll-target="#missingness">Missingness</a></li>
+  <li><a href="#duplicates" id="toc-duplicates" class="nav-link" data-scroll-target="#duplicates">Duplicates</a></li>
+  <li><a href="#validity" id="toc-validity" class="nav-link" data-scroll-target="#validity">Validity</a></li>
+  <li><a href="#outliers" id="toc-outliers" class="nav-link" data-scroll-target="#outliers">Outliers</a></li>
+  <li><a href="#preprocessing-decision" id="toc-preprocessing-decision" class="nav-link" data-scroll-target="#preprocessing-decision">Preprocessing decision</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -512,41 +590,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p><strong>Class date:</strong> Sep 16, 2026</p>
+<section id="getting-started" class="level1">
+<h1>Getting started</h1>
 <section id="before-we-get-started" class="level2">
 <h2 class="anchored" data-anchor-id="before-we-get-started">Before We Get Started</h2>
 <iframe src="slides/W03_EDA.pdf" width="100%" height="750px" style="border: 1px solid #ddd; border-radius: 8px;">
 </iframe>
 </section>
-<section id="learning-objectives" class="level2">
-<h2 class="anchored" data-anchor-id="learning-objectives">Learning objectives</h2>
-<p>By the end of this session, you should be able to:</p>
-<ul>
-<li>distinguish numeric and categorical variables and identify the unit of observation in a dataset;</li>
-<li>perform a basic data audit before analysis;</li>
-<li>use descriptive statistics and simple visual summaries to understand a dataset;</li>
-<li>identify common data-quality problems, including missing values, duplicates, invalid codes, inconsistent categories, and unusual values;</li>
-<li>make defensible preprocessing decisions rather than automatically deleting problematic observations;</li>
-<li>transform dates, text, and categorical variables into analysis-ready formats;</li>
-<li>reshape and export a cleaned dataset that can be used for visualization in the next class.</li>
-</ul>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Important</span>Main idea
-</div>
-</div>
-<div class="callout-body-container callout-body">
+<section id="main-idea" class="level2">
+<h2 class="anchored" data-anchor-id="main-idea">Main idea</h2>
 <p><strong>Do not start by making a graph. Start by asking whether the data are trustworthy and whether each variable means what you think it means.</strong></p>
 <p>A useful workflow is:</p>
 <p><strong>Question → Audit → Clean → Explore → Reshape → Visualize → Communicate</strong></p>
-</div>
-</div>
 </section>
-<section id="before-eda-understand-what-one-row-means" class="level1">
-<h1>1. Before EDA: understand what one row means</h1>
+</section>
+<section id="understanding-the-data" class="level1">
+<h1>Understanding the data</h1>
+<section id="understand-what-one-row-means" class="level2">
+<h2 class="anchored" data-anchor-id="understand-what-one-row-means">Understand what one row means</h2>
 <p>Before calculating statistics or drawing plots, identify the <strong>unit of observation</strong>.</p>
 <p>Ask:</p>
 <ol type="1">
@@ -566,18 +627,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>one row = one country-year.</li>
 </ul>
 </section>
-<section id="variable-types" class="level1">
-<h1>2. Variable types</h1>
-<section id="numeric-variables" class="level2">
-<h2 class="anchored" data-anchor-id="numeric-variables">Numeric variables</h2>
+<section id="variable-types" class="level2">
+<h2 class="anchored" data-anchor-id="variable-types">Variable types</h2>
+<section id="numeric-variables" class="level3">
+<h3 class="anchored" data-anchor-id="numeric-variables">Numeric variables</h3>
 <p>Numeric variables have values that describe a measurable quantity: <strong>how many</strong> or <strong>how much</strong>.</p>
 <ul>
 <li><strong>Continuous numeric variable:</strong> observations can take values on a continuous scale, such as temperature, income, or distance.</li>
 <li><strong>Discrete numeric variable:</strong> observations represent counts, such as number of clicks, number of injuries, or number of purchases.</li>
 </ul>
 </section>
-<section id="categorical-variables" class="level2">
-<h2 class="anchored" data-anchor-id="categorical-variables">Categorical variables</h2>
+<section id="categorical-variables" class="level3">
+<h3 class="anchored" data-anchor-id="categorical-variables">Categorical variables</h3>
 <p>Categorical variables describe a characteristic or group membership: <strong>what type</strong> or <strong>which category</strong>.</p>
 <ul>
 <li><strong>Nominal variable:</strong> categories have no meaningful ordering, such as borough or vehicle type.</li>
@@ -599,8 +660,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 </section>
-<section id="what-is-exploratory-data-analysis-eda" class="level1">
-<h1>3. What is exploratory data analysis (EDA)?</h1>
+<section id="what-is-exploratory-data-analysis-eda" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-exploratory-data-analysis-eda">What is exploratory data analysis (EDA)?</h2>
 <p>EDA is the process of learning what a dataset contains before making strong conclusions from it.</p>
 <p>EDA usually combines:</p>
 <ol type="1">
@@ -610,8 +671,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <p>EDA and preprocessing are therefore closely connected. We often discover cleaning problems <strong>while exploring the data</strong>.</p>
 </section>
-<section id="a-practical-data-audit-checklist" class="level1">
-<h1>4. A practical data-audit checklist</h1>
+<section id="a-practical-data-audit-checklist" class="level2">
+<h2 class="anchored" data-anchor-id="a-practical-data-audit-checklist">A practical data-audit checklist</h2>
 <p>Before analysis, ask the following questions.</p>
 <ol type="1">
 <li><strong>Rows:</strong> How many observations are there?</li>
@@ -625,13 +686,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Invalid values:</strong> Are there impossible or undefined codes?</li>
 <li><strong>Outliers:</strong> Are extreme values errors, or are they valid but rare cases?</li>
 </ol>
-<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>A useful principle
+<span class="screen-reader-only">Tip</span>A useful principle
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -644,24 +705,1406 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
+</section>
 <section id="case-study-nyc-motor-vehicle-collisions" class="level1">
-<h1>5. Case study: NYC Motor Vehicle Collisions</h1>
+<h1>Case study: NYC Motor Vehicle Collisions</h1>
 <p>For the preprocessing exercise, we will use an English-language public dataset from <strong>NYC Open Data</strong>.</p>
 <p><strong>Dataset:</strong> Motor Vehicle Collisions – Crashes<br>
 <strong>Provider:</strong> New York City Police Department (NYPD)<br>
 <strong>Dataset page:</strong> <a href="https://data.cityofnewyork.us/d/h9gi-nx95" class="uri">https://data.cityofnewyork.us/d/h9gi-nx95</a></p>
 <p>Each row represents <strong>one motor vehicle collision</strong>.</p>
-<p>We will use a fixed historical period so that everyone works with roughly the same data.</p>
 <section id="load-packages" class="level2">
-<h2 class="anchored" data-anchor-id="load-packages">5.1 Load packages</h2>
+<h2 class="anchored" data-anchor-id="load-packages">Load packages</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co">#install.packages("tidyverse")</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate) <span class="co">#install.packages("lubridate")</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="download-a-reproducible-sample" class="level2">
-<h2 class="anchored" data-anchor-id="download-a-reproducible-sample">5.2 Download a reproducible sample</h2>
-<p>We will request up to 5,000 collisions from January–March 2025. The code saves a local copy after the first download, so later renders do not depend on the internet connection.</p>
+<section id="load-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="load-the-data">Load the data</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>collisions_raw <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"/Users/hyehyunma/Documents/courses-in-hyu/data/Motor_Vehicle_Collisions_-_Crashes_20260914.csv"</span>, <span class="at">header=</span>T)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="first-look" class="level2">
+<h2 class="anchored" data-anchor-id="first-look">First look</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(collisions_raw)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2269187      29</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(collisions_raw)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "CRASH.DATE"                    "CRASH.TIME"                   
+ [3] "BOROUGH"                       "ZIP.CODE"                     
+ [5] "LATITUDE"                      "LONGITUDE"                    
+ [7] "LOCATION"                      "ON.STREET.NAME"               
+ [9] "CROSS.STREET.NAME"             "OFF.STREET.NAME"              
+[11] "NUMBER.OF.PERSONS.INJURED"     "NUMBER.OF.PERSONS.KILLED"     
+[13] "NUMBER.OF.PEDESTRIANS.INJURED" "NUMBER.OF.PEDESTRIANS.KILLED" 
+[15] "NUMBER.OF.CYCLIST.INJURED"     "NUMBER.OF.CYCLIST.KILLED"     
+[17] "NUMBER.OF.MOTORIST.INJURED"    "NUMBER.OF.MOTORIST.KILLED"    
+[19] "CONTRIBUTING.FACTOR.VEHICLE.1" "CONTRIBUTING.FACTOR.VEHICLE.2"
+[21] "CONTRIBUTING.FACTOR.VEHICLE.3" "CONTRIBUTING.FACTOR.VEHICLE.4"
+[23] "CONTRIBUTING.FACTOR.VEHICLE.5" "COLLISION_ID"                 
+[25] "VEHICLE.TYPE.CODE.1"           "VEHICLE.TYPE.CODE.2"          
+[27] "VEHICLE.TYPE.CODE.3"           "VEHICLE.TYPE.CODE.4"          
+[29] "VEHICLE.TYPE.CODE.5"          </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(collisions_raw)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 2,269,187
+Columns: 29
+$ CRASH.DATE                    &lt;chr&gt; "09/11/2021", "03/26/2022", "11/01/2023"…
+$ CRASH.TIME                    &lt;chr&gt; "2:39", "11:45", "1:29", "6:55", "13:21"…
+$ BOROUGH                       &lt;chr&gt; "", "", "BROOKLYN", "", "", "", "", "", …
+$ ZIP.CODE                      &lt;int&gt; NA, NA, 11230, NA, NA, NA, NA, NA, NA, 1…
+$ LATITUDE                      &lt;dbl&gt; NA, NA, 40.62179, NA, NA, NA, NA, NA, NA…
+$ LONGITUDE                     &lt;dbl&gt; NA, NA, -73.97002, NA, NA, NA, NA, NA, N…
+$ LOCATION                      &lt;chr&gt; "", "", "    (40.62179, -73.970024)", ""…
+$ ON.STREET.NAME                &lt;chr&gt; "WHITESTONE EXPRESSWAY", "QUEENSBORO BRI…
+$ CROSS.STREET.NAME             &lt;chr&gt; "20 AVENUE", "", "AVENUE K", "", "", "",…
+$ OFF.STREET.NAME               &lt;chr&gt; "", "", "", "", "", "", "", "", "61     …
+$ NUMBER.OF.PERSONS.INJURED     &lt;int&gt; 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2…
+$ NUMBER.OF.PERSONS.KILLED      &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+$ NUMBER.OF.PEDESTRIANS.INJURED &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+$ NUMBER.OF.PEDESTRIANS.KILLED  &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+$ NUMBER.OF.CYCLIST.INJURED     &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+$ NUMBER.OF.CYCLIST.KILLED      &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+$ NUMBER.OF.MOTORIST.INJURED    &lt;int&gt; 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2…
+$ NUMBER.OF.MOTORIST.KILLED     &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+$ CONTRIBUTING.FACTOR.VEHICLE.1 &lt;chr&gt; "Aggressive Driving/Road Rage", "Pavemen…
+$ CONTRIBUTING.FACTOR.VEHICLE.2 &lt;chr&gt; "Unspecified", "", "Unspecified", "Unspe…
+$ CONTRIBUTING.FACTOR.VEHICLE.3 &lt;chr&gt; "", "", "Unspecified", "", "", "", "", "…
+$ CONTRIBUTING.FACTOR.VEHICLE.4 &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", …
+$ CONTRIBUTING.FACTOR.VEHICLE.5 &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", …
+$ COLLISION_ID                  &lt;int&gt; 4455765, 4513547, 4675373, 4541903, 4566…
+$ VEHICLE.TYPE.CODE.1           &lt;chr&gt; "Sedan", "Sedan", "Moped", "Sedan", "Sta…
+$ VEHICLE.TYPE.CODE.2           &lt;chr&gt; "Sedan", "", "Sedan", "Pick-up Truck", "…
+$ VEHICLE.TYPE.CODE.3           &lt;chr&gt; "", "", "Sedan", "", "", "", "", "", "",…
+$ VEHICLE.TYPE.CODE.4           &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", …
+$ VEHICLE.TYPE.CODE.5           &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", …</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(collisions_raw)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  CRASH.DATE CRASH.TIME  BOROUGH ZIP.CODE LATITUDE LONGITUDE
+1 09/11/2021       2:39                NA       NA        NA
+2 03/26/2022      11:45                NA       NA        NA
+3 11/01/2023       1:29 BROOKLYN    11230 40.62179 -73.97002
+4 06/29/2022       6:55                NA       NA        NA
+5 09/21/2022      13:21                NA       NA        NA
+6 04/26/2023      13:30                NA       NA        NA
+                    LOCATION          ON.STREET.NAME CROSS.STREET.NAME
+1                              WHITESTONE EXPRESSWAY         20 AVENUE
+2                            QUEENSBORO BRIDGE UPPER                  
+3     (40.62179, -73.970024)           OCEAN PARKWAY          AVENUE K
+4                                 THROGS NECK BRIDGE                  
+5                                    BROOKLYN BRIDGE                  
+6                                     WEST 54 STREET                  
+  OFF.STREET.NAME NUMBER.OF.PERSONS.INJURED NUMBER.OF.PERSONS.KILLED
+1                                         2                        0
+2                                         1                        0
+3                                         1                        0
+4                                         0                        0
+5                                         0                        0
+6                                         0                        0
+  NUMBER.OF.PEDESTRIANS.INJURED NUMBER.OF.PEDESTRIANS.KILLED
+1                             0                            0
+2                             0                            0
+3                             0                            0
+4                             0                            0
+5                             0                            0
+6                             0                            0
+  NUMBER.OF.CYCLIST.INJURED NUMBER.OF.CYCLIST.KILLED NUMBER.OF.MOTORIST.INJURED
+1                         0                        0                          2
+2                         0                        0                          1
+3                         0                        0                          1
+4                         0                        0                          0
+5                         0                        0                          0
+6                         0                        0                          0
+  NUMBER.OF.MOTORIST.KILLED CONTRIBUTING.FACTOR.VEHICLE.1
+1                         0  Aggressive Driving/Road Rage
+2                         0             Pavement Slippery
+3                         0                   Unspecified
+4                         0         Following Too Closely
+5                         0           Passing Too Closely
+6                         0                   Unspecified
+  CONTRIBUTING.FACTOR.VEHICLE.2 CONTRIBUTING.FACTOR.VEHICLE.3
+1                   Unspecified                              
+2                                                            
+3                   Unspecified                   Unspecified
+4                   Unspecified                              
+5                   Unspecified                              
+6                   Unspecified                              
+  CONTRIBUTING.FACTOR.VEHICLE.4 CONTRIBUTING.FACTOR.VEHICLE.5 COLLISION_ID
+1                                                                  4455765
+2                                                                  4513547
+3                                                                  4675373
+4                                                                  4541903
+5                                                                  4566131
+6                                                                  4623759
+                  VEHICLE.TYPE.CODE.1 VEHICLE.TYPE.CODE.2 VEHICLE.TYPE.CODE.3
+1                               Sedan               Sedan                    
+2                               Sedan                                        
+3                               Moped               Sedan               Sedan
+4                               Sedan       Pick-up Truck                    
+5 Station Wagon/Sport Utility Vehicle                                        
+6                               Sedan           Box Truck                    
+  VEHICLE.TYPE.CODE.4 VEHICLE.TYPE.CODE.5
+1                                        
+2                                        
+3                                        
+4                                        
+5                                        
+6                                        </code></pre>
+</div>
+</div>
+<p>Do not immediately scroll through thousands of rows. Start with structure.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>collisions_raw <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    collision_id, crash_date, crash_time, borough, zip_code,</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    latitude, longitude, on_street_name,</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    number_of_persons_injured, number_of_persons_killed,</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    contributing_factor_vehicle_1, vehicle_type_code_1</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 2,269,187
+Columns: 12
+$ collision_id                  &lt;int&gt; 4455765, 4513547, 4675373, 4541903, 4566…
+$ crash_date                    &lt;chr&gt; "09/11/2021", "03/26/2022", "11/01/2023"…
+$ crash_time                    &lt;chr&gt; "2:39", "11:45", "1:29", "6:55", "13:21"…
+$ borough                       &lt;chr&gt; "", "", "BROOKLYN", "", "", "", "", "", …
+$ zip_code                      &lt;int&gt; NA, NA, 11230, NA, NA, NA, NA, NA, NA, 1…
+$ latitude                      &lt;dbl&gt; NA, NA, 40.62179, NA, NA, NA, NA, NA, NA…
+$ longitude                     &lt;dbl&gt; NA, NA, -73.97002, NA, NA, NA, NA, NA, N…
+$ on_street_name                &lt;chr&gt; "WHITESTONE EXPRESSWAY", "QUEENSBORO BRI…
+$ number_of_persons_injured     &lt;int&gt; 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2…
+$ number_of_persons_killed      &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+$ contributing_factor_vehicle_1 &lt;chr&gt; "Aggressive Driving/Road Rage", "Pavemen…
+$ vehicle_type_code_1           &lt;chr&gt; "Sedan", "Sedan", "Moped", "Sedan", "Sta…</code></pre>
+</div>
+</div>
+</section>
+<section id="keep-variables-we-need-for-class" class="level2">
+<h2 class="anchored" data-anchor-id="keep-variables-we-need-for-class">Keep variables we need for class</h2>
+<p>A large dataset often contains columns that are not relevant to the current question. Selecting a smaller working dataset makes later steps easier to understand.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>collisions <span class="ot">&lt;-</span> collisions_raw <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    collision_id,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    crash_date,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    crash_time,</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    borough,</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    zip_code,</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    latitude,</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    longitude,</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    on_street_name,</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    number_of_persons_injured,</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    number_of_persons_killed,</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    contributing_factor_vehicle_1,</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    vehicle_type_code_1</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">injured =</span> number_of_persons_injured,</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">killed =</span> number_of_persons_killed,</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">contributing_factor =</span> contributing_factor_vehicle_1,</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">vehicle_type =</span> vehicle_type_code_1</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(collisions)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 2,269,187
+Columns: 12
+$ collision_id        &lt;int&gt; 4455765, 4513547, 4675373, 4541903, 4566131, 46237…
+$ crash_date          &lt;chr&gt; "09/11/2021", "03/26/2022", "11/01/2023", "06/29/2…
+$ crash_time          &lt;chr&gt; "2:39", "11:45", "1:29", "6:55", "13:21", "13:30",…
+$ borough             &lt;chr&gt; "", "", "BROOKLYN", "", "", "", "", "", "", "BROOK…
+$ zip_code            &lt;int&gt; NA, NA, 11230, NA, NA, NA, NA, NA, NA, 11208, 1123…
+$ latitude            &lt;dbl&gt; NA, NA, 40.62179, NA, NA, NA, NA, NA, NA, 40.66720…
+$ longitude           &lt;dbl&gt; NA, NA, -73.97002, NA, NA, NA, NA, NA, NA, -73.866…
+$ on_street_name      &lt;chr&gt; "WHITESTONE EXPRESSWAY", "QUEENSBORO BRIDGE UPPER"…
+$ injured             &lt;int&gt; 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0,…
+$ killed              &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ contributing_factor &lt;chr&gt; "Aggressive Driving/Road Rage", "Pavement Slippery…
+$ vehicle_type        &lt;chr&gt; "Sedan", "Sedan", "Moped", "Sedan", "Station Wagon…</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="audit-data-quality" class="level1">
+<h1>Audit data quality</h1>
+<section id="check-dimensions-names-and-data-types" class="level2">
+<h2 class="anchored" data-anchor-id="check-dimensions-names-and-data-types">Check dimensions, names, and data types</h2>
+<p>Basic questions:</p>
+<ul>
+<li>How many rows do we have?</li>
+<li>How many columns?</li>
+<li>Are variable names understandable?</li>
+<li>Did R read each variable using the expected data type?</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(collisions)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2269187</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ncol</span>(collisions)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 12</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(collisions)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "collision_id"        "crash_date"          "crash_time"         
+ [4] "borough"             "zip_code"            "latitude"           
+ [7] "longitude"           "on_street_name"      "injured"            
+[10] "killed"              "contributing_factor" "vehicle_type"       </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(collisions)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 2,269,187
+Columns: 12
+$ collision_id        &lt;int&gt; 4455765, 4513547, 4675373, 4541903, 4566131, 46237…
+$ crash_date          &lt;chr&gt; "09/11/2021", "03/26/2022", "11/01/2023", "06/29/2…
+$ crash_time          &lt;chr&gt; "2:39", "11:45", "1:29", "6:55", "13:21", "13:30",…
+$ borough             &lt;chr&gt; "", "", "BROOKLYN", "", "", "", "", "", "", "BROOK…
+$ zip_code            &lt;int&gt; NA, NA, 11230, NA, NA, NA, NA, NA, NA, 11208, 1123…
+$ latitude            &lt;dbl&gt; NA, NA, 40.62179, NA, NA, NA, NA, NA, NA, 40.66720…
+$ longitude           &lt;dbl&gt; NA, NA, -73.97002, NA, NA, NA, NA, NA, NA, -73.866…
+$ on_street_name      &lt;chr&gt; "WHITESTONE EXPRESSWAY", "QUEENSBORO BRIDGE UPPER"…
+$ injured             &lt;int&gt; 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0,…
+$ killed              &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ contributing_factor &lt;chr&gt; "Aggressive Driving/Road Rage", "Pavement Slippery…
+$ vehicle_type        &lt;chr&gt; "Sedan", "Sedan", "Moped", "Sedan", "Station Wagon…</code></pre>
+</div>
+</div>
+<p>A quick compact summary:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>collisions <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">rows =</span> <span class="fu">n</span>(),</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">unique_ids =</span> <span class="fu">n_distinct</span>(collision_id),</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">earliest_date =</span> <span class="fu">min</span>(crash_date, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">latest_date =</span> <span class="fu">max</span>(crash_date, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     rows unique_ids earliest_date latest_date
+1 2269187    2269187    01/01/2013  12/31/2025</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>crash_date</code> may still be stored as text at this stage. We will explicitly convert it later instead of assuming that automatic type detection was correct.</p>
+</div>
+</div>
+</section>
+<section id="missing-values" class="level2">
+<h2 class="anchored" data-anchor-id="missing-values">Missing values</h2>
+<p>Missingness is one of the most common problems in real project data.</p>
+<section id="count-missing-values-by-variable" class="level3">
+<h3 class="anchored" data-anchor-id="count-missing-values-by-variable">Count missing values by variable</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>missing_summary <span class="ot">&lt;-</span> collisions <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(.)))) <span class="sc">%&gt;%</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">everything</span>(),</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"variable"</span>,</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"n_missing"</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">pct_missing =</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> n_missing <span class="sc">/</span> <span class="fu">nrow</span>(collisions), <span class="dv">1</span>)</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(pct_missing))</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>missing_summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 3
+   variable            n_missing pct_missing
+   &lt;chr&gt;                   &lt;int&gt;       &lt;dbl&gt;
+ 1 zip_code               691703        30.5
+ 2 latitude               240806        10.6
+ 3 longitude              240806        10.6
+ 4 killed                   8913         0.4
+ 5 collision_id                0         0  
+ 6 crash_date                  0         0  
+ 7 crash_time                  0         0  
+ 8 borough                     0         0  
+ 9 on_street_name              0         0  
+10 injured                    18         0  
+11 contributing_factor         0         0  
+12 vehicle_type                1         0  </code></pre>
+</div>
+</div>
+<p>A quick visualization of missingness:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(missing_summary,</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(variable, pct_missing), <span class="at">y =</span> pct_missing)) <span class="sc">+</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Missing (%)"</span>,</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Missing values by variable"</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="exploratory-data-analysis_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="missing-values-are-not-all-the-same" class="level3">
+<h3 class="anchored" data-anchor-id="missing-values-are-not-all-the-same">Missing values are not all the same</h3>
+<p>Suppose <code>borough</code> is missing.</p>
+<p>Possible interpretations include:</p>
+<ul>
+<li>the collision occurred outside a coded borough;</li>
+<li>the location was unavailable;</li>
+<li>the field was not entered;</li>
+<li>the borough could possibly be recovered from another location variable.</li>
+</ul>
+<p>Therefore, this is usually a poor default:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Do NOT automatically do this to the entire dataset.</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>collisions <span class="ot">&lt;-</span> <span class="fu">drop_na</span>(collisions)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Instead, remove missing values <strong>only when a specific analysis requires that variable</strong>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>borough_data <span class="ot">&lt;-</span> collisions <span class="sc">%&gt;%</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(borough))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The original dataset remains unchanged.</p>
+</section>
+<section id="explicit-na-vs-coded-missing-values" class="level3">
+<h3 class="anchored" data-anchor-id="explicit-na-vs-coded-missing-values">Explicit NA vs coded missing values</h3>
+<p>Some datasets contain values such as:</p>
+<ul>
+<li><code>Unknown</code></li>
+<li><code>Not available</code></li>
+<li><code>N/A</code></li>
+<li><code>999</code></li>
+<li><code>-99</code></li>
+<li><code>Unspecified</code></li>
+</ul>
+<p>These may represent missingness even though R does not treat them as <code>NA</code>.</p>
+<p>Check a categorical variable:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>collisions <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(contributing_factor, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">15</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              contributing_factor      n
+1                     Unspecified 756643
+2  Driver Inattention/Distraction 462105
+3   Failure to Yield Right-of-Way 136046
+4           Following Too Closely 121711
+5                Backing Unsafely  82577
+6                 Other Vehicular  71429
+7  Passing or Lane Usage Improper  65544
+8             Passing Too Closely  58028
+9              Turning Improperly  55751
+10                Fatigued/Drowsy  47599
+11           Unsafe Lane Changing  44743
+12    Traffic Control Disregarded  41898
+13            Driver Inexperience  36928
+14                   Unsafe Speed  35562
+15            Alcohol Involvement  26503</code></pre>
+</div>
+</div>
+<p>For this dataset, <code>Unspecified</code> is often more useful as an unknown/missing category than as a substantive contributing factor.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>collisions <span class="ot">&lt;-</span> collisions <span class="sc">%&gt;%</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">contributing_factor =</span> <span class="fu">na_if</span>(contributing_factor, <span class="st">"Unspecified"</span>)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Check again:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>collisions <span class="sc">%&gt;%</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">missing_factor =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(contributing_factor)),</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">pct_missing_factor =</span> <span class="fu">round</span>(<span class="fu">mean</span>(<span class="fu">is.na</span>(contributing_factor)) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>)</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  missing_factor pct_missing_factor
+1         756643               33.3</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="duplicates-and-identifiers" class="level2">
+<h2 class="anchored" data-anchor-id="duplicates-and-identifiers">Duplicates and identifiers</h2>
+<p>Duplicates can occur at two levels:</p>
+<ol type="1">
+<li><strong>Exact duplicate rows</strong> — every value is identical.</li>
+<li><strong>Duplicated identifiers</strong> — the same ID occurs in more than one row.</li>
+</ol>
+<p>These are not the same problem.</p>
+<section id="exact-duplicate-rows" class="level3">
+<h3 class="anchored" data-anchor-id="exact-duplicate-rows">Exact duplicate rows</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">duplicated</span>(collisions))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+<p>If exact duplicates exist, inspect them before deleting:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>collisions <span class="sc">%&gt;%</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">duplicated</span>(.) <span class="sc">|</span> <span class="fu">duplicated</span>(., <span class="at">fromLast =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] collision_id        crash_date          crash_time         
+ [4] borough             zip_code            latitude           
+ [7] longitude           on_street_name      injured            
+[10] killed              contributing_factor vehicle_type       
+&lt;0 rows&gt; (or 0-length row.names)</code></pre>
+</div>
+</div>
+<p>Only after verifying that they are accidental duplicates would we use:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>collisions <span class="ot">&lt;-</span> collisions <span class="sc">%&gt;%</span> <span class="fu">distinct</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="duplicated-ids" class="level3">
+<h3 class="anchored" data-anchor-id="duplicated-ids">Duplicated IDs</h3>
+<p><code>collision_id</code> is intended to identify a collision.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>collisions <span class="sc">%&gt;%</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_rows =</span> <span class="fu">n</span>(),</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">n_unique_ids =</span> <span class="fu">n_distinct</span>(collision_id),</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">duplicated_ids =</span> <span class="fu">n</span>() <span class="sc">-</span> <span class="fu">n_distinct</span>(collision_id)</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   n_rows n_unique_ids duplicated_ids
+1 2269187      2269187              0</code></pre>
+</div>
+</div>
+<p>If duplicated IDs are found:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>collisions <span class="sc">%&gt;%</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(collision_id, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] collision_id n           
+&lt;0 rows&gt; (or 0-length row.names)</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Do not automatically keep the first duplicate
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>distinct(collision_id, .keep_all = TRUE)</code> is convenient, but it silently discards information. First determine <strong>why</strong> the duplicate exists.</p>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="prepare-analysis-ready-data" class="level1">
+<h1>Prepare analysis-ready data</h1>
+<section id="convert-dates-and-times" class="level2">
+<h2 class="anchored" data-anchor-id="convert-dates-and-times">Convert dates and times</h2>
+<p>Dates are often imported as character strings. Convert them explicitly.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>collisions <span class="ot">&lt;-</span> collisions <span class="sc">%&gt;%</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">crash_date =</span> <span class="fu">mdy</span>(crash_date),</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">crash_time_parsed =</span> <span class="fu">hm</span>(crash_time),</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">crash_hour =</span> <span class="fu">hour</span>(crash_time_parsed),</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">crash_weekday =</span> <span class="fu">wday</span>(</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>      crash_date,</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">label =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">abbr =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">week_start =</span> <span class="dv">1</span></span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Check the result:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>collisions <span class="sc">%&gt;%</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(crash_date, crash_time, crash_hour, crash_weekday) <span class="sc">%&gt;%</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  crash_date crash_time crash_hour crash_weekday
+1 2021-09-11       2:39          2      Saturday
+2 2022-03-26      11:45         11      Saturday
+3 2023-11-01       1:29          1     Wednesday
+4 2022-06-29       6:55          6     Wednesday
+5 2022-09-21      13:21         13     Wednesday
+6 2023-04-26      13:30         13     Wednesday</code></pre>
+</div>
+</div>
+<p>Why bother?</p>
+<p>Once dates and times are properly represented, we can easily ask questions such as:</p>
+<ul>
+<li>Are collisions more frequent on weekends?</li>
+<li>At what hour are collisions most common?</li>
+<li>Are severe collisions concentrated at particular times?</li>
+</ul>
+<p>These become visualization questions for the next class.</p>
+</section>
+<section id="inspect-ranges-and-impossible-values" class="level2">
+<h2 class="anchored" data-anchor-id="inspect-ranges-and-impossible-values">Inspect ranges and impossible values</h2>
+<section id="numeric-ranges" class="level3">
+<h3 class="anchored" data-anchor-id="numeric-ranges">Numeric ranges</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>collisions <span class="sc">%&gt;%</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">min_injured =</span> <span class="fu">min</span>(injured, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_injured =</span> <span class="fu">max</span>(injured, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">min_killed =</span> <span class="fu">min</span>(killed, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_killed =</span> <span class="fu">max</span>(killed, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">min_latitude =</span> <span class="fu">min</span>(latitude, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_latitude =</span> <span class="fu">max</span>(latitude, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">min_longitude =</span> <span class="fu">min</span>(longitude, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_longitude =</span> <span class="fu">max</span>(longitude, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  min_injured max_injured min_killed max_killed min_latitude max_latitude
+1           0          43          0          8            0     43.34444
+  min_longitude max_longitude
+1       -201.36             0</code></pre>
+</div>
+</div>
+</section>
+<section id="rule-based-checks" class="level3">
+<h3 class="anchored" data-anchor-id="rule-based-checks">Rule-based checks</h3>
+<p>Some impossible values can be identified from the variable definition itself.</p>
+<p>For example, counts should not be negative.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>collisions <span class="sc">%&gt;%</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(injured <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">|</span> killed <span class="sc">&lt;</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] collision_id        crash_date          crash_time         
+ [4] borough             zip_code            latitude           
+ [7] longitude           on_street_name      injured            
+[10] killed              contributing_factor vehicle_type       
+[13] crash_time_parsed   crash_hour          crash_weekday      
+&lt;0 rows&gt; (or 0-length row.names)</code></pre>
+</div>
+</div>
+<p>Coordinates equal to <code>(0, 0)</code> are not located in New York City, so they should be treated as invalid coordinates rather than real locations.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>collisions <span class="sc">%&gt;%</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">zero_latitude =</span> <span class="fu">sum</span>(latitude <span class="sc">==</span> <span class="dv">0</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">zero_longitude =</span> <span class="fu">sum</span>(longitude <span class="sc">==</span> <span class="dv">0</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  zero_latitude zero_longitude
+1          7591           7591</code></pre>
+</div>
+</div>
+<p>Convert those placeholder coordinates to missing values:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>collisions <span class="ot">&lt;-</span> collisions <span class="sc">%&gt;%</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">latitude =</span> <span class="fu">na_if</span>(latitude, <span class="dv">0</span>),</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">longitude =</span> <span class="fu">na_if</span>(longitude, <span class="dv">0</span>)</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="outliers-inspect-first-decide-later" class="level2">
+<h2 class="anchored" data-anchor-id="outliers-inspect-first-decide-later">Outliers: inspect first, decide later</h2>
+<p>An <strong>outlier</strong> is an unusual observation. It is not automatically an error.</p>
+<p>Possible reasons for an extreme value:</p>
+<ul>
+<li>data-entry error;</li>
+<li>measurement error;</li>
+<li>coding error;</li>
+<li>rare but genuine event;</li>
+<li>observation from a different population;</li>
+<li>unit mismatch.</li>
+</ul>
+<section id="summary-statistics" class="level3">
+<h3 class="anchored" data-anchor-id="summary-statistics">Summary statistics</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>collisions <span class="sc">%&gt;%</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_injured =</span> <span class="fu">mean</span>(injured, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">median_injured =</span> <span class="fu">median</span>(injured, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd_injured =</span> <span class="fu">sd</span>(injured, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">q1 =</span> <span class="fu">quantile</span>(injured, .<span class="dv">25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">q3 =</span> <span class="fu">quantile</span>(injured, .<span class="dv">75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_injured =</span> <span class="fu">max</span>(injured, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        n mean_injured median_injured sd_injured q1 q3 max_injured
+1 2269187    0.3333172              0  0.7187101  0  0          43</code></pre>
+</div>
+</div>
+</section>
+<section id="iqr-rule-as-a-flagging-tool" class="level3">
+<h3 class="anchored" data-anchor-id="iqr-rule-as-a-flagging-tool">IQR rule as a flagging tool</h3>
+<p>The IQR rule can flag observations for inspection.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>q1 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(collisions<span class="sc">$</span>injured, .<span class="dv">25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>q3 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(collisions<span class="sc">$</span>injured, .<span class="dv">75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>iqr_value <span class="ot">&lt;-</span> <span class="fu">IQR</span>(collisions<span class="sc">$</span>injured, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>upper_fence <span class="ot">&lt;-</span> q3 <span class="sc">+</span> <span class="fl">1.5</span> <span class="sc">*</span> iqr_value</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>injury_outliers <span class="ot">&lt;-</span> collisions <span class="sc">%&gt;%</span></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(injured <span class="sc">&gt;</span> upper_fence) <span class="sc">%&gt;%</span></span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(injured))</span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>injury_outliers <span class="sc">%&gt;%</span></span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a>    collision_id, crash_date, borough,</span>
+<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a>    injured, killed, vehicle_type, contributing_factor</span>
+<span id="cb56-14"><a href="#cb56-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb56-15"><a href="#cb56-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">20</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   collision_id crash_date       borough injured killed
+1        183929 2013-09-09      BROOKLYN      43      0
+2       4552186 2022-07-21                    40      0
+3       4619206 2023-04-07        QUEENS      34      0
+4       3204269 2015-04-17        QUEENS      32      0
+5       4025003 2017-10-10         BRONX      31      0
+6       3673559 2017-05-18     MANHATTAN      27      1
+7       4691158 2023-12-28 STATEN ISLAND      25      0
+8       3148869 2015-01-07      BROOKLYN      24      0
+9        181455 2013-07-22      BROOKLYN      24      0
+10      2879058 2012-08-01                    24      0
+11      4616707 2023-03-17        QUEENS      23      0
+12      3876246 2018-04-06      BROOKLYN      22      0
+13      3237061 2015-06-08        QUEENS      22      0
+14      3164171 2015-02-04 STATEN ISLAND      22      0
+15      4596684 2023-01-02                    21      0
+16      4902324 2026-05-28                    21     NA
+17      4249601 2019-11-27                    20      0
+18      4029520 2018-11-16         BRONX      20      0
+19      4811074 2025-05-07      BROOKLYN      20      0
+20      4851325 2025-10-13        QUEENS      20      0
+                          vehicle_type            contributing_factor
+1                    PASSENGER VEHICLE                           &lt;NA&gt;
+2                                  Bus                   Unsafe Speed
+3                                  Bus    Traffic Control Disregarded
+4              SMALL COM VEH(4 TIRES)             Physical Disability
+5                                  Bus   Aggressive Driving/Road Rage
+6                                Sedan                Drugs (illegal)
+7                            Box Truck   Aggressive Driving/Road Rage
+8        SPORT UTILITY / STATION WAGON    Traffic Control Disregarded
+9       LARGE COM VEH(6 OR MORE TIRES)                           &lt;NA&gt;
+10                                 BUS Driver Inattention/Distraction
+11 Station Wagon/Sport Utility Vehicle Driver Inattention/Distraction
+12                               Sedan Driver Inattention/Distraction
+13       SPORT UTILITY / STATION WAGON                Fatigued/Drowsy
+14                                 BUS                           &lt;NA&gt;
+15 Station Wagon/Sport Utility Vehicle                   Unsafe Speed
+16                          4 dr sedan Driver Inattention/Distraction
+17 Station Wagon/Sport Utility Vehicle           Unsafe Lane Changing
+18                                 Bus                Other Vehicular
+19                                 Bus Driver Inattention/Distraction
+20                                 Bus          Following Too Closely</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Outlier does not mean delete
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For collision data, a crash involving many injured people could be a real bus or multi-vehicle crash. Automatically removing it could erase substantively important information.</p>
+<p>Treat the IQR rule as an <strong>inspection rule</strong>, not a deletion rule.</p>
+</div>
+</div>
+</section>
+<section id="when-might-we-transform-an-extreme-value" class="level3">
+<h3 class="anchored" data-anchor-id="when-might-we-transform-an-extreme-value">When might we transform an extreme value?</h3>
+<p>Possible strategies include:</p>
+<ul>
+<li>keep it as observed;</li>
+<li>verify it against the original source;</li>
+<li>exclude it with a documented reason;</li>
+<li>cap/winsorize it for a specific analysis;</li>
+<li>transform a strongly skewed variable (for example, log transformation);</li>
+<li>use a robust statistic such as the median.</li>
+</ul>
+<p>The choice depends on the research question.</p>
+</section>
+</section>
+<section id="clean-text-and-categories" class="level2">
+<h2 class="anchored" data-anchor-id="clean-text-and-categories">Clean text and categories</h2>
+<p>Text data often contain inconsistency in capitalization, spaces, spelling, or labels.</p>
+<section id="remove-extra-whitespace" class="level3">
+<h3 class="anchored" data-anchor-id="remove-extra-whitespace">Remove extra whitespace</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>collisions <span class="ot">&lt;-</span> collisions <span class="sc">%&gt;%</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">across</span>(</span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">c</span>(borough, on_street_name, contributing_factor, vehicle_type),</span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>      <span class="sc">~</span> <span class="fu">str_squish</span>(.x)</span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="inspect-category-frequencies" class="level3">
+<h3 class="anchored" data-anchor-id="inspect-category-frequencies">Inspect category frequencies</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>collisions <span class="sc">%&gt;%</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(borough, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        borough      n
+1               691375
+2      BROOKLYN 506806
+3        QUEENS 422409
+4     MANHATTAN 348485
+5         BRONX 234088
+6 STATEN ISLAND  66024</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>collisions <span class="sc">%&gt;%</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(vehicle_type, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">30</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                          vehicle_type      n
+1                                Sedan 660172
+2  Station Wagon/Sport Utility Vehicle 518578
+3                    PASSENGER VEHICLE 416206
+4        SPORT UTILITY / STATION WAGON 180291
+5                                 Taxi  57275
+6                           4 dr sedan  43871
+7                        Pick-up Truck  39455
+8                                 TAXI  31911
+9                            Box Truck  27179
+10                                 VAN  25266
+11                                 Bus  25192
+12                               OTHER  22968
+13                             UNKNOWN  19941
+14                                Bike  18674
+15                                      17081
+16      LARGE COM VEH(6 OR MORE TIRES)  14397
+17                                 BUS  13993
+18              SMALL COM VEH(4 TIRES)  13216
+19                Tractor Truck Diesel  11585
+20                       PICK-UP TRUCK  11505
+21                      LIVERY VEHICLE  10481
+22                                 Van  10350
+23                          Motorcycle  10285
+24                           Ambulance   5357
+25                                Dump   4426
+26                              E-Bike   4407
+27                         Convertible   4341
+28                          MOTORCYCLE   4195
+29                               Moped   3419
+30                                  PK   2987</code></pre>
+</div>
+</div>
+<p>A real dataset may contain several labels that describe broadly similar vehicle types.</p>
+</section>
+<section id="collapse-categories-when-substantively-reasonable" class="level3">
+<h3 class="anchored" data-anchor-id="collapse-categories-when-substantively-reasonable">Collapse categories when substantively reasonable</h3>
+<p>The exact rules should depend on the analytical purpose. For a simple classroom example:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>collisions <span class="ot">&lt;-</span> collisions <span class="sc">%&gt;%</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">vehicle_group =</span> <span class="fu">case_when</span>(</span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">is.na</span>(vehicle_type) <span class="sc">~</span> <span class="cn">NA_character_</span>,</span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_detect</span>(<span class="fu">str_to_lower</span>(vehicle_type), <span class="st">"motorcycle"</span>) <span class="sc">~</span> <span class="st">"Motorcycle"</span>,</span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_detect</span>(<span class="fu">str_to_lower</span>(vehicle_type), <span class="st">"bike|bicycle"</span>) <span class="sc">~</span> <span class="st">"Bike"</span>,</span>
+<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_detect</span>(<span class="fu">str_to_lower</span>(vehicle_type), <span class="st">"taxi"</span>) <span class="sc">~</span> <span class="st">"Taxi"</span>,</span>
+<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_detect</span>(<span class="fu">str_to_lower</span>(vehicle_type), <span class="st">"sedan"</span>) <span class="sc">~</span> <span class="st">"Sedan"</span>,</span>
+<span id="cb63-9"><a href="#cb63-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_detect</span>(</span>
+<span id="cb63-10"><a href="#cb63-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_to_lower</span>(vehicle_type),</span>
+<span id="cb63-11"><a href="#cb63-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"sport utility|station wagon|suv"</span></span>
+<span id="cb63-12"><a href="#cb63-12" aria-hidden="true" tabindex="-1"></a>      ) <span class="sc">~</span> <span class="st">"SUV / Station Wagon"</span>,</span>
+<span id="cb63-13"><a href="#cb63-13" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Other"</span></span>
+<span id="cb63-14"><a href="#cb63-14" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb63-15"><a href="#cb63-15" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Check the recoded variable:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>collisions <span class="sc">%&gt;%</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(vehicle_group, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        vehicle_group      n
+1               Other 735449
+2               Sedan 706869
+3 SUV / Station Wagon 698892
+4                Taxi  89190
+5                Bike  24306
+6          Motorcycle  14480
+7                &lt;NA&gt;      1</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Recode with a reason
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Collapsing categories loses information. It can be useful when categories are too sparse or inconsistent, but always keep the raw variable as well.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="handling-missing-data-practical-options" class="level2">
+<h2 class="anchored" data-anchor-id="handling-missing-data-practical-options">Handling missing data: practical options</h2>
+<p>There is no single correct rule for missing data. Common options include:</p>
+<section id="keep-missing-values" class="level3">
+<h3 class="anchored" data-anchor-id="keep-missing-values">Keep missing values</h3>
+<p>Often the safest default during early EDA.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>collisions_clean <span class="ot">&lt;-</span> collisions</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="filter-missing-values-for-a-specific-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="filter-missing-values-for-a-specific-analysis">Filter missing values for a specific analysis</h3>
+<p>For a borough comparison:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>borough_analysis <span class="ot">&lt;-</span> collisions_clean <span class="sc">%&gt;%</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(borough))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="create-an-explicit-unknown-category" class="level3">
+<h3 class="anchored" data-anchor-id="create-an-explicit-unknown-category">Create an explicit “Unknown” category</h3>
+<p>Useful when missingness itself is meaningful for descriptive reporting.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>collisions_clean <span class="ot">&lt;-</span> collisions_clean <span class="sc">%&gt;%</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">borough_display =</span> <span class="fu">replace_na</span>(borough, <span class="st">"Unknown"</span>)</span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="imputation" class="level3">
+<h3 class="anchored" data-anchor-id="imputation">Imputation</h3>
+<p>Imputation replaces missing values using an estimated value.</p>
+<p>Examples include:</p>
+<ul>
+<li>mean or median imputation;</li>
+<li>group-specific imputation;</li>
+<li>regression/model-based imputation;</li>
+<li>multiple imputation.</li>
+</ul>
+<p>For this introductory class, <strong>do not impute automatically</strong>. The method must be justified by the variable, the missing-data mechanism, and the purpose of the analysis.</p>
+</section>
+</section>
+<section id="create-useful-derived-variables" class="level2">
+<h2 class="anchored" data-anchor-id="create-useful-derived-variables">Create useful derived variables</h2>
+<p>Preprocessing is not only about fixing errors. It also includes creating variables that better represent the analytical question.</p>
+<section id="severe-collision-indicator" class="level3">
+<h3 class="anchored" data-anchor-id="severe-collision-indicator">Severe collision indicator</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>collisions_clean <span class="ot">&lt;-</span> collisions_clean <span class="sc">%&gt;%</span></span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">severe_collision =</span> injured <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">|</span> killed <span class="sc">&gt;</span> <span class="dv">0</span></span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="time-of-day" class="level3">
+<h3 class="anchored" data-anchor-id="time-of-day">Time of day</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>collisions_clean <span class="ot">&lt;-</span> collisions_clean <span class="sc">%&gt;%</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">time_of_day =</span> <span class="fu">case_when</span>(</span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>      crash_hour <span class="sc">&gt;=</span> <span class="dv">5</span>  <span class="sc">&amp;</span> crash_hour <span class="sc">&lt;</span> <span class="dv">12</span> <span class="sc">~</span> <span class="st">"Morning"</span>,</span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>      crash_hour <span class="sc">&gt;=</span> <span class="dv">12</span> <span class="sc">&amp;</span> crash_hour <span class="sc">&lt;</span> <span class="dv">17</span> <span class="sc">~</span> <span class="st">"Afternoon"</span>,</span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>      crash_hour <span class="sc">&gt;=</span> <span class="dv">17</span> <span class="sc">&amp;</span> crash_hour <span class="sc">&lt;</span> <span class="dv">21</span> <span class="sc">~</span> <span class="st">"Evening"</span>,</span>
+<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a>      <span class="sc">!</span><span class="fu">is.na</span>(crash_hour) <span class="sc">~</span> <span class="st">"Night"</span>,</span>
+<span id="cb70-8"><a href="#cb70-8" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">NA_character_</span></span>
+<span id="cb70-9"><a href="#cb70-9" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb70-10"><a href="#cb70-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">time_of_day =</span> <span class="fu">factor</span>(</span>
+<span id="cb70-11"><a href="#cb70-11" aria-hidden="true" tabindex="-1"></a>      time_of_day,</span>
+<span id="cb70-12"><a href="#cb70-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Morning"</span>, <span class="st">"Afternoon"</span>, <span class="st">"Evening"</span>, <span class="st">"Night"</span>)</span>
+<span id="cb70-13"><a href="#cb70-13" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb70-14"><a href="#cb70-14" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Check:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>collisions_clean <span class="sc">%&gt;%</span></span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(time_of_day)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  time_of_day      n
+1     Morning 626327
+2   Afternoon 704744
+3     Evening 509741
+4       Night 428375</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="reshape-data-for-analysis-and-visualization" class="level2">
+<h2 class="anchored" data-anchor-id="reshape-data-for-analysis-and-visualization">Reshape data for analysis and visualization</h2>
+<p>Data are often easier to visualize when they are in <strong>long format</strong>.</p>
+<p>Suppose we want to compare injuries and fatalities.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>severity_long <span class="ot">&lt;-</span> collisions_clean <span class="sc">%&gt;%</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(collision_id, crash_date, borough, injured, killed) <span class="sc">%&gt;%</span></span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(injured, killed),</span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"outcome"</span>,</span>
+<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"count"</span></span>
+<span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb73-8"><a href="#cb73-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-9"><a href="#cb73-9" aria-hidden="true" tabindex="-1"></a>severity_long <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 5
+  collision_id crash_date borough    outcome count
+         &lt;int&gt; &lt;date&gt;     &lt;chr&gt;      &lt;chr&gt;   &lt;int&gt;
+1      4455765 2021-09-11 ""         injured     2
+2      4455765 2021-09-11 ""         killed      0
+3      4513547 2022-03-26 ""         injured     1
+4      4513547 2022-03-26 ""         killed      0
+5      4675373 2023-11-01 "BROOKLYN" injured     1
+6      4675373 2023-11-01 "BROOKLYN" killed      0</code></pre>
+</div>
+</div>
+<p>Wide format:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>collision_id</th>
+<th style="text-align: right;">injured</th>
+<th style="text-align: right;">killed</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+<p>Long format:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>collision_id</th>
+<th>outcome</th>
+<th style="text-align: right;">count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>injured</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>killed</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>injured</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>killed</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+<p>Long format is especially useful with <code>ggplot2</code> because variable names can be mapped directly to aesthetics such as <code>x</code>, <code>colour</code>, <code>fill</code>, or <code>facet</code>.</p>
+</section>
+<section id="optional-one-hot-encoding" class="level2">
+<h2 class="anchored" data-anchor-id="optional-one-hot-encoding">Optional: one-hot encoding</h2>
+<p>One-hot encoding is mainly useful when categorical variables must be represented numerically for a statistical or machine-learning model.</p>
+<p>For visualization, keeping a categorical variable as a factor is usually more useful.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>model_matrix <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(</span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span> borough_display <span class="sc">+</span> time_of_day <span class="sc">+</span> vehicle_group <span class="sc">-</span> <span class="dv">1</span>,</span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> collisions_clean</span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(model_matrix)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  borough_display borough_displayBRONX borough_displayBROOKLYN
+1               1                    0                       0
+2               1                    0                       0
+3               0                    0                       1
+4               1                    0                       0
+5               1                    0                       0
+6               1                    0                       0
+  borough_displayMANHATTAN borough_displayQUEENS borough_displaySTATEN ISLAND
+1                        0                     0                            0
+2                        0                     0                            0
+3                        0                     0                            0
+4                        0                     0                            0
+5                        0                     0                            0
+6                        0                     0                            0
+  time_of_dayAfternoon time_of_dayEvening time_of_dayNight
+1                    0                  0                1
+2                    0                  0                0
+3                    0                  0                1
+4                    0                  0                0
+5                    1                  0                0
+6                    1                  0                0
+  vehicle_groupMotorcycle vehicle_groupOther vehicle_groupSedan
+1                       0                  0                  1
+2                       0                  0                  1
+3                       0                  1                  0
+4                       0                  0                  1
+5                       0                  0                  0
+6                       0                  0                  1
+  vehicle_groupSUV / Station Wagon vehicle_groupTaxi
+1                                0                 0
+2                                0                 0
+3                                0                 0
+4                                0                 0
+5                                1                 0
+6                                0                 0</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>For this course
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Do not one-hot encode categories just because you can. Use it when the next analytical method requires numeric design columns.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="finalize-and-explore" class="level1">
+<h1>Finalize and explore</h1>
+<section id="final-quality-check" class="level2">
+<h2 class="anchored" data-anchor-id="final-quality-check">Final quality check</h2>
+<p>After cleaning, repeat the audit.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>collisions_clean <span class="sc">%&gt;%</span></span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">rows =</span> <span class="fu">n</span>(),</span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">unique_ids =</span> <span class="fu">n_distinct</span>(collision_id),</span>
+<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">missing_borough =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(borough)),</span>
+<span id="cb77-6"><a href="#cb77-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">missing_coordinates =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(latitude) <span class="sc">|</span> <span class="fu">is.na</span>(longitude)),</span>
+<span id="cb77-7"><a href="#cb77-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">missing_vehicle_group =</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(vehicle_group)),</span>
+<span id="cb77-8"><a href="#cb77-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">min_injured =</span> <span class="fu">min</span>(injured, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb77-9"><a href="#cb77-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_injured =</span> <span class="fu">max</span>(injured, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb77-10"><a href="#cb77-10" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     rows unique_ids missing_borough missing_coordinates missing_vehicle_group
+1 2269187    2269187               0              248397                     1
+  min_injured max_injured
+1           0          43</code></pre>
+</div>
+</div>
+<p>Check the structure again:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(collisions_clean)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 2,269,187
+Columns: 19
+$ collision_id        &lt;int&gt; 4455765, 4513547, 4675373, 4541903, 4566131, 46237…
+$ crash_date          &lt;date&gt; 2021-09-11, 2022-03-26, 2023-11-01, 2022-06-29, 2…
+$ crash_time          &lt;chr&gt; "2:39", "11:45", "1:29", "6:55", "13:21", "13:30",…
+$ borough             &lt;chr&gt; "", "", "BROOKLYN", "", "", "", "", "", "", "BROOK…
+$ zip_code            &lt;int&gt; NA, NA, 11230, NA, NA, NA, NA, NA, NA, 11208, 1123…
+$ latitude            &lt;dbl&gt; NA, NA, 40.62179, NA, NA, NA, NA, NA, NA, 40.66720…
+$ longitude           &lt;dbl&gt; NA, NA, -73.97002, NA, NA, NA, NA, NA, NA, -73.866…
+$ on_street_name      &lt;chr&gt; "WHITESTONE EXPRESSWAY", "QUEENSBORO BRIDGE UPPER"…
+$ injured             &lt;int&gt; 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0,…
+$ killed              &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ contributing_factor &lt;chr&gt; "Aggressive Driving/Road Rage", "Pavement Slippery…
+$ vehicle_type        &lt;chr&gt; "Sedan", "Sedan", "Moped", "Sedan", "Station Wagon…
+$ crash_time_parsed   &lt;Period&gt; 2H 39M 0S, 11H 45M 0S, 1H 29M 0S, 6H 55M 0S, 13…
+$ crash_hour          &lt;dbl&gt; 2, 11, 1, 6, 13, 13, 7, 8, 22, 9, 8, 12, 17, 8, 21…
+$ crash_weekday       &lt;ord&gt; Saturday, Saturday, Wednesday, Wednesday, Wednesda…
+$ vehicle_group       &lt;chr&gt; "Sedan", "Sedan", "Other", "Sedan", "SUV / Station…
+$ borough_display     &lt;chr&gt; "", "", "BROOKLYN", "", "", "", "", "", "", "BROOK…
+$ severe_collision    &lt;lgl&gt; TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALS…
+$ time_of_day         &lt;fct&gt; Night, Morning, Night, Morning, Afternoon, Afterno…</code></pre>
+</div>
+</div>
+</section>
+<section id="keep-a-preprocessing-log" class="level2">
+<h2 class="anchored" data-anchor-id="keep-a-preprocessing-log">Keep a preprocessing log</h2>
+<p>A good project should document what changed.</p>
+<p>For example:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>preprocessing_log <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>step, <span class="sc">~</span>decision,</span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Missing factor codes"</span>, <span class="st">"Converted 'Unspecified' to NA"</span>,</span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Coordinates"</span>, <span class="st">"Converted zero latitude/longitude placeholders to NA"</span>,</span>
+<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Date/time"</span>, <span class="st">"Parsed crash date and created crash hour/weekday"</span>,</span>
+<span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Vehicle categories"</span>, <span class="st">"Created broad vehicle_group while retaining raw vehicle_type"</span>,</span>
+<span id="cb81-7"><a href="#cb81-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Outliers"</span>, <span class="st">"Flagged using IQR rule; did not automatically delete"</span>,</span>
+<span id="cb81-8"><a href="#cb81-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Missing borough"</span>, <span class="st">"Retained in master data; filter only for borough-specific analyses"</span></span>
+<span id="cb81-9"><a href="#cb81-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb81-10"><a href="#cb81-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-11"><a href="#cb81-11" aria-hidden="true" tabindex="-1"></a>preprocessing_log</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 2
+  step                 decision                                                 
+  &lt;chr&gt;                &lt;chr&gt;                                                    
+1 Missing factor codes Converted 'Unspecified' to NA                            
+2 Coordinates          Converted zero latitude/longitude placeholders to NA     
+3 Date/time            Parsed crash date and created crash hour/weekday         
+4 Vehicle categories   Created broad vehicle_group while retaining raw vehicle_…
+5 Outliers             Flagged using IQR rule; did not automatically delete     
+6 Missing borough      Retained in master data; filter only for borough-specifi…</code></pre>
+</div>
+</div>
+<p>This is useful for:</p>
+<ul>
+<li>reproducibility;</li>
+<li>team projects;</li>
+<li>explaining analytical decisions;</li>
+<li>debugging later;</li>
+<li>writing a methods section.</li>
+</ul>
+</section>
+<section id="save-the-cleaned-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="save-the-cleaned-dataset">Save the cleaned dataset</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(</span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>  collisions_clean,</span>
+<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"data/nyc_collisions_2025_q1_clean.csv"</span></span>
+<span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Next week, we can load the cleaned dataset directly:</p>
+</section>
+<section id="quick-eda-after-preprocessing" class="level2">
+<h2 class="anchored" data-anchor-id="quick-eda-after-preprocessing">Quick EDA after preprocessing</h2>
+<p>Now that the data are more usable, descriptive summaries become easier to interpret.</p>
+<section id="one-numeric-variable" class="level3">
+<h3 class="anchored" data-anchor-id="one-numeric-variable">One numeric variable</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>collisions_clean <span class="sc">%&gt;%</span></span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean =</span> <span class="fu">mean</span>(injured, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">median =</span> <span class="fu">median</span>(injured, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd =</span> <span class="fu">sd</span>(injured, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb84-6"><a href="#cb84-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">min =</span> <span class="fu">min</span>(injured, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb84-7"><a href="#cb84-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">max =</span> <span class="fu">max</span>(injured, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb84-8"><a href="#cb84-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       mean median        sd min max
+1 0.3333172      0 0.7187101   0  43</code></pre>
+</div>
+</div>
+</section>
+<section id="one-categorical-variable" class="level3">
+<h3 class="anchored" data-anchor-id="one-categorical-variable">One categorical variable</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>collisions_clean <span class="sc">%&gt;%</span></span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(borough_display, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> n <span class="sc">/</span> <span class="fu">sum</span>(n), <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  borough_display      n percent
+1                 691375    30.5
+2        BROOKLYN 506806    22.3
+3          QUEENS 422409    18.6
+4       MANHATTAN 348485    15.4
+5           BRONX 234088    10.3
+6   STATEN ISLAND  66024     2.9</code></pre>
+</div>
+</div>
+</section>
+<section id="two-variables" class="level3">
+<h3 class="anchored" data-anchor-id="two-variables">Two variables</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>collisions_clean <span class="sc">%&gt;%</span></span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(borough_display) <span class="sc">%&gt;%</span></span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">collisions =</span> <span class="fu">n</span>(),</span>
+<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_injured =</span> <span class="fu">mean</span>(injured, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb88-6"><a href="#cb88-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">severe_rate =</span> <span class="fu">mean</span>(severe_collision, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb88-7"><a href="#cb88-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb88-8"><a href="#cb88-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(collisions))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+  borough_display collisions avg_injured severe_rate
+  &lt;chr&gt;                &lt;int&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+1 ""                  691375       0.370       0.259
+2 "BROOKLYN"          506806       0.356       0.269
+3 "QUEENS"            422409       0.323       0.244
+4 "MANHATTAN"         348485       0.233       0.196
+5 "BRONX"             234088       0.353       0.260
+6 "STATEN ISLAND"      66024       0.304       0.224</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="a-small-preview-of-visualization" class="level2">
+<h2 class="anchored" data-anchor-id="a-small-preview-of-visualization">A small preview of visualization</h2>
+<p>We will cover chart selection and visual design in detail next week. For now, the goal is simply to verify that the cleaned data behave as expected.</p>
+<section id="collisions-by-borough" class="level3">
+<h3 class="anchored" data-anchor-id="collisions-by-borough">Collisions by borough</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>collisions_clean <span class="sc">%&gt;%</span></span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(borough)) <span class="sc">%&gt;%</span></span>
+<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> borough)) <span class="sc">+</span></span>
+<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb90-5"><a href="#cb90-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb90-6"><a href="#cb90-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb90-7"><a href="#cb90-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Number of collisions"</span>,</span>
+<span id="cb90-8"><a href="#cb90-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Collisions by borough"</span></span>
+<span id="cb90-9"><a href="#cb90-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb90-10"><a href="#cb90-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="exploratory-data-analysis_files/figure-html/unnamed-chunk-48-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="collisions-by-hour" class="level3">
+<h3 class="anchored" data-anchor-id="collisions-by-hour">Collisions by hour</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>collisions_clean <span class="sc">%&gt;%</span></span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(crash_hour)) <span class="sc">%&gt;%</span></span>
+<span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(crash_hour) <span class="sc">%&gt;%</span></span>
+<span id="cb91-4"><a href="#cb91-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> crash_hour, <span class="at">y =</span> n)) <span class="sc">+</span></span>
+<span id="cb91-5"><a href="#cb91-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb91-6"><a href="#cb91-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb91-7"><a href="#cb91-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">23</span>) <span class="sc">+</span></span>
+<span id="cb91-8"><a href="#cb91-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb91-9"><a href="#cb91-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Hour of day"</span>,</span>
+<span id="cb91-10"><a href="#cb91-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Number of collisions"</span>,</span>
+<span id="cb91-11"><a href="#cb91-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Collisions by time of day"</span></span>
+<span id="cb91-12"><a href="#cb91-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb91-13"><a href="#cb91-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="exploratory-data-analysis_files/figure-html/unnamed-chunk-49-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Stop here for today
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The plots above are intentionally simple. Next week, we will ask a different question:</p>
+<blockquote class="blockquote">
+<p><strong>Given a question and variable types, which chart should we choose, and how should we design it?</strong></p>
+</blockquote>
+<p>That is where chart choice, visual encodings, scales, labels, colour, faceting, and communication become the focus.</p>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="in-class-practice-audit-a-dataset" class="level1">
+<h1>In-class practice: audit a dataset</h1>
+<p>Work in pairs. Choose one dataset that your team may realistically use for the final project, or use the NYC collision data.</p>
+<p>Complete the following checklist.</p>
+<section id="structure" class="level2">
+<h2 class="anchored" data-anchor-id="structure">Structure</h2>
+<ul>
+<li>What is one row?</li>
+<li>How many rows and columns?</li>
+<li>Which variable is the identifier?</li>
+<li>Which variables are numeric, categorical, dates, or text?</li>
+</ul>
+</section>
+<section id="missingness" class="level2">
+<h2 class="anchored" data-anchor-id="missingness">Missingness</h2>
+<ul>
+<li>Which three variables have the most missing values?</li>
+<li>Are any missing values encoded using a special string or number?</li>
+<li>Would you keep, filter, replace, or investigate them?</li>
+</ul>
+</section>
+<section id="duplicates" class="level2">
+<h2 class="anchored" data-anchor-id="duplicates">Duplicates</h2>
+<ul>
+<li>Are there exact duplicate rows?</li>
+<li>Is the identifier unique?</li>
+<li>If not, what might explain the duplication?</li>
+</ul>
+</section>
+<section id="validity" class="level2">
+<h2 class="anchored" data-anchor-id="validity">Validity</h2>
+<ul>
+<li>Check minimum and maximum values for important numeric variables.</li>
+<li>Check category frequencies.</li>
+<li>Are there impossible or undefined values?</li>
+</ul>
+</section>
+<section id="outliers" class="level2">
+<h2 class="anchored" data-anchor-id="outliers">Outliers</h2>
+<ul>
+<li>Identify at least one extreme observation.</li>
+<li>Is it likely to be an error or a valid rare event?</li>
+<li>What evidence would you need before removing it?</li>
+</ul>
+</section>
+<section id="preprocessing-decision" class="level2">
+<h2 class="anchored" data-anchor-id="preprocessing-decision">Preprocessing decision</h2>
+<p>Create a small table with three columns:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Problem</th>
+<th>Decision</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Example: missing borough</td>
+<td>Keep in master data</td>
+<td>Other variables are still usable</td>
+</tr>
+<tr class="even">
+<td>Example: <code>Unspecified</code> factor</td>
+<td>Convert to NA</td>
+<td>Represents unknown factor</td>
+</tr>
+</tbody>
+</table>
 
 
 </section>
