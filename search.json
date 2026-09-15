@@ -44,6 +44,210 @@
     ]
   },
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Fall 2026",
+    "section": "",
+    "text": "This site provides course materials, lecture notes, and selected teaching resources for two courses taught in Fall 2026 during Dr. Byoungkwan Lee’s sabbatical."
+  },
+  {
+    "objectID": "index.html#apr3044-advanced-data-analytics",
+    "href": "index.html#apr3044-advanced-data-analytics",
+    "title": "Fall 2026",
+    "section": "APR3044 Advanced Data Analytics",
+    "text": "APR3044 Advanced Data Analytics\nUndergraduate Course\nA practice-oriented course on data analytics, visualization, and AI agent workflows.\nMain topics\n\nIntroduction to R programming\nExploratory data analysis and basic visualization\nInteractive data visualization (R, Tableau and Plotly)\nBasic AI agents and agentic workflows\nRAG, context engineering, multi-agent systems, etc\n\n\nCourse materials →\nSyllabus PDF"
+  },
+  {
+    "objectID": "index.html#apr8025-data-analytics",
+    "href": "index.html#apr8025-data-analytics",
+    "title": "Fall 2026",
+    "section": "APR8025 Data Analytics",
+    "text": "APR8025 Data Analytics\nGraduate Course\nA graduate-level course on quantitative data analysis for social science research.\nMain topics\n\nIntroduction to R programming\nDescriptive statistics\nBasic of Inferential statistics\nt-tests and chi-squared tests\nANOVA, regression, and regression diagnostics\n\n\nCourse materials →\nSyllabus PDF"
+  },
+  {
+    "objectID": "index.html#syllabus",
+    "href": "index.html#syllabus",
+    "title": "Fall 2026",
+    "section": "Syllabus",
+    "text": "Syllabus\n\n\nAPR3044\n\n\n\n\n\n\nAPR8025"
+  },
+  {
+    "objectID": "apr8025/descriptive-statistics.html",
+    "href": "apr8025/descriptive-statistics.html",
+    "title": "Descriptive Statistics",
+    "section": "",
+    "text": "Class date: Sep 16, 2026\n Based in part on lecture notes by Prof. Byoungkwan Lee and 이병관 (2023). 사회과학 연구자를 위한 R을 활용한 기초 통계. 한양대학교출판부.",
+    "crumbs": [
+      "Descriptive & Inferential Statistics",
+      "Descriptive Statistics"
+    ]
+  },
+  {
+    "objectID": "apr8025/descriptive-statistics.html#what-are-descriptive-statistics",
+    "href": "apr8025/descriptive-statistics.html#what-are-descriptive-statistics",
+    "title": "Descriptive Statistics",
+    "section": "1. What Are Descriptive Statistics?",
+    "text": "1. What Are Descriptive Statistics?\nDescriptive statistics are methods for organizing, summarizing, and presenting observed data.\nWe usually summarize data in three ways:\n\nTables\nGraphs or figures\nStatistic: A rule that reduces data to a single number\n\nDescriptive statistics describe the data we observed.\nThey do not, by themselves, tell us whether a pattern generalizes to a larger population.\n\n# Example data\nscores &lt;- c(72, 81, 76, 88, 91, 84, 77, 95, 82, 84)\nscores\n\n [1] 72 81 76 88 91 84 77 95 82 84\n\n\nA quick summary can already tell us a great deal about the dataset.\n\nsummary(scores)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n     72      78      83      83      87      95",
+    "crumbs": [
+      "Descriptive & Inferential Statistics",
+      "Descriptive Statistics"
+    ]
+  },
+  {
+    "objectID": "apr8025/descriptive-statistics.html#variables-and-levels-of-measurement",
+    "href": "apr8025/descriptive-statistics.html#variables-and-levels-of-measurement",
+    "title": "Descriptive Statistics",
+    "section": "2. Variables and Levels of Measurement",
+    "text": "2. Variables and Levels of Measurement\nBefore choosing a statistical summary, we should first ask:\n\nWhat kind of variable am I working with?\n\n\nSource: https://www.ijngp.com/post/measurement-scale-noir \nA common classification is:\n\n\n\n\n\n\n\n\nLevel\nMain characteristic\nExample\n\n\n\n\nNominal\nCategories without order\nGender, media platform\n\n\nOrdinal\nOrdered categories\nSatisfaction level\n\n\nInterval\nEqual intervals, no true zero\nTemperature in °C\n\n\nRatio\nEqual intervals and meaningful zero\nAge, income, reaction time\n\n\n\n\nIn practice, a simpler distinction is often useful:\n\nCategorical variables: represent groups or categories\nQuantitative variables: represent numerical amounts\n\n\nSource: https://www.ijngp.com/post/measurement-scale-noir",
+    "crumbs": [
+      "Descriptive & Inferential Statistics",
+      "Descriptive Statistics"
+    ]
+  },
+  {
+    "objectID": "apr8025/descriptive-statistics.html#frequency-distributions",
+    "href": "apr8025/descriptive-statistics.html#frequency-distributions",
+    "title": "Descriptive Statistics",
+    "section": "3. Frequency Distributions",
+    "text": "3. Frequency Distributions\n\nA tabular summary of data showing the frequency (or number) of items in each of several nonoverlapping classes.\nThe objective is to provide insights about the data that cannot be quickly obtained by looking only at the original data.\n\n\nExample: Hotel Satisfaction\nSuppose 20 guests evaluate a hotel using five response categories.\n\nsatis &lt;- c(\n  \"Below Average\", \"Average\", \"Above Average\",\n  \"Above Average\", \"Above Average\", \"Above Average\",\n  \"Above Average\", \"Below Average\", \"Below Average\",\n  \"Average\", \"Poor\", \"Poor\",\n  \"Above Average\", \"Excellent\", \"Above Average\",\n  \"Average\", \"Above Average\", \"Average\",\n  \"Above Average\", \"Average\"\n)\n\nsatis &lt;- factor(\n  satis,\n  levels = c(\"Poor\", \"Below Average\", \"Average\",\n             \"Above Average\", \"Excellent\"),\n  ordered = TRUE\n)\n\n\n\nFrequency Distribution\n\ntable(satis)\n\nsatis\n         Poor Below Average       Average Above Average     Excellent \n            2             3             5             9             1 \n\n\nUsing dplyr, we can create a cleaner table.\n\nlibrary(tidyverse)\n\nhotel &lt;- tibble(rating = satis)\n\nhotel %&gt;%\n  count(rating)\n\n# A tibble: 5 × 2\n  rating            n\n  &lt;ord&gt;         &lt;int&gt;\n1 Poor              2\n2 Below Average     3\n3 Average           5\n4 Above Average     9\n5 Excellent         1\n\n\nUsing KableExtra, we can format the table for better presentation.\n\nlibrary(kableExtra)\nhotel %&gt;%\n  count(rating) %&gt;% \n  kbl() %&gt;%\n  kable_styling(\"hover\")\n\n\n\n\nrating\nn\n\n\n\n\nPoor\n2\n\n\nBelow Average\n3\n\n\nAverage\n5\n\n\nAbove Average\n9\n\n\nExcellent\n1\n\n\n\n\nhotel %&gt;%\n  count(rating) %&gt;% \n  kbl(col.names = c(\"Rating\", \"Frequency\")) %&gt;%\n  kable_styling(\"hover\")\n\n\n\n\nRating\nFrequency\n\n\n\n\nPoor\n2\n\n\nBelow Average\n3\n\n\nAverage\n5\n\n\nAbove Average\n9\n\n\nExcellent\n1\n\n\n\n\n\n\nGuidelines for Selecting Number of Classes\n\nUse between 5 and 20 classes.\nData sets with a larger number of elements usually require a larger number of classes.\nSmaller data sets usually require fewer classes.\n\n\nGuidelines for Selecting Width of Classes\n\nUse classes of equal width.\n\n\\[\n\\text{Approximate Class Width}\n=\n\\frac{\\text{Largest Data Value} - \\text{Smallest Data Value}}\n{\\text{Number of Classes}}\n\\]\n\n\n\nRelative Frequency Distribution\n\nThe relative frequency of a class is the fraction or proportion of the total number of data items belonging to the class.\nA relative frequency distribution is a tabular summary of a set of data showing the relative frequency for each class.\n\n\nhotel %&gt;%\n  count(rating) %&gt;%\n  mutate(props = n / sum(n)) %&gt;% \n  kbl() %&gt;%\n  kable_styling(\"hover\")\n\n\n\n\nrating\nn\nprops\n\n\n\n\nPoor\n2\n0.10\n\n\nBelow Average\n3\n0.15\n\n\nAverage\n5\n0.25\n\n\nAbove Average\n9\n0.45\n\n\nExcellent\n1\n0.05\n\n\n\n\n\nRelative frequencies are especially useful when comparing groups with different sample sizes.\n\n\nCumulative Frequency Distribution\n\nCumulative frequency distribution – shows the number of items with values less than or equal to the upper limit of each class.\nCumulative relative frequency distribution – shows the proportion of items with values less than or equal to the upper limit of each class.\n\n\nhotel %&gt;%\n  count(rating) %&gt;%\n  mutate(props = n / sum(n),\n         percent = props * 100) %&gt;% \n  kbl() %&gt;%\n  kable_styling(\"hover\")\n\n\n\n\nrating\nn\nprops\npercent\n\n\n\n\nPoor\n2\n0.10\n10\n\n\nBelow Average\n3\n0.15\n15\n\n\nAverage\n5\n0.25\n25\n\n\nAbove Average\n9\n0.45\n45\n\n\nExcellent\n1\n0.05\n5",
+    "crumbs": [
+      "Descriptive & Inferential Statistics",
+      "Descriptive Statistics"
+    ]
+  },
+  {
+    "objectID": "apr8025/descriptive-statistics.html#visualizing-categorical-data",
+    "href": "apr8025/descriptive-statistics.html#visualizing-categorical-data",
+    "title": "Descriptive Statistics",
+    "section": "4. Visualizing Categorical Data",
+    "text": "4. Visualizing Categorical Data\n\nBar Plot\n\nA bar graph is a graphical device for depicting qualitative data.\nOn the horizontal axis we specify the labels that are used for each of the classes.\nA frequency, relative frequency, or percent frequency scale can be used for the vertical axis.\nUsing a bar of fixed width drawn above each class label, we extend the height appropriately.\nThe bars are separated to emphasize the fact that each class is a separate category.\n\n\nbarplot(table(hotel$rating))\n\n\n\n\n\n\n\n\nUsing ggplot2, we can create a cleaner plot.\nIn ggplot2, we build a graph by adding layers with +.\n\nlibrary(ggplot2)\nggplot(hotel)\n\n\n\n\n\n\n\nggplot(hotel, aes(x=rating))\n\n\n\n\n\n\n\nggplot(hotel, aes(x=rating)) + \n  geom_bar()\n\n\n\n\n\n\n\nggplot(hotel, aes(x=rating)) + \n  geom_bar(fill = \"steelblue\")\n\n\n\n\n\n\n\nggplot(hotel, aes(x=rating)) + \n  geom_bar(fill = \"steelblue\", colour = \"black\")\n\n\n\n\n\n\n\nggplot(hotel, aes(x=rating)) + \n  geom_bar(fill = \"steelblue\", colour = \"black\") +\n  labs(title = \"Distribution of Hotel Ratings\",\n       x = \"Hotel Rating\",\n       y = \"Frequency\")\n\n\n\n\n\n\n\nggplot(hotel, aes(x=rating)) + \n  geom_bar(fill = \"steelblue\", colour = \"black\") +\n  labs(title = \"Distribution of Hotel Ratings\",\n       subtitle = \"Customer satisfaction ratings from 20 hotel guests\",\n       x = \"Hotel Rating\",\n       y = \"Frequency\")\n\n\n\n\n\n\n\nggplot(hotel, aes(x=rating)) + \n  geom_bar(fill = \"steelblue\", colour = \"black\") +\n  labs(title = \"Distribution of Hotel Ratings\",\n       subtitle = \"Customer satisfaction ratings from 20 hotel guests\",\n       x = \"Hotel Rating\",\n       y = \"Frequency\") +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\n\nPie Chart\n\nThe pie chart is a commonly used graphical device for presenting relative frequency distributions for qualitative data.\nFirst draw a circle; then use the relative frequencies to subdivide the circle into sectors that correspond to the relative frequency for each class.\nSince there are 360 degrees in a circle, a class with a relative frequency of .25 would consume .25(360) = 90 degrees of the circle.\n\n\npie(table(hotel$rating))\n\n\n\n\n\n\n\nggplot(hotel, aes(x = \"\", fill = rating)) +\n  geom_bar(color = \"black\", linewidth = 0.5) +\n  coord_polar(theta = \"y\") +\n  scale_fill_brewer(palette = \"Blues\") +\n  labs(title = \"Distribution of Hotel Ratings\",\n       fill = \"Rating\") +\n  theme_void()\n\n\n\n\n\n\n\nggplot(hotel, aes(x = \"\", fill = rating)) +\n  geom_bar(color = \"black\", linewidth = 0.5) +\n  geom_text(\n    aes(label = gsub(\" \", \"\\n\", rating)),\n    stat = \"count\",\n    position = position_stack(vjust = 0.5),\n    color = \"black\",\n    fontface = \"bold\",\n    size = 4,\n    lineheight = 0.9\n  )+\n  coord_polar(theta = \"y\") +\n  scale_fill_brewer(palette = \"Blues\") +\n  labs(title = \"Distribution of Hotel Ratings\") +\n  theme_void() +\n  theme(legend.position = \"none\")",
+    "crumbs": [
+      "Descriptive & Inferential Statistics",
+      "Descriptive Statistics"
+    ]
+  },
+  {
+    "objectID": "apr8025/descriptive-statistics.html#visualizing-quantitative-data",
+    "href": "apr8025/descriptive-statistics.html#visualizing-quantitative-data",
+    "title": "Descriptive Statistics",
+    "section": "5. Visualizing Quantitative Data",
+    "text": "5. Visualizing Quantitative Data\n\nHistogram\n\nAnother common graphical presentation of quantitative data is a histogram.\nThe variable of interest is placed on the horizontal axis.\nA rectangle is drawn above each class interval with its height corresponding to the interval’s frequency, relative frequency, or percent frequency.\nUnlike a bar graph, a histogram has no natural separation between rectangles of adjacent classes.\n\n\nst &lt;- as.data.frame(state.x77)\nnames(st)\n\n[1] \"Population\" \"Income\"     \"Illiteracy\" \"Life Exp\"   \"Murder\"    \n[6] \"HS Grad\"    \"Frost\"      \"Area\"      \n\nst %&gt;% \n  rename(Life.Exp = \"Life Exp\") %&gt;%\n  ggplot(aes(x = Life.Exp)) +\n  geom_histogram(bins = 6,\n                 fill = \"cornflowerblue\",\n                 color = \"black\") +\n  labs(x = \"Life Expectancy\",\n       y = \"Frequency\",\n       title = \"Distribution of Life Expectancy\") +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\n\n\nBar plot vs. histogram\n\nWhat is the difference between a bar graph and a histogram?\n\n\n\n\n\n\n\n\n\n\nA bar plot is mainly used for categorical variables.\nA histogram is used to display the distribution of a quantitative variable.\n\n\n\nMisleading Graphs and Charts: Scale Break\n\n\n\n\n\n\n\n\n\nThe two graphs display the same data, but the truncated y-axis makes the increase appear much larger.\nFor bar charts, changing the baseline can substantially change the visual impression of the differences.\n\nWhen reading a histogram, examine:\n\ncenter — where most observations are located,\nspread — how widely observations vary,\nshape — symmetric or skewed,\nmodality — one peak or several peaks,\nunusual observations — possible outliers.",
+    "crumbs": [
+      "Descriptive & Inferential Statistics",
+      "Descriptive Statistics"
+    ]
+  },
+  {
+    "objectID": "apr8025/descriptive-statistics.html#shape-of-a-distribution",
+    "href": "apr8025/descriptive-statistics.html#shape-of-a-distribution",
+    "title": "Descriptive Statistics",
+    "section": "7. Shape of a Distribution",
+    "text": "7. Shape of a Distribution\n\nSymmetry and Skewness\nA distribution is symmetric when its left and right sides are approximately balanced.\nA distribution is right-skewed when the long tail extends toward larger values.\nA distribution is left-skewed when the long tail extends toward smaller values.\n\nset.seed(123)\n\nsymmetric_data &lt;- rnorm(1000)\nright_skewed_data &lt;- rexp(1000)\n\ntibble(value = symmetric_data) |&gt;\n  ggplot(aes(x = value)) +\n  geom_histogram(bins = 30) +\n  labs(title = \"Approximately Symmetric Distribution\") +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\ntibble(value = right_skewed_data) |&gt;\n  ggplot(aes(x = value)) +\n  geom_histogram(bins = 30) +\n  labs(title = \"Right-Skewed Distribution\") +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\n\nComputing Skewness and Kurtosis in R\nThe moments package provides convenient functions.\n\n# install.packages(\"moments\")  # Run once if needed\nlibrary(moments)\n\ncost &lt;- c(\n  91, 78, 93, 57, 75, 52, 99, 80, 97, 62,\n  71, 69, 72, 89, 66, 75, 79, 75, 72, 76,\n  104, 74, 62, 68, 97, 105, 77, 65, 80, 109,\n  85, 97, 88, 68, 83, 68, 71, 69, 67, 74,\n  62, 82, 98, 101, 79, 105, 79, 69, 62, 73\n)\n\nskewness(cost)\n\n[1] 0.4652214\n\nkurtosis(cost)\n\n[1] 2.344017\n\n\n\n\n\n\n\n\nImportantInterpretation caution\n\n\n\nSkewness and kurtosis should not be interpreted using a single universal cutoff.\nTheir practical importance depends on sample size, the statistical model, and the purpose of the analysis.\nVisual inspection of the distribution should accompany numerical summaries.",
+    "crumbs": [
+      "Descriptive & Inferential Statistics",
+      "Descriptive Statistics"
+    ]
+  },
+  {
+    "objectID": "apr8025/descriptive-statistics.html#box-plot-quartiles-and-iqr",
+    "href": "apr8025/descriptive-statistics.html#box-plot-quartiles-and-iqr",
+    "title": "Descriptive Statistics",
+    "section": "8. Box Plot, Quartiles, and IQR",
+    "text": "8. Box Plot, Quartiles, and IQR\nA box plot summarizes a quantitative variable using its location and spread.\nImportant components include:\n\nfirst quartile: (Q_1)\nmedian: (Q_2)\nthird quartile: (Q_3)\ninterquartile range:\n\n[ IQR = Q_3 - Q_1 ]\n\nquantile(cost)\n\n    0%    25%    50%    75%   100% \n 52.00  69.00  75.50  88.75 109.00 \n\nIQR(cost)\n\n[1] 19.75\n\n\n\nBox Plot in R\n\ntibble(cost = cost) |&gt;\n  ggplot(aes(y = cost)) +\n  geom_boxplot() +\n  labs(\n    y = \"Parts Cost\",\n    title = \"Box Plot of Parts Costs\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\n\nPotential Outliers Using the 1.5 × IQR Rule\nA commonly used rule identifies observations outside:\n[ Q_1 - 1.5(IQR) ]\nand\n[ Q_3 + 1.5(IQR) ]\nas potential outliers.\n\nq1 &lt;- quantile(cost, 0.25)\nq3 &lt;- quantile(cost, 0.75)\niqr &lt;- IQR(cost)\n\nlower_bound &lt;- q1 - 1.5 * iqr\nupper_bound &lt;- q3 + 1.5 * iqr\n\nlower_bound\n\n   25% \n39.375 \n\nupper_bound\n\n    75% \n118.375 \n\ncost[cost &lt; lower_bound | cost &gt; upper_bound]\n\nnumeric(0)\n\n\n\n\n\n\n\n\nWarning\n\n\n\nAn observation flagged by the 1.5 × IQR rule should not automatically be deleted.\nIt may reflect a data-entry error, a rare but valid observation, or an important feature of the population.",
+    "crumbs": [
+      "Descriptive & Inferential Statistics",
+      "Descriptive Statistics"
+    ]
+  },
+  {
+    "objectID": "apr8025/descriptive-statistics.html#measures-of-central-tendency",
+    "href": "apr8025/descriptive-statistics.html#measures-of-central-tendency",
+    "title": "Descriptive Statistics",
+    "section": "9. Measures of Central Tendency",
+    "text": "9. Measures of Central Tendency\nThe three common measures of central tendency are:\n\nMean: arithmetic average\nMedian: middle value after ordering the data\nMode: most frequently observed value\n\n\nMean\nFor a sample,\n[ {x} = _{i=1}^{n}x_i ]\n\nmean(cost)\n\n[1] 78.98\n\n\nThe mean uses every observation, so it can be sensitive to extreme values.\n\n\nMedian\nThe median divides the ordered observations into two halves.\n\nmedian(cost)\n\n[1] 75.5\n\n\nThe median is less sensitive to extreme observations than the mean.\n\n\nMode\nBase R does not provide a direct statistical-mode function, but we can obtain it from a frequency table.\n\nget_mode &lt;- function(x) {\n  frequency &lt;- table(x)\n  names(frequency)[frequency == max(frequency)]\n}\n\nget_mode(hotel)\n\n[1] \"Above Average\"",
+    "crumbs": [
+      "Descriptive & Inferential Statistics",
+      "Descriptive Statistics"
+    ]
+  },
+  {
+    "objectID": "apr8025/descriptive-statistics.html#mean-and-median-under-skewness",
+    "href": "apr8025/descriptive-statistics.html#mean-and-median-under-skewness",
+    "title": "Descriptive Statistics",
+    "section": "10. Mean and Median Under Skewness",
+    "text": "10. Mean and Median Under Skewness\nThe relationship between the mean and median often provides information about the shape of a distribution.\nFor a roughly symmetric distribution:\n[ Mean Median ]\nFor a strongly right-skewed distribution, large observations tend to pull the mean upward.\n\nincome &lt;- c(30, 32, 35, 36, 38, 40, 41, 42, 45, 150)\n\nmean(income)\n\n[1] 48.9\n\nmedian(income)\n\n[1] 39\n\n\nHere, one very large value has a much stronger effect on the mean than on the median.",
+    "crumbs": [
+      "Descriptive & Inferential Statistics",
+      "Descriptive Statistics"
+    ]
+  },
+  {
+    "objectID": "apr8025/descriptive-statistics.html#measures-of-variation",
+    "href": "apr8025/descriptive-statistics.html#measures-of-variation",
+    "title": "Descriptive Statistics",
+    "section": "11. Measures of Variation",
+    "text": "11. Measures of Variation\nMeasures of central tendency tell us where a distribution is located.\nMeasures of variation tell us how dispersed the observations are.\nCommon measures include:\n\nRange\nVariance\nStandard deviation\nInterquartile range\n\n\nRange\n[ Range = Maximum - Minimum ]\n\nmax(cost) - min(cost)\n\n[1] 57\n\nrange(cost)\n\n[1]  52 109\n\n\n\n\nVariance\nFor a sample,\n[ s^2 = ]\n\nvar(cost)\n\n[1] 195.7751\n\n\n\n\nStandard Deviation\nThe standard deviation is the square root of the variance.\n[ s = ]\n\nsd(cost)\n\n[1] 13.99197\n\n\nBecause the standard deviation is expressed in the same unit as the original variable, it is usually easier to interpret than variance.",
+    "crumbs": [
+      "Descriptive & Inferential Statistics",
+      "Descriptive Statistics"
+    ]
+  },
+  {
+    "objectID": "apr8025/descriptive-statistics.html#describing-a-dataset-in-r",
+    "href": "apr8025/descriptive-statistics.html#describing-a-dataset-in-r",
+    "title": "Descriptive Statistics",
+    "section": "12. Describing a Dataset in R",
+    "text": "12. Describing a Dataset in R\nR provides several ways to obtain descriptive statistics quickly.\n\nBase R\n\nsummary(cost)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n  52.00   69.00   75.50   78.98   88.75  109.00 \n\nmean(cost)\n\n[1] 78.98\n\nmedian(cost)\n\n[1] 75.5\n\nsd(cost)\n\n[1] 13.99197\n\nvar(cost)\n\n[1] 195.7751\n\nIQR(cost)\n\n[1] 19.75\n\nrange(cost)\n\n[1]  52 109\n\n\n\n\nUsing dplyr\n\ntibble(cost = cost) |&gt;\n  summarise(\n    n = n(),\n    mean = mean(cost),\n    median = median(cost),\n    sd = sd(cost),\n    variance = var(cost),\n    min = min(cost),\n    max = max(cost),\n    iqr = IQR(cost)\n  )\n\n# A tibble: 1 × 8\n      n  mean median    sd variance   min   max   iqr\n  &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;\n1    50  79.0   75.5  14.0     196.    52   109  19.8\n\n\n\n\nGrouped Descriptive Statistics\nOne of the most common tasks in social-science data analysis is to compare descriptive statistics across groups.\n\nset.seed(123)\n\nsurvey &lt;- tibble(\n  condition = rep(c(\"Control\", \"Treatment\"), each = 50),\n  outcome = c(\n    rnorm(50, mean = 5.0, sd = 1.2),\n    rnorm(50, mean = 5.6, sd = 1.1)\n  )\n)\n\nsurvey |&gt;\n  group_by(condition) |&gt;\n  summarise(\n    n = n(),\n    mean = mean(outcome),\n    sd = sd(outcome),\n    median = median(outcome)\n  )\n\n# A tibble: 2 × 5\n  condition     n  mean    sd median\n  &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;\n1 Control      50  5.04 1.11    4.91\n2 Treatment    50  5.76 0.996   5.77\n\n\nThis type of summary is often the first step before conducting inferential analyses such as a t-test or ANOVA.",
+    "crumbs": [
+      "Descriptive & Inferential Statistics",
+      "Descriptive Statistics"
+    ]
+  },
+  {
+    "objectID": "apr8025/descriptive-statistics.html#the-empirical-rule",
+    "href": "apr8025/descriptive-statistics.html#the-empirical-rule",
+    "title": "Descriptive Statistics",
+    "section": "13. The Empirical Rule",
+    "text": "13. The Empirical Rule\nFor an approximately normal distribution:\n\nabout 68% of observations fall within () standard deviation of the mean,\nabout 95% fall within () standard deviations,\nabout 99.7% fall within () standard deviations.\n\nSuppose IQ scores have:\n[ = 100, = 16 ]\nThen approximately 68% of scores are expected to fall between:\n\nmean_iq &lt;- 100\nsd_iq &lt;- 16\n\nc(\n  lower = mean_iq - sd_iq,\n  upper = mean_iq + sd_iq\n)\n\nlower upper \n   84   116 \n\n\nApproximately 95% fall between:\n\nc(\n  lower = mean_iq - 2 * sd_iq,\n  upper = mean_iq + 2 * sd_iq\n)\n\nlower upper \n   68   132 \n\n\nThe 68–95–99.7 rule is an approximation that applies when the distribution is approximately normal.",
+    "crumbs": [
+      "Descriptive & Inferential Statistics",
+      "Descriptive Statistics"
+    ]
+  },
+  {
+    "objectID": "apr8025/descriptive-statistics.html#putting-it-together",
+    "href": "apr8025/descriptive-statistics.html#putting-it-together",
+    "title": "Descriptive Statistics",
+    "section": "14. Putting It Together",
+    "text": "14. Putting It Together\nA good descriptive analysis usually combines numerical summaries and visualization.\n\nsurvey |&gt;\n  group_by(condition) |&gt;\n  summarise(\n    n = n(),\n    mean = mean(outcome),\n    sd = sd(outcome),\n    median = median(outcome),\n    iqr = IQR(outcome)\n  )\n\n# A tibble: 2 × 6\n  condition     n  mean    sd median   iqr\n  &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;\n1 Control      50  5.04 1.11    4.91  1.51\n2 Treatment    50  5.76 0.996   5.77  1.09\n\n\n\nsurvey |&gt;\n  ggplot(aes(x = condition, y = outcome)) +\n  geom_boxplot() +\n  labs(\n    x = \"Condition\",\n    y = \"Outcome\",\n    title = \"Outcome by Experimental Condition\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\n\n\nThe table tells us how much the groups differ.\nThe plot helps us see how the observations are distributed, including spread, asymmetry, and possible outliers.",
+    "crumbs": [
+      "Descriptive & Inferential Statistics",
+      "Descriptive Statistics"
+    ]
+  },
+  {
+    "objectID": "apr8025/descriptive-statistics.html#practice",
+    "href": "apr8025/descriptive-statistics.html#practice",
+    "title": "Descriptive Statistics",
+    "section": "15. Practice",
+    "text": "15. Practice\n\nExercise 1\nUse the following data:\n\npractice &lt;- c(12, 15, 15, 16, 18, 19, 20, 21, 22, 35)\n\nCalculate:\n\nMean\nMedian\nStandard deviation\nIQR\nMinimum and maximum\n\nThen create:\n\nA histogram\nA box plot\n\nFinally, answer:\n\nDoes the value 35 affect the mean and median equally?\n\n\n\nExercise 2\nUse mtcars and examine the variable mpg.\n\nhead(mtcars)\n\n                   mpg cyl disp  hp drat    wt  qsec vs am gear carb\nMazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4\nMazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4\nDatsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1\nHornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1\nHornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2\nValiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1\n\n\n\nCompute the mean, median, SD, and IQR of mpg.\nDraw a histogram.\nDraw a box plot.\nDescribe the center, spread, and shape of the distribution.",
+    "crumbs": [
+      "Descriptive & Inferential Statistics",
+      "Descriptive Statistics"
+    ]
+  },
+  {
+    "objectID": "apr8025/descriptive-statistics.html#frequency-distributions-for-quantitative-data",
+    "href": "apr8025/descriptive-statistics.html#frequency-distributions-for-quantitative-data",
+    "title": "Descriptive Statistics",
+    "section": "5. Frequency Distributions for Quantitative Data",
+    "text": "5. Frequency Distributions for Quantitative Data\nFor a quantitative variable, observations can be grouped into numerical intervals.\nConsider the following parts-cost data.\n\ncost &lt;- c(\n  91, 78, 93, 57, 75, 52, 99, 80, 97, 62,\n  71, 69, 72, 89, 66, 75, 79, 75, 72, 76,\n  104, 74, 62, 68, 97, 105, 77, 65, 80, 109,\n  85, 97, 88, 68, 83, 68, 71, 69, 67, 74,\n  62, 82, 98, 101, 79, 105, 79, 69, 62, 73\n)\n\nWe can group the data into intervals.\n\ncost_group &lt;- cut(\n  cost,\n  breaks = seq(50, 110, by = 10),\n  right = FALSE\n)\n\ntable(cost_group)\n\ncost_group\n  [50,60)   [60,70)   [70,80)   [80,90)  [90,100) [100,110) \n        2        13        16         7         7         5",
+    "crumbs": [
+      "Descriptive & Inferential Statistics",
+      "Descriptive Statistics"
+    ]
+  },
+  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
@@ -58,31 +262,80 @@
     "text": "Contact & Links\n\nEmail: hyehyunma96@gmail.com, gogus8281@hanyang.ac.kr\nWebsite: https://hyehyunma.github.io\nORCID: https://orcid.org/0009-0009-9278-0289"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Courses in HYU",
+    "objectID": "apr3044/exploratory-data-analysis.html",
+    "href": "apr3044/exploratory-data-analysis.html",
+    "title": "Exploratory Data Analysis",
     "section": "",
-    "text": "This site provides course materials, lecture notes, and selected teaching resources for two courses I am teaching in Fall 2026 while Dr. Byoungkwan Lee is on sabbatical."
+    "text": "Class date: Sep 16, 2026",
+    "crumbs": [
+      "Data Analytics with R",
+      "Exploratory Data Analysis"
+    ]
   },
   {
-    "objectID": "index.html#apr3044-advanced-data-analytics",
-    "href": "index.html#apr3044-advanced-data-analytics",
-    "title": "Courses in HYU",
-    "section": "APR3044 Advanced Data Analytics",
-    "text": "APR3044 Advanced Data Analytics\nUndergraduate Course\nA practice-oriented course on data analytics, visualization, and AI agent workflows.\nMain topics\n\nIntroduction to R programming\nExploratory data analysis and basic visualization\nInteractive data visualization (R, Tableau and Plotly)\nBasic AI agents and agentic workflows\nRAG, context engineering, multi-agent systems, etc\n\n\nCourse materials →\nSyllabus PDF"
+    "objectID": "apr3044/exploratory-data-analysis.html#before-we-get-started",
+    "href": "apr3044/exploratory-data-analysis.html#before-we-get-started",
+    "title": "Exploratory Data Analysis",
+    "section": "Before We Get Started",
+    "text": "Before We Get Started",
+    "crumbs": [
+      "Data Analytics with R",
+      "Exploratory Data Analysis"
+    ]
   },
   {
-    "objectID": "index.html#apr8025-data-analytics",
-    "href": "index.html#apr8025-data-analytics",
-    "title": "Courses in HYU",
-    "section": "APR8025 Data Analytics",
-    "text": "APR8025 Data Analytics\nGraduate Course\nA graduate-level course on quantitative data analysis for social science research.\nMain topics\n\nIntroduction to R programming\nDescriptive statistics\nBasic of Inferential statistics\nt-tests and chi-squared tests\nANOVA, regression, and regression diagnostics\n\n\nCourse materials →\nSyllabus PDF"
+    "objectID": "apr3044/exploratory-data-analysis.html#learning-objectives",
+    "href": "apr3044/exploratory-data-analysis.html#learning-objectives",
+    "title": "Exploratory Data Analysis",
+    "section": "Learning objectives",
+    "text": "Learning objectives\nBy the end of this session, you should be able to:\n\ndistinguish numeric and categorical variables and identify the unit of observation in a dataset;\nperform a basic data audit before analysis;\nuse descriptive statistics and simple visual summaries to understand a dataset;\nidentify common data-quality problems, including missing values, duplicates, invalid codes, inconsistent categories, and unusual values;\nmake defensible preprocessing decisions rather than automatically deleting problematic observations;\ntransform dates, text, and categorical variables into analysis-ready formats;\nreshape and export a cleaned dataset that can be used for visualization in the next class.\n\n\n\n\n\n\n\nImportantMain idea\n\n\n\nDo not start by making a graph. Start by asking whether the data are trustworthy and whether each variable means what you think it means.\nA useful workflow is:\nQuestion → Audit → Clean → Explore → Reshape → Visualize → Communicate",
+    "crumbs": [
+      "Data Analytics with R",
+      "Exploratory Data Analysis"
+    ]
   },
   {
-    "objectID": "index.html#syllabus",
-    "href": "index.html#syllabus",
-    "title": "Courses in HYU",
-    "section": "Syllabus",
-    "text": "Syllabus\n\n\nAPR3044\n\n\n\n\n\n\nAPR8025"
+    "objectID": "apr3044/exploratory-data-analysis.html#numeric-variables",
+    "href": "apr3044/exploratory-data-analysis.html#numeric-variables",
+    "title": "Exploratory Data Analysis",
+    "section": "Numeric variables",
+    "text": "Numeric variables\nNumeric variables have values that describe a measurable quantity: how many or how much.\n\nContinuous numeric variable: observations can take values on a continuous scale, such as temperature, income, or distance.\nDiscrete numeric variable: observations represent counts, such as number of clicks, number of injuries, or number of purchases.",
+    "crumbs": [
+      "Data Analytics with R",
+      "Exploratory Data Analysis"
+    ]
+  },
+  {
+    "objectID": "apr3044/exploratory-data-analysis.html#categorical-variables",
+    "href": "apr3044/exploratory-data-analysis.html#categorical-variables",
+    "title": "Exploratory Data Analysis",
+    "section": "Categorical variables",
+    "text": "Categorical variables\nCategorical variables describe a characteristic or group membership: what type or which category.\n\nNominal variable: categories have no meaningful ordering, such as borough or vehicle type.\nOrdinal variable: categories can be logically ordered, such as satisfaction level or education level.\n\n\n\n\n\n\n\nTipNumbers are not always numeric variables\n\n\n\nA variable can be stored as numbers but still be categorical.\nFor example, if 1 = Seoul, 2 = Busan, and 3 = Incheon, the numbers are codes, not quantities. Computing their mean would not be meaningful.",
+    "crumbs": [
+      "Data Analytics with R",
+      "Exploratory Data Analysis"
+    ]
+  },
+  {
+    "objectID": "apr3044/exploratory-data-analysis.html#load-packages",
+    "href": "apr3044/exploratory-data-analysis.html#load-packages",
+    "title": "Exploratory Data Analysis",
+    "section": "5.1 Load packages",
+    "text": "5.1 Load packages\n\nlibrary(tidyverse) #install.packages(\"tidyverse\")\nlibrary(lubridate) #install.packages(\"lubridate\")",
+    "crumbs": [
+      "Data Analytics with R",
+      "Exploratory Data Analysis"
+    ]
+  },
+  {
+    "objectID": "apr3044/exploratory-data-analysis.html#download-a-reproducible-sample",
+    "href": "apr3044/exploratory-data-analysis.html#download-a-reproducible-sample",
+    "title": "Exploratory Data Analysis",
+    "section": "5.2 Download a reproducible sample",
+    "text": "5.2 Download a reproducible sample\nWe will request up to 5,000 collisions from January–March 2025. The code saves a local copy after the first download, so later renders do not depend on the internet connection.",
+    "crumbs": [
+      "Data Analytics with R",
+      "Exploratory Data Analysis"
+    ]
   }
 ]
