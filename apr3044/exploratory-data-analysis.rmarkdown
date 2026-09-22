@@ -941,3 +941,4 @@ Create a small table with three columns:
 |----|----|----|
 | Example: missing borough | Keep in master data | Other variables are still usable |
 | Example: `Unspecified` factor | Convert to NA | Represents unknown factor |
+

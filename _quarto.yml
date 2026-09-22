@@ -1,7 +1,7 @@
 
 project:
   type: website
-
+  
 website:
   title: "Courses in HYU"
   description: "Course materials and lecture notes for courses taught at Hanyang University."
@@ -194,5 +194,6 @@ execute:
   echo: true
   warning: false
   message: false
+  freeze: auto
 
 lang: en
