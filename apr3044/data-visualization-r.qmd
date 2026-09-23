@@ -221,7 +221,6 @@ ggplot(df, aes(x = borough, fill = borough)) +
 | **Two-Way Pattern** | What patterns appear across borough and time of day? | Categorical + categorical | Heatmap |
 | **Flow** | How do collisions flow across borough, time of day, and injury severity? | Multiple categorical variables | Alluvial plot |
 
-
 # One categorical variable: bar chart
 
 ## Question
@@ -315,7 +314,6 @@ ggplot(df, aes(x = crash_hour)) +
   theme_light()
 ```
 
-
 # Categorical + numeric: box plot
 
 ## Question
@@ -350,7 +348,7 @@ daily_time_counts <- df %>%
   filter(!is.na(crash_date), !is.na(time_of_day)) %>%
   count(crash_date, time_of_day, name = "collisions")
 
-daily_time_counts
+# daily_time_counts
 
 ggplot(daily_time_counts,
        aes(x = time_of_day, y = collisions,
@@ -445,7 +443,6 @@ ggplot(daily_summary, aes(x = collisions,
        colour = "Day Type") +
   theme_minimal()
 ```
-
 
 # Improving a chart: ask what the viewer needs
 
