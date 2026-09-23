@@ -18,7 +18,16 @@ Last week, we focused on making the data analysis-ready. Today, we use the clean
 
 > **Given a question and variable types, which chart should we choose, and how should we build it in R?**
 
-```{r, eval=FALSE, warning=FALSE}
+```{r}
+#| label: setup
+#| include: false
+
+library(dplyr)
+library(ggplot2)
+library(lubridate)
+```
+
+```{r, warning=FALSE}
 library(tidyverse)
 library(lubridate)
 library(ggplot2)
