@@ -164,7 +164,7 @@ ggplot(data, aes(x = ..., y = ...)) +
 ```
 
 | Component   | What does it do?                    | Example                    |
-|-------------------|------------------------------|-----------------------|
+|-------------|-------------------------------------|----------------------------|
 | `ggplot()`  | Selects the data                    | `ggplot(collisions_clean)` |
 | `aes()`     | Maps variables to visual properties | `aes(x = borough)`         |
 | `geom_*()`  | Determines what is drawn            | `geom_bar()`               |
@@ -212,7 +212,7 @@ ggplot(df, aes(x = borough, fill = borough)) +
 <small>Source: <https://biuwer.com/en/blog/how-to-choose-the-right-chart-for-your-data/></small>
 
 | Question Type | Example Question | Variable Types | Useful Chart |
-|------------------|------------------|------------------|------------------|
+|----|----|----|----|
 | **Comparison** | How many collisions occurred in each borough? | One categorical variable | Bar chart |
 | **Distribution** | How are injury counts distributed? | One numeric variable | Histogram |
 | **Group Comparison** | Do injury counts differ by time of day? | Categorical + numeric | Box plot |
