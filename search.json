@@ -1,5 +1,27 @@
 [
   {
+    "objectID": "apr3044/tableau.html",
+    "href": "apr3044/tableau.html",
+    "title": "Course Orientation",
+    "section": "",
+    "text": "Class date: Sep 30, 2026",
+    "crumbs": [
+      "Data Analytics with R",
+      "Interactive Data Visualization I: Tableau"
+    ]
+  },
+  {
+    "objectID": "apr3044/tableau.html#what-will-we-do-today-is..",
+    "href": "apr3044/tableau.html#what-will-we-do-today-is..",
+    "title": "Course Orientation",
+    "section": "What will we do today is..",
+    "text": "What will we do today is..\n\n\nlet’s get it started! https://www.tableau.com/products/desktop-free/download",
+    "crumbs": [
+      "Data Analytics with R",
+      "Interactive Data Visualization I: Tableau"
+    ]
+  },
+  {
     "objectID": "apr3044/introduction-r-data-preprocessing.html",
     "href": "apr3044/introduction-r-data-preprocessing.html",
     "title": "R Programming Basics",
