@@ -1,0 +1,611 @@
+---
+title: "Interactive Data Visualization II: Plotly"
+class-date: "Oct 7, 2026"
+toc: true
+---
+
+**Class date:** {{< meta class-date >}}
+
+## 1. Setup
+
+```{r}
+#| label: setup
+#| message: false
+#| warning: false
+ 
+# install.packages("plotly")
+library(tidyverse)
+library(plotly)
+library(lubridate)
+```
+
+## 2. Building a Plotly Chart
+
+```{r}
+data(iris)
+glimpse(iris)
+```
+
+### Step 1. Start with the data
+
+```{r}
+plot_ly(iris)
+```
+
+### Step 2. Map variables to the axes and choose a chart type
+
+```{r}
+plot_ly(
+  iris,
+  x = ~Sepal.Length,
+  y = ~Petal.Length,
+  type = "scatter"
+)
+```
+
+### Step 3. Add a display mode
+
+```{r}
+plot_ly(
+  iris,
+  x = ~Sepal.Length,
+  y = ~Petal.Length,
+  type = "scatter",
+  mode = "markers"
+)
+```
+
+For `type = "scatter"`:
+
+``` r
+mode = "markers"        # points
+mode = "lines"          # lines
+mode = "lines+markers"  # lines and points
+```
+
+### Step 4. Map a grouping variable to color
+
+```{r}
+plot_ly(
+  iris,
+  x = ~Sepal.Length,
+  y = ~Petal.Length,
+  color = ~Species,
+  type = "scatter",
+  mode = "markers"
+)
+```
+
+### Step 5. Add useful hover information
+
+```{r}
+plot_ly(
+  iris,
+  x = ~Sepal.Length,
+  y = ~Petal.Length,
+  color = ~Species,
+  type = "scatter",
+  mode = "markers",
+  text = ~paste0(
+    "Species: ", Species,
+    "<br>Sepal length: ", Sepal.Length,
+    "<br>Petal length: ", Petal.Length
+  ),
+  hoverinfo = "text"
+)
+```
+
+### Step 6. Refine the appearance
+
+```{r}
+plot_ly(
+  iris,
+  x = ~Sepal.Length,
+  y = ~Petal.Length,
+  color = ~Species,
+  type = "scatter",
+  mode = "markers",
+  text = ~paste0(
+    "Species: ", Species,
+    "<br>Sepal length: ", Sepal.Length,
+    "<br>Petal length: ", Petal.Length
+  ),
+  hoverinfo = "text",
+  marker = list(size = 9, opacity = .7)
+  ) %>%
+  layout(
+    title = "Sepal Length and Petal Length",
+    xaxis = list(title = "Sepal Length"),
+    yaxis = list(title = "Petal Length")
+  )
+```
+
+## 3. The Basic Structure of `plot_ly()`
+
+``` r
+plot_ly(
+  data = ...,
+  x = ~...,
+  y = ~...,
+  color = ~...,
+  type = "...",
+  mode = "..."
+) %>%
+  layout(...)
+```
+
+| Component           | Role                                           |
+|---------------------|------------------------------------------------|
+| `data`              | Which dataset?                                 |
+| `x`, `y`            | Which variables?                               |
+| `type`              | Which chart family?                            |
+| `mode`              | How should observations be displayed?          |
+| `color`, `size`     | How should additional variables be encoded?    |
+| `text`, `hoverinfo` | What should appear on hover?                   |
+| `layout()`          | Titles, axes, legend, and overall presentation |
+
+### Common Plotly chart types
+
+| `type`        | Chart                     |
+|---------------|---------------------------|
+| `"scatter"`   | Scatterplot or line chart |
+| `"bar"`       | Bar chart                 |
+| `"box"`       | Box plot                  |
+| `"violin"`    | Violin plot               |
+| `"histogram"` | Histogram                 |
+| `"pie"`       | Pie or donut chart        |
+| `"heatmap"`   | Heatmap                   |
+| `"contour"`   | Contour plot              |
+| `"surface"`   | 3D surface plot           |
+| `"scatter3d"` | 3D scatterplot            |
+
+## 4. Practice with `state.x77`
+
+```{r}
+states <- as.data.frame(state.x77) %>%
+  rownames_to_column("State")
+
+glimpse(states)
+
+states <- states %>%
+  rename(Life.Exp = `Life Exp`)
+```
+
+### Interactive scatterplot
+
+```{r}
+plot_ly(
+  data = states,
+  x = ~Income,
+  y = ~Life.Exp,
+  type = "scatter",
+  mode = "markers",
+  text = ~paste0(
+    "State: ", State,
+    "<br>Income: ", Income,
+    "<br>Life expectancy: ", round(Life.Exp, 1)
+  ),
+  hoverinfo = "text",
+  marker = list(size = 10, opacity = .7)
+) %>%
+  layout(
+    title = "Income and Life Expectancy across U.S. States",
+    xaxis = list(title = "Income"),
+    yaxis = list(title = "Life Expectancy")
+  )
+```
+
+### Add a third numeric variable using marker size
+
+```{r}
+plot_ly(
+  data = states,
+  x = ~Income,
+  y = ~Life.Exp,
+  size = ~Population,
+  sizes = c(8, 30),
+  type = "scatter",
+  mode = "markers",
+  text = ~paste0(
+    "State: ", State,
+    "<br>Income: ", Income,
+    "<br>Life expectancy: ", round(Life.Exp, 1),
+    "<br>Population: ", Population
+  ),
+  hoverinfo = "text"
+) %>%
+  layout(
+    title = "Income, Life Expectancy, and Population",
+    xaxis = list(title = "Income"),
+    yaxis = list(title = "Life Expectancy")
+  )
+```
+
+## 5. Practice with `airquality`
+
+```{r}
+data(airquality)
+glimpse(airquality)
+
+air_plot <- airquality %>%
+  mutate(Month = factor(Month,
+                        levels = 5:9,
+                        labels = c("May", "June", "July", 
+                                   "August", "September")))
+head(air_plot$Month)
+```
+
+### Interactive Box Plot
+
+```{r}
+plot_ly(
+  data = air_plot,
+  x = ~Month,
+  y = ~Temp,
+  color = ~Month,
+  type = "box",
+  boxpoints = "outliers"
+  ) %>%
+  layout(title = "Temperature Distribution by Month",
+         xaxis = list(title = ""),
+         yaxis = list(title = "Temperature (°F)"),
+         showlegend = FALSE)
+```
+
+## 5. Load the cleaned data (NYC Collision)
+
+```{r}
+df <- read_csv("data/nyc_collisions_clean.csv")
+glimpse(df)
+```
+
+## Interactive Box Plot
+
+Box plots can also be interactive.
+
+Here, we use the built-in `airquality` dataset.
+
+```{}
+```
+
+## 6. Interactive Bar Chart
+
+```{r}
+borough_counts <- df %>%
+  filter(!is.na(borough), borough != "") %>%
+  count(borough)
+```
+
+```{r}
+plot_ly(
+  data = borough_counts,
+  x = ~borough,
+  y = ~n,
+  type = "bar",
+  text = ~paste0(
+    "Borough: ", borough,
+    "<br>Collisions: ", scales::comma(n)
+  ),
+  hoverinfo = "text"
+) %>%
+  layout(
+    title = "Motor Vehicle Collisions by Borough",
+    xaxis = list(title = ""),
+    yaxis = list(title = "Number of Collisions")
+  )
+```
+
+> Does hovering add meaningful information here, or is the bar chart already easy to read?
+
+------------------------------------------------------------------------
+
+## 7. Interactive Heatmap
+
+A heatmap is useful for comparing patterns across two categorical dimensions.
+
+```{r}
+heatmap_data <- df %>%
+  filter(
+    !is.na(borough),
+    borough != "",
+    !is.na(time_of_day)
+  ) %>%
+  count(borough, time_of_day)
+```
+
+```{r}
+plot_ly(
+  data = heatmap_data,
+  x = ~borough,
+  y = ~time_of_day,
+  z = ~n,
+  type = "heatmap",
+  text = ~paste0(
+    "Borough: ", borough,
+    "<br>Time of day: ", time_of_day,
+    "<br>Collisions: ", scales::comma(n)
+  ),
+  hoverinfo = "text"
+) %>%
+  layout(
+    title = "Collision Frequency by Borough and Time of Day",
+    xaxis = list(title = "Borough"),
+    yaxis = list(title = "Time of Day")
+  )
+```
+
+> Higher collision counts may partly reflect differences in population, traffic volume, or road exposure across boroughs.
+
+------------------------------------------------------------------------
+
+## 8. Interactive Scatterplot
+
+First, summarize the data by day.
+
+```{r}
+daily_summary <- df %>%
+  filter(
+    !is.na(crash_date),
+    !is.na(injured)
+  ) %>%
+  group_by(crash_date) %>%
+  summarise(
+    collisions = n(),
+    total_injured = sum(injured, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    weekday = wday(
+      crash_date,
+      label = TRUE,
+      abbr = FALSE,
+      week_start = 1
+    ),
+    day_type = if_else(
+      weekday %in% c("Saturday", "Sunday"),
+      "Weekend",
+      "Weekday"
+    )
+  )
+```
+
+```{r}
+plot_ly(
+  data = daily_summary,
+  x = ~collisions,
+  y = ~total_injured,
+  color = ~day_type,
+  type = "scatter",
+  mode = "markers",
+  text = ~paste0(
+    "Date: ", crash_date,
+    "<br>Collisions: ", collisions,
+    "<br>Injured: ", total_injured,
+    "<br>Day type: ", day_type
+  ),
+  hoverinfo = "text",
+  marker = list(
+    size = 8,
+    opacity = 0.6
+  )
+) %>%
+  layout(
+    title = "Daily Collision Volume and Injuries",
+    xaxis = list(title = "Number of Collisions"),
+    yaxis = list(title = "Number of Persons Injured"),
+    legend = list(title = list(text = "Day Type"))
+  )
+```
+
+> Do days with more collisions tend to have more injured persons?
+
+------------------------------------------------------------------------
+
+## 9. Interactive Time Series
+
+```{r}
+daily_collisions <- df %>%
+  filter(!is.na(crash_date)) %>%
+  count(crash_date, name = "n")
+```
+
+```{r}
+plot_ly(
+  data = daily_collisions,
+  x = ~crash_date,
+  y = ~n,
+  type = "scatter",
+  mode = "lines",
+  text = ~paste0(
+    "Date: ", crash_date,
+    "<br>Collisions: ", n
+  ),
+  hoverinfo = "text"
+) %>%
+  layout(
+    title = "Daily Motor Vehicle Collisions",
+    xaxis = list(title = ""),
+    yaxis = list(title = "Number of Collisions")
+  )
+```
+
+Try zooming into a shorter time period.
+
+------------------------------------------------------------------------
+
+## 10. Animated Bubble Chart
+
+Animation can be useful when several dimensions change together over time.
+
+```{r}
+monthly_borough <- df %>%
+  filter(
+    !is.na(crash_date),
+    !is.na(borough),
+    borough != "",
+    !is.na(injured)
+  ) %>%
+  mutate(
+    crash_date = ymd(crash_date),
+    month = floor_date(crash_date, "month")
+  ) %>%
+  group_by(month, borough) %>%
+  summarise(
+    collisions = n(),
+    total_injured = sum(injured, na.rm = TRUE),
+    severe_collisions = sum(severe_collision, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    injured_per_100 = total_injured / collisions * 100,
+    month_label = format(month, "%Y-%m")
+  )
+```
+
+```{r}
+plot_ly(
+  data = monthly_borough,
+  x = ~collisions,
+  y = ~injured_per_100,
+  size = ~total_injured,
+  sizes = c(20, 80),
+  color = ~borough,
+  frame = ~month_label,
+  text = ~paste0(
+    "Borough: ", borough,
+    "<br>Month: ", month_label,
+    "<br>Collisions: ", scales::comma(collisions),
+    "<br>Injured per 100 collisions: ", round(injured_per_100, 1),
+    "<br>Total injured: ", scales::comma(total_injured)
+  ),
+  hoverinfo = "text",
+  type = "scatter",
+  mode = "markers",
+  marker = list(
+    opacity = 0.75,
+    line = list(width = 1, color = "white")
+  )
+) %>%
+  layout(
+    title = "How Collision Patterns Change over Time",
+    xaxis = list(
+      title = "Number of Collisions",
+      type = "log"
+    ),
+    yaxis = list(
+      title = "Persons Injured per 100 Collisions",
+      range = c(0, 40)
+    ),
+    legend = list(
+      title = list(text = "Borough")
+    )
+  ) %>%
+  animation_opts(
+    frame = 200,
+    transition = 100,
+    redraw = FALSE
+  ) %>%
+  animation_slider(
+    currentvalue = list(
+      prefix = "Month: "
+    )
+  )
+```
+
+This figure encodes several dimensions at once:
+
+- x position → collision volume
+- y position → injury rate
+- color → borough
+- bubble size → total injured
+- animation → time
+
+------------------------------------------------------------------------
+
+## 11. Static or Interactive?
+
+| Static chart                 | Interactive chart                    |
+|------------------------------|--------------------------------------|
+| Fast to read                 | Allows exploration                   |
+| Easy to print                | Provides details on demand           |
+| Good for one clear message   | Useful for many observations         |
+| Useful in reports and papers | Useful in dashboards and web reports |
+| Author controls the view     | User can change the view             |
+
+> Use interactivity when users benefit from **hovering, exploring, filtering, zooming, or requesting details**.
+
+Do not add interaction simply because it is available.
+
+------------------------------------------------------------------------
+
+## 12. Mini Practice
+
+Choose **one** of the following.
+
+### Option A: `iris`
+
+Create an interactive plot that examines the relationship between two flower measurements.
+
+Requirements:
+
+- choose two numeric variables;
+- use `Species` as color;
+- add useful hover information;
+- add a title and axis labels.
+
+### Option B: `state.x77`
+
+Create an interactive plot using two numeric variables of your choice.
+
+Requirements:
+
+- identify each state in the hover text;
+- use an appropriate chart type;
+- add a title and axis labels.
+
+### Option C: NYC collisions
+
+Create one interactive visualization that answers a question about collision patterns.
+
+Possible questions:
+
+- How do collision counts differ across boroughs?
+- How does collision frequency change over time?
+- Are days with more collisions associated with more injuries?
+- Do collision patterns differ between weekdays and weekends?
+
+------------------------------------------------------------------------
+
+## 13. Wrap-up
+
+Today we focused on direct Plotly syntax:
+
+``` r
+plot_ly(
+  data = ...,
+  x = ~...,
+  y = ~...,
+  type = ...
+)
+```
+
+Common additions include:
+
+``` r
+color = ~group
+text = ~...
+hoverinfo = "text"
+mode = "markers"
+```
+
+> **The main lesson is not the syntax.**\
+> Interactivity should make the visualization easier to explore or understand.
+
+Before adding interaction, ask:
+
+1.  What question am I answering?
+2.  What chart type fits the variables?
+3.  What additional information should appear on demand?
+4.  Does interaction make the chart easier to understand?
+
+> **Interactivity is not the goal; better understanding is.**

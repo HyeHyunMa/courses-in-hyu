@@ -1,5 +1,5 @@
 ---
-title: "Course Orientation"
+title: "Interactive Data Visualization I: Tableau"
 toc: false
 class-date: "Sep 30, 2026"
 ---
@@ -12,4 +12,6 @@ class-date: "Sep 30, 2026"
 
 </iframe>
 
-[let's get it started! https://www.tableau.com/products/desktop-free/download](https://www.tableau.com/products/desktop-free/download)
+let's get it started!
+
+<https://www.tableau.com/products/desktop-free/download>
