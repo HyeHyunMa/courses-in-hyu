@@ -2,7 +2,7 @@
   {
     "objectID": "apr3044/tableau.html",
     "href": "apr3044/tableau.html",
-    "title": "Course Orientation",
+    "title": "Interactive Data Visualization I: Tableau",
     "section": "",
     "text": "Class date: Sep 30, 2026",
     "crumbs": [
@@ -13,9 +13,9 @@
   {
     "objectID": "apr3044/tableau.html#what-will-we-do-today-is..",
     "href": "apr3044/tableau.html#what-will-we-do-today-is..",
-    "title": "Course Orientation",
+    "title": "Interactive Data Visualization I: Tableau",
     "section": "What will we do today is..",
-    "text": "What will we do today is..\n\n\nlet’s get it started! https://www.tableau.com/products/desktop-free/download",
+    "text": "What will we do today is..\n\n\nlet’s get it started!\nhttps://www.tableau.com/products/desktop-free/download",
     "crumbs": [
       "Data Analytics with R",
       "Interactive Data Visualization I: Tableau"
@@ -63,6 +63,94 @@
     "crumbs": [
       "Data Analytics with R",
       "Introduction to R"
+    ]
+  },
+  {
+    "objectID": "apr3044/plotly.html",
+    "href": "apr3044/plotly.html",
+    "title": "Interactive Data Visualization II: Plotly",
+    "section": "",
+    "text": "Class date: Oct 7, 2026",
+    "crumbs": [
+      "Data Analytics with R",
+      "Interactive Data Visualization II: Plotly"
+    ]
+  },
+  {
+    "objectID": "apr3044/plotly.html#setup",
+    "href": "apr3044/plotly.html#setup",
+    "title": "Interactive Data Visualization II: Plotly",
+    "section": "1. Setup",
+    "text": "1. Setup\n\n# install.packages(\"plotly\")\nlibrary(tidyverse)\nlibrary(plotly)\nlibrary(lubridate)\nlibrary(dplyr)",
+    "crumbs": [
+      "Data Analytics with R",
+      "Interactive Data Visualization II: Plotly"
+    ]
+  },
+  {
+    "objectID": "apr3044/plotly.html#building-a-plotly-chart",
+    "href": "apr3044/plotly.html#building-a-plotly-chart",
+    "title": "Interactive Data Visualization II: Plotly",
+    "section": "2. Building a Plotly Chart",
+    "text": "2. Building a Plotly Chart\n\ndata(iris)\nglimpse(iris)\n\nRows: 150\nColumns: 5\n$ Sepal.Length &lt;dbl&gt; 5.1, 4.9, 4.7, 4.6, 5.0, 5.4, 4.6, 5.0, 4.4, 4.9, 5.4, 4.…\n$ Sepal.Width  &lt;dbl&gt; 3.5, 3.0, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, 3.1, 3.7, 3.…\n$ Petal.Length &lt;dbl&gt; 1.4, 1.4, 1.3, 1.5, 1.4, 1.7, 1.4, 1.5, 1.4, 1.5, 1.5, 1.…\n$ Petal.Width  &lt;dbl&gt; 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.…\n$ Species      &lt;fct&gt; setosa, setosa, setosa, setosa, setosa, setosa, setosa, s…\n\n\n\nStep 1. Start with the data\n\nplot_ly(iris)\n\n\n\n\n\n\n\nStep 2. Map variables to the axes and choose a chart type\n\nplot_ly(\n  iris,\n  x = ~Sepal.Length,\n  y = ~Petal.Length,\n  type = \"scatter\"\n)\n\n\n\n\n\n\n\nStep 3. Add a display mode\n\nplot_ly(\n  iris,\n  x = ~Sepal.Length,\n  y = ~Petal.Length,\n  type = \"scatter\",\n  mode = \"markers\"\n)\n\n\n\n\n\nFor type = \"scatter\":\nmode = \"markers\"        # points\nmode = \"lines\"          # lines\nmode = \"lines+markers\"  # lines and points\n\n\nStep 4. Map a grouping variable to color\n\nplot_ly(\n  iris,\n  x = ~Sepal.Length,\n  y = ~Petal.Length,\n  color = ~Species,\n  type = \"scatter\",\n  mode = \"markers\"\n)\n\n\n\n\n\n\n\nStep 5. Add useful hover information\n\nplot_ly(\n  iris,\n  x = ~Sepal.Length,\n  y = ~Petal.Length,\n  color = ~Species,\n  type = \"scatter\",\n  mode = \"markers\",\n  text = ~paste0(\n    \"Species: \", Species,\n    \"&lt;br&gt;Sepal length: \", Sepal.Length,\n    \"&lt;br&gt;Petal length: \", Petal.Length\n  ),\n  hoverinfo = \"text\"\n)\n\n\n\n\n\n\n\nStep 6. Refine the appearance\n\nplot_ly(\n  iris,\n  x = ~Sepal.Length,\n  y = ~Petal.Length,\n  color = ~Species,\n  type = \"scatter\",\n  mode = \"markers\",\n  text = ~paste0(\n    \"Species: \", Species,\n    \"&lt;br&gt;Sepal length: \", Sepal.Length,\n    \"&lt;br&gt;Petal length: \", Petal.Length\n  ),\n  hoverinfo = \"text\",\n  marker = list(size = 9, opacity = .7)\n  ) %&gt;%\n  layout(\n    title = \"Sepal Length and Petal Length\",\n    xaxis = list(title = \"Sepal Length\"),\n    yaxis = list(title = \"Petal Length\")\n  )",
+    "crumbs": [
+      "Data Analytics with R",
+      "Interactive Data Visualization II: Plotly"
+    ]
+  },
+  {
+    "objectID": "apr3044/plotly.html#the-basic-structure-of-plot_ly",
+    "href": "apr3044/plotly.html#the-basic-structure-of-plot_ly",
+    "title": "Interactive Data Visualization II: Plotly",
+    "section": "3. The Basic Structure of plot_ly()",
+    "text": "3. The Basic Structure of plot_ly()\nplot_ly(\n  data = ...,\n  x = ~...,\n  y = ~...,\n  color = ~...,\n  type = \"...\",\n  mode = \"...\"\n) %&gt;%\n  layout(...)\n\n\n\nComponent\nRole\n\n\n\n\ndata\nWhich dataset?\n\n\nx, y\nWhich variables?\n\n\ntype\nWhich chart family?\n\n\nmode\nHow should observations be displayed?\n\n\ncolor, size\nHow should additional variables be encoded?\n\n\ntext, hoverinfo\nWhat should appear on hover?\n\n\nlayout()\nTitles, axes, legend, and overall presentation\n\n\n\n\nCommon Plotly chart types\n\n\n\ntype\nChart\n\n\n\n\n\"scatter\"\nScatterplot or line chart\n\n\n\"bar\"\nBar chart\n\n\n\"box\"\nBox plot\n\n\n\"violin\"\nViolin plot\n\n\n\"histogram\"\nHistogram\n\n\n\"pie\"\nPie or donut chart\n\n\n\"heatmap\"\nHeatmap\n\n\n\"contour\"\nContour plot\n\n\n\"surface\"\n3D surface plot\n\n\n\"scatter3d\"\n3D scatterplot",
+    "crumbs": [
+      "Data Analytics with R",
+      "Interactive Data Visualization II: Plotly"
+    ]
+  },
+  {
+    "objectID": "apr3044/plotly.html#practice-with-state.x77",
+    "href": "apr3044/plotly.html#practice-with-state.x77",
+    "title": "Interactive Data Visualization II: Plotly",
+    "section": "4. Practice with state.x77",
+    "text": "4. Practice with state.x77\n\nstates &lt;- as.data.frame(state.x77) %&gt;%\n  rownames_to_column(\"State\")\n\nglimpse(states)\n\nRows: 50\nColumns: 9\n$ State      &lt;chr&gt; \"Alabama\", \"Alaska\", \"Arizona\", \"Arkansas\", \"California\", \"…\n$ Population &lt;dbl&gt; 3615, 365, 2212, 2110, 21198, 2541, 3100, 579, 8277, 4931, …\n$ Income     &lt;dbl&gt; 3624, 6315, 4530, 3378, 5114, 4884, 5348, 4809, 4815, 4091,…\n$ Illiteracy &lt;dbl&gt; 2.1, 1.5, 1.8, 1.9, 1.1, 0.7, 1.1, 0.9, 1.3, 2.0, 1.9, 0.6,…\n$ `Life Exp` &lt;dbl&gt; 69.05, 69.31, 70.55, 70.66, 71.71, 72.06, 72.48, 70.06, 70.…\n$ Murder     &lt;dbl&gt; 15.1, 11.3, 7.8, 10.1, 10.3, 6.8, 3.1, 6.2, 10.7, 13.9, 6.2…\n$ `HS Grad`  &lt;dbl&gt; 41.3, 66.7, 58.1, 39.9, 62.6, 63.9, 56.0, 54.6, 52.6, 40.6,…\n$ Frost      &lt;dbl&gt; 20, 152, 15, 65, 20, 166, 139, 103, 11, 60, 0, 126, 127, 12…\n$ Area       &lt;dbl&gt; 50708, 566432, 113417, 51945, 156361, 103766, 4862, 1982, 5…\n\nstates &lt;- states %&gt;%\n  rename(Life.Exp = `Life Exp`)\n\n\nInteractive Scatterplot\n\nplot_ly(\n  data = states,\n  x = ~Income,\n  y = ~Life.Exp,\n  type = \"scatter\",\n  mode = \"markers\",\n  text = ~paste0(\n    \"State: \", State,\n    \"&lt;br&gt;Income: \", Income,\n    \"&lt;br&gt;Life expectancy: \", round(Life.Exp, 1)\n  ),\n  hoverinfo = \"text\",\n  marker = list(size = 10, opacity = .7)\n) %&gt;%\n  layout(\n    title = \"Income and Life Expectancy across U.S. States\",\n    xaxis = list(title = \"Income\"),\n    yaxis = list(title = \"Life Expectancy\")\n  )\n\n\n\n\n\n\n\nAdd a third numeric variable using marker size\n\nplot_ly(\n  data = states,\n  x = ~Income,\n  y = ~Life.Exp,\n  size = ~Population,\n  sizes = c(8, 30),\n  type = \"scatter\",\n  mode = \"markers\",\n  text = ~paste0(\n    \"State: \", State,\n    \"&lt;br&gt;Income: \", Income,\n    \"&lt;br&gt;Life expectancy: \", round(Life.Exp, 1),\n    \"&lt;br&gt;Population: \", Population\n  ),\n  hoverinfo = \"text\"\n) %&gt;%\n  layout(\n    title = \"Income, Life Expectancy, and Population\",\n    xaxis = list(title = \"Income\"),\n    yaxis = list(title = \"Life Expectancy\")\n  )",
+    "crumbs": [
+      "Data Analytics with R",
+      "Interactive Data Visualization II: Plotly"
+    ]
+  },
+  {
+    "objectID": "apr3044/plotly.html#practice-with-airquality",
+    "href": "apr3044/plotly.html#practice-with-airquality",
+    "title": "Interactive Data Visualization II: Plotly",
+    "section": "5. Practice with airquality",
+    "text": "5. Practice with airquality\n\ndata(airquality)\nglimpse(airquality)\n\nRows: 153\nColumns: 6\n$ Ozone   &lt;int&gt; 41, 36, 12, 18, NA, 28, 23, 19, 8, NA, 7, 16, 11, 14, 18, 14, …\n$ Solar.R &lt;int&gt; 190, 118, 149, 313, NA, NA, 299, 99, 19, 194, NA, 256, 290, 27…\n$ Wind    &lt;dbl&gt; 7.4, 8.0, 12.6, 11.5, 14.3, 14.9, 8.6, 13.8, 20.1, 8.6, 6.9, 9…\n$ Temp    &lt;int&gt; 67, 72, 74, 62, 56, 66, 65, 59, 61, 69, 74, 69, 66, 68, 58, 64…\n$ Month   &lt;int&gt; 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,…\n$ Day     &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,…\n\nair_plot &lt;- airquality %&gt;%\n  mutate(Month = factor(Month,\n                        levels = 5:9,\n                        labels = c(\"May\", \"June\", \"July\", \n                                   \"August\", \"September\")))\nhead(air_plot$Month)\n\n[1] May May May May May May\nLevels: May June July August September\n\n\n\nInteractive Box Plot\n\nplot_ly(\n  data = air_plot,\n  x = ~Month,\n  y = ~Temp,\n  color = ~Month,\n  type = \"box\",\n  boxpoints = \"outliers\"\n  ) %&gt;%\n  layout(title = \"Temperature Distribution by Month\",\n         xaxis = list(title = \"\"),\n         yaxis = list(title = \"Temperature (°F)\"),\n         showlegend = FALSE)",
+    "crumbs": [
+      "Data Analytics with R",
+      "Interactive Data Visualization II: Plotly"
+    ]
+  },
+  {
+    "objectID": "apr3044/plotly.html#load-the-cleaned-data-nyc-collision",
+    "href": "apr3044/plotly.html#load-the-cleaned-data-nyc-collision",
+    "title": "Interactive Data Visualization II: Plotly",
+    "section": "6. Load the cleaned data (NYC Collision)",
+    "text": "6. Load the cleaned data (NYC Collision)\n\ndf &lt;- read_csv(\"data/nyc_collisions_2025_q1_clean.csv\")\nglimpse(df)\n\nRows: 2,269,187\nColumns: 19\n$ collision_id        &lt;dbl&gt; 4455765, 4513547, 4675373, 4541903, 4566131, 46237…\n$ crash_date          &lt;date&gt; 2021-09-11, 2022-03-26, 2023-11-01, 2022-06-29, 2…\n$ crash_time          &lt;time&gt; 02:39:00, 11:45:00, 01:29:00, 06:55:00, 13:21:00,…\n$ borough             &lt;chr&gt; NA, NA, \"BROOKLYN\", NA, NA, NA, NA, NA, NA, \"BROOK…\n$ zip_code            &lt;dbl&gt; NA, NA, 11230, NA, NA, NA, NA, NA, NA, 11208, 1123…\n$ latitude            &lt;dbl&gt; NA, NA, 40.62179, NA, NA, NA, NA, NA, NA, 40.66720…\n$ longitude           &lt;dbl&gt; NA, NA, -73.97002, NA, NA, NA, NA, NA, NA, -73.866…\n$ on_street_name      &lt;chr&gt; \"WHITESTONE EXPRESSWAY\", \"QUEENSBORO BRIDGE UPPER\"…\n$ injured             &lt;dbl&gt; 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0,…\n$ killed              &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…\n$ contributing_factor &lt;chr&gt; \"Aggressive Driving/Road Rage\", \"Pavement Slippery…\n$ vehicle_type        &lt;chr&gt; \"Sedan\", \"Sedan\", \"Moped\", \"Sedan\", \"Station Wagon…\n$ crash_time_parsed   &lt;chr&gt; \"2H 39M 0S\", \"11H 45M 0S\", \"1H 29M 0S\", \"6H 55M 0S…\n$ crash_hour          &lt;dbl&gt; 2, 11, 1, 6, 13, 13, 7, 8, 22, 9, 8, 12, 17, 8, 21…\n$ crash_weekday       &lt;chr&gt; \"Saturday\", \"Saturday\", \"Wednesday\", \"Wednesday\", …\n$ vehicle_group       &lt;chr&gt; \"Sedan\", \"Sedan\", \"Other\", \"Sedan\", \"SUV / Station…\n$ borough_display     &lt;chr&gt; NA, NA, \"BROOKLYN\", NA, NA, NA, NA, NA, NA, \"BROOK…\n$ severe_collision    &lt;lgl&gt; TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALS…\n$ time_of_day         &lt;chr&gt; \"Night\", \"Morning\", \"Night\", \"Morning\", \"Afternoon…\n\n\n\nInteractive Bar Chart\n\nborough_counts &lt;- df %&gt;%\n  filter(!is.na(borough), borough != \"\") %&gt;%\n  count(borough)\n\n\nplot_ly(\n  data = borough_counts,\n  x = ~borough,\n  y = ~n,\n  type = \"bar\",\n  text = ~paste0(\n    \"Borough: \", borough,\n    \"&lt;br&gt;Collisions: \", scales::comma(n)\n  ),\n  hoverinfo = \"text\"\n) %&gt;%\n  layout(\n    title = \"Motor Vehicle Collisions by Borough\",\n    xaxis = list(title = \"\"),\n    yaxis = list(title = \"Number of Collisions\")\n  )\n\n\n\n\n\n\n\nInteractive Heatmap\n\nheatmap_data &lt;- df %&gt;%\n  filter(!is.na(borough), borough != \"\", !is.na(time_of_day)) %&gt;%\n  count(borough, time_of_day)\n\n\nplot_ly(\n  data = heatmap_data,\n  x = ~borough,\n  y = ~time_of_day,\n  z = ~n,\n  type = \"heatmap\",\n  text = ~paste0(\n    \"Borough: \", borough,\n    \"&lt;br&gt;Time of day: \", time_of_day,\n    \"&lt;br&gt;Collisions: \", scales::comma(n)\n  ),\n  hoverinfo = \"text\"\n) %&gt;%\n  layout(\n    title = \"Collision Frequency by Borough and Time of Day\",\n    xaxis = list(title = \"Borough\"),\n    yaxis = list(title = \"Time of Day\")\n  )\n\n\n\n\n\n\nplot_ly(\n  data = heatmap_data,\n  x = ~borough,\n  y = ~time_of_day,\n  z = ~n,\n  type = \"heatmap\",\n  colorscale = \"Blues\",\n  colorbar = list(title = \"Collisions\"),\n  text = ~paste0(\n    \"Borough: \", borough,\n    \"&lt;br&gt;Time of day: \", time_of_day,\n    \"&lt;br&gt;Collisions: \", scales::comma(n)\n  ),\n  hoverinfo = \"text\"\n) %&gt;%\n  layout(\n    title = \"Collision Frequency by Borough and Time of Day\",\n    xaxis = list(title = \"Borough\"),\n    yaxis = list(title = \"Time of Day\")\n  )\n\n\n\n\n# colorscale = \"Viridis\"\n# colorscale = \"Plasma\"\n# colorscale = \"Cividis\"\n# colorscale = \"Blues\"\n# colorscale = \"Greens\"\n# colorscale = \"Reds\"\n# colorscale = \"YlOrRd\"\n\n\n\nInteractive Scatterplot\n\ndaily_summary &lt;- df %&gt;%\n  filter(!is.na(crash_date), !is.na(injured)) %&gt;%\n  group_by(crash_date) %&gt;%\n  summarise(collisions = n(),\n            total_injured = sum(injured, na.rm = TRUE),\n            .groups = \"drop\") %&gt;%\n  mutate(weekday = wday(crash_date,\n                        label = TRUE, abbr = FALSE, week_start = 1),\n         day_type = if_else(weekday %in% c(\"Saturday\", \"Sunday\"),\n                            \"Weekend\", \"Weekday\"))\n\n\nplot_ly(\n  data = daily_summary,\n  x = ~collisions,\n  y = ~total_injured,\n  color = ~day_type,\n  type = \"scatter\",\n  mode = \"markers\",\n  text = ~paste0(\n    \"Date: \", crash_date,\n    \"&lt;br&gt;Collisions: \", collisions,\n    \"&lt;br&gt;Injured: \", total_injured,\n    \"&lt;br&gt;Day type: \", day_type\n  ),\n  hoverinfo = \"text\",\n  marker = list(size = 8, opacity = .7)\n  ) %&gt;%\n  layout(\n    title = \"Daily Collision Volume and Injuries\",\n    xaxis = list(title = \"Number of Collisions\"),\n    yaxis = list(title = \"Number of Persons Injured\"),\n    legend = list(title = list(text = \"Day Type\"))\n  )\n\n\n\n\n\n\n\nInteractive Time Series\n\ndaily_collisions &lt;- df %&gt;%\n  filter(!is.na(crash_date)) %&gt;%\n  count(crash_date, name = \"n\")\n\n\nplot_ly(\n  data = daily_collisions,\n  x = ~crash_date,\n  y = ~n,\n  type = \"scatter\",\n  mode = \"lines\",\n  text = ~paste0(\n    \"Date: \", crash_date,\n    \"&lt;br&gt;Collisions: \", n\n  ),\n  hoverinfo = \"text\"\n) %&gt;%\n  layout(\n    title = \"Daily Motor Vehicle Collisions\",\n    xaxis = list(title = \"\"),\n    yaxis = list(title = \"Number of Collisions\")\n  )\n\n\n\n\n\n\ndaily_collisions &lt;- df %&gt;%\n  filter(!is.na(crash_date)) %&gt;%\n  count(crash_date, name = \"n\") %&gt;%\n  mutate(weekday = wday(crash_date,\n                        label = TRUE, abbr = FALSE, week_start = 1),\n         day_type = if_else(weekday %in% c(\"Saturday\", \"Sunday\"),\n                            \"Weekend\", \"Weekday\"))\n\n\nplot_ly(\n  data = daily_collisions,\n  x = ~crash_date,\n  y = ~n,\n  color = ~day_type,\n  type = \"scatter\",\n  mode = \"lines\",\n  text = ~paste0(\n    \"Date: \", crash_date,\n    \"&lt;br&gt;Collisions: \", n\n  ),\n  hoverinfo = \"text\"\n) %&gt;%\n  layout(\n    title = \"Daily Motor Vehicle Collisions\",\n    xaxis = list(title = \"\"),\n    yaxis = list(title = \"Number of Collisions\")\n  )\n\n\n\n\n\n\n\nAnimated Bubble Chart\n\nmonthly_borough &lt;- df %&gt;%\n  filter(!is.na(crash_date), !is.na(borough), borough != \"\", !is.na(injured)) %&gt;%\n  mutate(crash_date = ymd(crash_date),\n         month = floor_date(crash_date, \"month\")) %&gt;%\n  group_by(month, borough) %&gt;%\n  summarise(\n    collisions = n(),\n    total_injured = sum(injured, na.rm = TRUE),\n    severe_collisions = sum(severe_collision, na.rm = TRUE),\n    .groups = \"drop\"\n  ) %&gt;%\n  mutate(injured_per_100 = total_injured / collisions * 100,\n         month_label = format(month, \"%Y-%m\"))\n\n\nplot_ly(\n  data = monthly_borough,\n  x = ~collisions,\n  y = ~injured_per_100,\n  size = ~total_injured,\n  sizes = c(20, 80),\n  color = ~borough,\n  frame = ~month_label,\n  text = ~paste0(\n    \"Borough: \", borough,\n    \"&lt;br&gt;Month: \", month_label,\n    \"&lt;br&gt;Collisions: \", scales::comma(collisions),\n    \"&lt;br&gt;Injured per 100 collisions: \", round(injured_per_100, 1),\n    \"&lt;br&gt;Total injured: \", scales::comma(total_injured)\n  ),\n  hoverinfo = \"text\",\n  type = \"scatter\",\n  mode = \"markers\",\n  marker = list(opacity = .75, \n                line = list(width = 1, color = \"white\"))\n) %&gt;%\n  layout(\n    title = \"How Collision Patterns Change over Time\",\n    xaxis = list(title = \"Number of Collisions\", type = \"log\"),\n    yaxis = list(title = \"Persons Injured per 100 Collisions\",\n                 range = c(0, 40)),\n    legend = list(title = list(text = \"Borough\"))\n  ) %&gt;%\n  animation_opts(frame = 200, transition = 100, redraw = FALSE) %&gt;%\n  animation_slider(\n    currentvalue = list(prefix = \"Month: \")\n  )",
+    "crumbs": [
+      "Data Analytics with R",
+      "Interactive Data Visualization II: Plotly"
+    ]
+  },
+  {
+    "objectID": "apr3044/plotly.html#wrap-up",
+    "href": "apr3044/plotly.html#wrap-up",
+    "title": "Interactive Data Visualization II: Plotly",
+    "section": "7. Wrap-up",
+    "text": "7. Wrap-up\nToday we focused on direct Plotly syntax:\nplot_ly(\n  data = ...,\n  x = ~...,\n  y = ~...,\n  type = ...\n)\nCommon additions include:\ncolor = ~group\ntext = ~...\nhoverinfo = \"text\"\nmode = \"markers\"\nBefore adding interaction, ask:\n\nWhat question am I answering?\nWhat chart type fits the variables?\nWhat additional information should appear on demand?\nDoes interaction make the chart easier to understand?",
+    "crumbs": [
+      "Data Analytics with R",
+      "Interactive Data Visualization II: Plotly"
     ]
   },
   {
