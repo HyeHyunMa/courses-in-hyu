@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -73,7 +108,38 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
+<script src="../site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -470,18 +536,715 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#단일표본-t-test" id="toc-단일표본-t-test" class="nav-link active" data-scroll-target="#단일표본-t-test">4.2 단일표본 <em>t</em>-test</a>
+  <ul class="collapse">
+  <li><a href="#step1.-check-the-normality-assumption" id="toc-step1.-check-the-normality-assumption" class="nav-link" data-scroll-target="#step1.-check-the-normality-assumption">STEP1. Check the normality assumption</a></li>
+  <li><a href="#step2.-conduct-t-test" id="toc-step2.-conduct-t-test" class="nav-link" data-scroll-target="#step2.-conduct-t-test">STEP2. Conduct <em>t</em>-test</a></li>
+  <li><a href="#step3.-report-the-result-of-t-test" id="toc-step3.-report-the-result-of-t-test" class="nav-link" data-scroll-target="#step3.-report-the-result-of-t-test">STEP3. Report the result of <em>t</em>-test</a></li>
+  <li><a href="#present-the-graphical-results-optional" id="toc-present-the-graphical-results-optional" class="nav-link" data-scroll-target="#present-the-graphical-results-optional">Present the graphical results [Optional*]</a></li>
+  </ul></li>
+  <li><a href="#이표본-t-test" id="toc-이표본-t-test" class="nav-link" data-scroll-target="#이표본-t-test">4.3 이표본 <em>t</em>-test</a>
+  <ul class="collapse">
+  <li><a href="#독립표본-t-test" id="toc-독립표본-t-test" class="nav-link" data-scroll-target="#독립표본-t-test">4.4.1 독립표본 <em>t</em>-test</a>
+  <ul class="collapse">
+  <li><a href="#step1.-check-the-normality-assumption-1" id="toc-step1.-check-the-normality-assumption-1" class="nav-link" data-scroll-target="#step1.-check-the-normality-assumption-1">STEP1. Check the normality assumption</a></li>
+  <li><a href="#step2.-check-the-homogeneity-of-variance" id="toc-step2.-check-the-homogeneity-of-variance" class="nav-link" data-scroll-target="#step2.-check-the-homogeneity-of-variance">STEP2. Check the homogeneity of variance</a></li>
+  <li><a href="#step3.-conduct-t-test-calculate-effect-size" id="toc-step3.-conduct-t-test-calculate-effect-size" class="nav-link" data-scroll-target="#step3.-conduct-t-test-calculate-effect-size">STEP3. Conduct <em>t</em>-test &amp; calculate effect size</a></li>
+  <li><a href="#step4.-report-the-result-of-t-test" id="toc-step4.-report-the-result-of-t-test" class="nav-link" data-scroll-target="#step4.-report-the-result-of-t-test">STEP4. Report the result of <em>t</em>-test</a></li>
+  </ul></li>
+  <li><a href="#대응표본-t-test" id="toc-대응표본-t-test" class="nav-link" data-scroll-target="#대응표본-t-test">4.4.2 대응표본 <em>t</em>-test</a>
+  <ul class="collapse">
+  <li><a href="#step1.-check-the-normality-assumption-2" id="toc-step1.-check-the-normality-assumption-2" class="nav-link" data-scroll-target="#step1.-check-the-normality-assumption-2">STEP1. Check the normality assumption</a></li>
+  <li><a href="#step2.-conduct-t-test-calculate-effect-size" id="toc-step2.-conduct-t-test-calculate-effect-size" class="nav-link" data-scroll-target="#step2.-conduct-t-test-calculate-effect-size">STEP2. Conduct <em>t</em>-test &amp; calculate effect size</a></li>
+  <li><a href="#step3.-report-the-result-of-t-test-1" id="toc-step3.-report-the-result-of-t-test-1" class="nav-link" data-scroll-target="#step3.-report-the-result-of-t-test-1">STEP3. Report the result of <em>t</em>-test</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#cf.-when-assumptions-are-violated-what-should-be-done" id="toc-cf.-when-assumptions-are-violated-what-should-be-done" class="nav-link" data-scroll-target="#cf.-when-assumptions-are-violated-what-should-be-done">Cf. When assumptions are violated, what should be done?</a>
+  <ul class="collapse">
+  <li><a href="#normality" id="toc-normality" class="nav-link" data-scroll-target="#normality">Normality</a></li>
+  <li><a href="#homogeneity-of-variance" id="toc-homogeneity-of-variance" class="nav-link" data-scroll-target="#homogeneity-of-variance">Homogeneity of variance</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../apr8025/descriptive-statistics.html">Descriptive &amp; Inferential Statistics</a></li><li class="breadcrumb-item"><a href="../apr8025/t-test.html">t-test</a></li></ol></nav></header>
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../apr8025/descriptive-statistics.html">Descriptive &amp; Inferential Statistics</a></li><li class="breadcrumb-item"><a href="../apr8025/t-test.html">t-test</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">t-test</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
 
 
+</header>
 
 
+<p><strong>Class date:</strong> Oct 22, 2026<br>
+<small> Based in part on lecture notes by Prof.&nbsp;Byoungkwan Lee and <em>이병관 (2023). 사회과학 연구자를 위한 R을 활용한 기초 통계. 한양대학교출판부.</em> </small></p>
+<section id="단일표본-t-test" class="level1">
+<h1>4.2 단일표본 <em>t</em>-test</h1>
+<p><strong>Exercise:</strong> 생쥐 10마리의 몸무게 평균이 생쥐의 모집단 평균 몸무게 25g과 다른지를 95% 신뢰수준에서 검증해보자.</p>
+<ul>
+<li><p><span class="math inline">\(H_{0}:\mu=25\)</span></p></li>
+<li><p><span class="math inline">\(H_{A}:\mu\neq25\)</span></p></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(datarium)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mice)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="step1.-check-the-normality-assumption" class="level3">
+<h3 class="anchored" data-anchor-id="step1.-check-the-normality-assumption">STEP1. Check the normality assumption</h3>
+<p><strong>(1) Visual inspection</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(mice<span class="sc">$</span>weight, <span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">10</span>,<span class="dv">30</span>,<span class="at">by=</span><span class="dv">1</span>),</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">col=</span><span class="st">"grey"</span>, <span class="at">border=</span><span class="st">"white"</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">prob=</span>T, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.3</span>))</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">density</span>(mice<span class="sc">$</span>weight))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="t-test_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggqqplot</span>(mice, <span class="st">"weight"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="t-test_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>(2) Descriptive statistics</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(mice<span class="sc">$</span>weight)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   vars  n  mean  sd median trimmed  mad  min  max range skew kurtosis  se
+X1    1 10 20.14 1.9   19.8   20.06 1.48 17.5 23.4   5.9 0.52    -1.08 0.6</code></pre>
+</div>
+</div>
+<p><strong>(3) Test statistics</strong></p>
+<p>The null hypothesis of the Shapiro-Wilk test is <em>“there is no difference between the distribution of samples and the normal distribution.”</em></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(mice<span class="sc">$</span>weight)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  mice$weight
+W = 0.92295, p-value = 0.3822</code></pre>
+</div>
+</div>
+</section>
+<section id="step2.-conduct-t-test" class="level3">
+<h3 class="anchored" data-anchor-id="step2.-conduct-t-test">STEP2. Conduct <em>t</em>-test</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(mice<span class="sc">$</span>weight, <span class="at">mu =</span> <span class="dv">25</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One Sample t-test
+
+data:  mice$weight
+t = -8.1045, df = 9, p-value = 1.995e-05
+alternative hypothesis: true mean is not equal to 25
+95 percent confidence interval:
+ 18.78346 21.49654
+sample estimates:
+mean of x 
+    20.14 </code></pre>
+</div>
+</div>
+</section>
+<section id="step3.-report-the-result-of-t-test" class="level3">
+<h3 class="anchored" data-anchor-id="step3.-report-the-result-of-t-test">STEP3. Report the result of <em>t</em>-test</h3>
+<p>An one-sample <em>t</em>-test was conducted to investigate the difference between the sample data and the population. The assumption of normality based on Shapiro-Wilk normality test was met. The findings indicated that the sample data reported the lower level of weight (<em>M</em> = 20.14, <em>SD</em> = 1.9) than found in the population as a whole, <em>t</em>(9) = -8.1, <em>p</em> &lt; .001.</p>
+</section>
+<section id="present-the-graphical-results-optional" class="level3">
+<h3 class="anchored" data-anchor-id="present-the-graphical-results-optional">Present the graphical results [Optional*]</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstatix)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>stat.test <span class="ot">&lt;-</span> mice <span class="sc">%&gt;%</span> <span class="fu">t_test</span>(weight <span class="sc">~</span> <span class="dv">1</span>, <span class="at">mu =</span> <span class="dv">25</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdensity</span>(mice, <span class="at">x =</span> <span class="st">"weight"</span>, <span class="at">rug =</span> <span class="cn">TRUE</span>, <span class="at">fill =</span> <span class="st">"lightgray"</span>) <span class="sc">+</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">15</span>, <span class="dv">27</span>)) <span class="sc">+</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_central_tendency</span>(<span class="at">type =</span> <span class="st">"mean"</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span> </span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">25</span>, <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="fu">get_test_label</span>(stat.test, <span class="at">detailed =</span> <span class="cn">TRUE</span>)) <span class="sc">+</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="t-test_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="이표본-t-test" class="level1">
+<h1>4.3 이표본 <em>t</em>-test</h1>
+<p><em>*아래부터는 교재 141쪽 4.4 R을 이용한 분석 예제 섹션 참조</em></p>
+<section id="독립표본-t-test" class="level2">
+<h2 class="anchored" data-anchor-id="독립표본-t-test">4.4.1 독립표본 <em>t</em>-test</h2>
+<p><strong>Exercise:</strong> 인지부조화 이론의 유명한 실험 중 하나인 1달러-20달러 실험(Festinger &amp; Carlsmith, 1959) 연구자들은 “1달러만 제공받은 집단이 20달러를 받은 집단에 비해 자신들이 참여한 실험에 대해 보다 호의적인 태도를 보일 것”으로 예측한다. 연구자들의 가설이 입증되었을까? 이를 α = .05에서 독립표본 <em>t</em>-test를 사용하여 검증해보자.</p>
+<ul>
+<li><p><span class="math inline">\(H_{0}:\mu_{1d}=\mu_{20d}\)</span></p></li>
+<li><p><span class="math inline">\(H_{A}:\mu_{1d}\neq\mu_{20d}\)</span></p></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>attitude <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">8</span>, <span class="dv">2</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>condition <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"$1"</span>, <span class="st">"$20"</span>), <span class="fu">c</span>(<span class="dv">20</span>,<span class="dv">20</span>))</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>id <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">40</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>festinger <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(id, condition, attitude)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="step1.-check-the-normality-assumption-1" class="level3">
+<h3 class="anchored" data-anchor-id="step1.-check-the-normality-assumption-1">STEP1. Check the normality assumption</h3>
+<p><strong>(1) Visual inspection</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>festinger<span class="sc">$</span>condition <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(festinger<span class="sc">$</span>condition)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggdensity</span>(festinger, <span class="at">x =</span> <span class="st">"attitude"</span>,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">add =</span> <span class="st">"mean"</span>, <span class="at">rug =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">color =</span> <span class="st">"condition"</span>, <span class="at">fill =</span> <span class="st">"condition"</span>, </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">"#00AFBB"</span>, <span class="st">"#E7B800"</span>))</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggqqplot</span>(festinger, <span class="at">x =</span> <span class="st">"attitude"</span>,</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">color =</span> <span class="st">"condition"</span>, </span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">palette =</span> <span class="fu">c</span>(<span class="st">"#00AFBB"</span>, <span class="st">"#E7B800"</span>), <span class="at">shape =</span> <span class="st">"condition"</span>)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="fu">grid.arrange</span>(p1, p2, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="t-test_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>(2) Descriptive statistics</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">describeBy</span>(festinger<span class="sc">$</span>attitude, festinger<span class="sc">$</span>condition)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ Descriptive statistics by group 
+group: $1
+   vars  n mean   sd median trimmed  mad min max range skew kurtosis   se
+X1    1 20  5.1 1.62      5    5.06 1.48   2   8     6 0.13    -0.77 0.36
+------------------------------------------------------------ 
+group: $20
+   vars  n mean   sd median trimmed  mad min max range skew kurtosis   se
+X1    1 20 2.95 1.43      3    2.94 1.48   1   5     4 0.08    -1.39 0.32</code></pre>
+</div>
+</div>
+<p><strong>(3) Test statistics</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">by</span>(festinger<span class="sc">$</span>attitude, festinger<span class="sc">$</span>condition, shapiro.test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>festinger$condition: $1
+
+    Shapiro-Wilk normality test
+
+data:  dd[x, ]
+W = 0.9571, p-value = 0.4876
+
+------------------------------------------------------------ 
+festinger$condition: $20
+
+    Shapiro-Wilk normality test
+
+data:  dd[x, ]
+W = 0.89825, p-value = 0.03825</code></pre>
+</div>
+</div>
+</section>
+<section id="step2.-check-the-homogeneity-of-variance" class="level3">
+<h3 class="anchored" data-anchor-id="step2.-check-the-homogeneity-of-variance">STEP2. Check the homogeneity of variance</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">leveneTest</span>(festinger<span class="sc">$</span>attitude, festinger<span class="sc">$</span>condition)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Levene's Test for Homogeneity of Variance (center = median)
+      Df F value Pr(&gt;F)
+group  1  0.0281 0.8677
+      38               </code></pre>
+</div>
+</div>
+</section>
+<section id="step3.-conduct-t-test-calculate-effect-size" class="level3">
+<h3 class="anchored" data-anchor-id="step3.-conduct-t-test-calculate-effect-size">STEP3. Conduct <em>t</em>-test &amp; calculate effect size</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(attitude <span class="sc">~</span> condition, <span class="at">var.equal =</span> T, <span class="at">data =</span> festinger)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Two Sample t-test
+
+data:  attitude by condition
+t = 4.4488, df = 38, p-value = 7.301e-05
+alternative hypothesis: true difference in means between group $1 and group $20 is not equal to 0
+95 percent confidence interval:
+ 1.171665 3.128335
+sample estimates:
+ mean in group $1 mean in group $20 
+             5.10              2.95 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(effsize)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cohen.d</span>(festinger<span class="sc">$</span>attitude <span class="sc">~</span> festinger<span class="sc">$</span>condition) <span class="co">#biased</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Cohen's d
+
+d estimate: 1.406844 (large)
+95 percent confidence interval:
+    lower     upper 
+0.6918574 2.1218315 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cohen.d</span>(festinger<span class="sc">$</span>attitude <span class="sc">~</span> festinger<span class="sc">$</span>condition, </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">hedges.correction=</span>T) <span class="co">#unbiased</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Hedges's g
+
+g estimate: 1.378894 (large)
+95 percent confidence interval:
+    lower     upper 
+0.6808511 2.0769366 </code></pre>
+</div>
+</div>
+</section>
+<section id="step4.-report-the-result-of-t-test" class="level3">
+<h3 class="anchored" data-anchor-id="step4.-report-the-result-of-t-test">STEP4. Report the result of <em>t</em>-test</h3>
+<p>*<em>t</em>-test 결과 표는 그냥 워드에서 직접 만드는게 빠를 수도 있음 주의</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">t.test</span>(attitude <span class="sc">~</span> condition, <span class="at">var.equal =</span> T, <span class="at">data =</span> festinger)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co"># tidy(model, conf.int = TRUE) %&gt;% kable() %&gt;% kable_styling()</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(model, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span><span class="fu">c</span>(estimate, estimate1, estimate2, method, alternative)) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">M.1 =</span> <span class="fu">mean</span>(festinger<span class="sc">$</span>attitude[festinger<span class="sc">$</span>condition <span class="sc">==</span> <span class="st">"$1"</span>]), </span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">SD.1 =</span> <span class="fu">sd</span>(festinger<span class="sc">$</span>attitude[festinger<span class="sc">$</span>condition <span class="sc">==</span> <span class="st">"$1"</span>]),</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">n.1 =</span> <span class="fu">length</span>(festinger<span class="sc">$</span>attitude[festinger<span class="sc">$</span>condition <span class="sc">==</span> <span class="st">"$1"</span>]),</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">M.2 =</span> <span class="fu">mean</span>(festinger<span class="sc">$</span>attitude[festinger<span class="sc">$</span>condition <span class="sc">==</span> <span class="st">"$20"</span>]),</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">SD.2 =</span> <span class="fu">sd</span>(festinger<span class="sc">$</span>attitude[festinger<span class="sc">$</span>condition <span class="sc">==</span> <span class="st">"$20"</span>]),</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">n.2 =</span> <span class="fu">length</span>(festinger<span class="sc">$</span>attitude[festinger<span class="sc">$</span>condition <span class="sc">==</span> <span class="st">"$20"</span>]),</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">LB =</span> conf.low,</span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>         <span class="at">UB =</span> conf.high,</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>         <span class="at">t =</span> statistic,</span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>         <span class="at">p =</span> p.value,</span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>         <span class="at">df =</span> parameter,</span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>         <span class="at">cohend =</span> <span class="fu">cohen.d</span>(festinger<span class="sc">$</span>attitude <span class="sc">~</span> festinger<span class="sc">$</span>condition)<span class="sc">$</span>estimate,</span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>         <span class="at">hedge =</span> <span class="fu">cohen.d</span>(festinger<span class="sc">$</span>attitude <span class="sc">~</span> festinger<span class="sc">$</span>condition, <span class="at">hedges.correction =</span> T)<span class="sc">$</span>estimate,</span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>         <span class="at">.keep =</span> <span class="st">"none"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">"Table 1. Result of t-test and Descriptive Statistics for the Cognitive Dissonance Experiment"</span>,</span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"M"</span>, <span class="st">"SD"</span>, <span class="st">"n"</span>, <span class="st">"M"</span>, <span class="st">"SD"</span>, <span class="st">"n"</span>, <span class="st">"LB"</span>, <span class="st">"UB"</span>, <span class="st">"t"</span>, <span class="st">"p"</span>, <span class="st">"df"</span>, <span class="st">"cohen's d"</span>, <span class="st">"hedges' g"</span>),</span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a>      <span class="at">align =</span> <span class="st">"c"</span>, <span class="at">digits =</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable_styling</span>(<span class="at">full_width =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">add_header_above</span>(<span class="fu">c</span>(<span class="st">"$1 group"</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">"$20 group"</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">"95% CI"</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">" "</span> <span class="ot">=</span> <span class="dv">5</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_classic</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="table lightable-classic caption-top table-sm table-striped small">
+<caption>Table 1. Result of t-test and Descriptive Statistics for the Cognitive Dissonance Experiment</caption>
+<colgroup>
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+</colgroup>
+<thead>
+<tr class="header">
+<th colspan="3" data-quarto-table-cell-role="th" style="text-align: center; border-bottom: hidden; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+$1 group
+</div></th>
+<th colspan="3" data-quarto-table-cell-role="th" style="text-align: center; border-bottom: hidden; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+$20 group
+</div></th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-bottom: hidden; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+95% CI
+</div></th>
+<th colspan="5" data-quarto-table-cell-role="th" style="text-align: center; empty-cells: hide; border-bottom: hidden;"></th>
+</tr>
+<tr class="even">
+<th style="text-align: center;" data-quarto-table-cell-role="th">M</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">SD</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">n</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">M</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">SD</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">n</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">LB</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">UB</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">t</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">p</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">df</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">cohen's d</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">hedges' g</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">5.1</td>
+<td style="text-align: center;">1.62</td>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">2.95</td>
+<td style="text-align: center;">1.43</td>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">1.17</td>
+<td style="text-align: center;">3.13</td>
+<td style="text-align: center;">4.45</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">38</td>
+<td style="text-align: center;">1.41</td>
+<td style="text-align: center;">1.38</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Using an alpha level of .05, a two-sample <em>t</em>-test was conducted to confirm the difference in attitude between the experimental conditions. Before conducting the test, assumption testings were performed. Normality was confirmed based on the Shapiro-Wilk normality test (<em>p</em> = .48 for group $1 and <em>p</em> = .04 for group $20), and homogeneity of variance was confirmed to satisfy based on the Levene’s test (<em>p</em> = .87). Altough the normality of group $20 was not satisfied according to the Shapiro-Wilk normality test (<em>p</em> = .04), the author concluded that the normality of the data was acceptable based on visual inspections.</p>
+<p>As the Table 1 indicated, the result demonstrated that the attitude between $1 group (<em>M</em>=5.1, <em>SD</em>=1.62) and $20 group (<em>M</em>=2.95, <em>SD</em>=1.43) is statistically different, <em>t</em>(38) = 4.45, <em>p</em> &lt; .001, 95% CI [1.17, 3.13]. The effect size for this analysis was found as large (Cohen’s <em>d</em> = 1.41, Hedges’ <em>g</em> = 1.38). Therefore, according to the analysis results, we conclude that the minimal justification for behavior leads to cognitive dissonance, which has a statistically significant effect on attitude change.</p>
+</section>
+</section>
+<section id="대응표본-t-test" class="level2">
+<h2 class="anchored" data-anchor-id="대응표본-t-test">4.4.2 대응표본 <em>t</em>-test</h2>
+<p><strong>Exercise:</strong> Baumann, Seifert-K essell, and Jones (1992)는 읽기-사고 활동(Directed Reading-Thinking Activity: DRTA)과 소리 내어 생각하기(Think Aloud: TA)와 같은 독서 수행전략이 학생들의 독해력 향상에 효과가 있는지를 실험을 통해 살펴보았다. 이들의 연구에서는 초등학교 4학년 66명의 학생들이 하나의 통제 집단과 두 처치 집단 DRTA 집단과 TA 집단 중 하나에 무작위로 배정되었다. 각 집단의 참가자들은 각각의 처치를 받은 후 독해력 테스트가 수행되었다. 독해력 테스트는 참가 학생들의 독서 오류율, 즉 독서 중에 얼마나 많은 오류가 있었는지를 통해 평가되었다. 예제 데이터 ’reading.csv’에는 DRTA 전략 수행 전후의 독해력 테스트 점수를 담고 있다. 지금부터 DRTA 전략 수행이 학생들의 독해력 향상에 효과가 있었는지를 대응표본 t-test를 이용하여 확인해보자.</p>
+<ul>
+<li><p><span class="math inline">\(H_{0}:\mu_{D}=\Delta_{0}\)</span></p></li>
+<li><p><span class="math inline">\(H_{A}:\mu_{D}\neq\Delta_{0}\)</span></p></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>reading <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/reading.csv"</span>, <span class="at">header =</span> T)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>differences <span class="ot">&lt;-</span> reading<span class="sc">$</span>pretest <span class="sc">-</span> reading<span class="sc">$</span>posttest</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="step1.-check-the-normality-assumption-2" class="level3">
+<h3 class="anchored" data-anchor-id="step1.-check-the-normality-assumption-2">STEP1. Check the normality assumption</h3>
+<p><strong>(1) Visual inspection</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(differences, <span class="at">col=</span><span class="st">"grey"</span>, <span class="at">border=</span><span class="st">"white"</span>,<span class="at">prob=</span>T)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">density</span>(differences))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="t-test_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggqqplot</span>(differences)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="t-test_files/figure-html/unnamed-chunk-15-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>(2) Descriptive statistics</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(reading[,<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         vars  n mean   sd median trimmed  mad min max range  skew kurtosis
+pretest     1 22 9.73 2.69      9    9.44 1.48   6  16    10  0.81    -0.40
+posttest    2 22 6.23 2.09      6    6.33 1.48   0  11    11 -0.68     2.26
+           se
+pretest  0.57
+posttest 0.45</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">describe</span>(differences)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   vars  n mean   sd median trimmed  mad min max range skew kurtosis   se
+X1    1 22  3.5 3.25      3    3.44 3.71  -3   9    12 0.19    -0.82 0.69</code></pre>
+</div>
+</div>
+<p><strong>(3) Test statistics</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(differences)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  differences
+W = 0.95077, p-value = 0.3272</code></pre>
+</div>
+</div>
+</section>
+<section id="step2.-conduct-t-test-calculate-effect-size" class="level3">
+<h3 class="anchored" data-anchor-id="step2.-conduct-t-test-calculate-effect-size">STEP2. Conduct <em>t</em>-test &amp; calculate effect size</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(reading<span class="sc">$</span>pretest, reading<span class="sc">$</span>posttest, <span class="at">paired =</span> T)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Paired t-test
+
+data:  reading$pretest and reading$posttest
+t = 5.0548, df = 21, p-value = 5.267e-05
+alternative hypothesis: true mean difference is not equal to 0
+95 percent confidence interval:
+ 2.060046 4.939954
+sample estimates:
+mean difference 
+            3.5 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Pivot data from wide to long</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>reading.l <span class="ot">&lt;-</span> reading <span class="sc">%&gt;%</span> </span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(pretest, posttest), </span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"Group"</span>, </span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"reading.error"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>group)</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(reading.l, <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+     id Group    reading.error
+  &lt;int&gt; &lt;chr&gt;            &lt;int&gt;
+1     1 pretest              7
+2     1 posttest             6
+3     2 pretest              7</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstatix)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>reading.l <span class="sc">%&gt;%</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">cohens_d</span>(reading.error <span class="sc">~</span> Group, <span class="at">paired=</span>T)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 7
+  .y.           group1   group2  effsize    n1    n2 magnitude
+* &lt;chr&gt;         &lt;chr&gt;    &lt;chr&gt;     &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;ord&gt;    
+1 reading.error posttest pretest   -1.08    22    22 large    </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>reading.l <span class="sc">%&gt;%</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">cohens_d</span>(reading.error <span class="sc">~</span> Group, <span class="at">paired=</span>T, <span class="at">hedges.correction=</span>T)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 7
+  .y.           group1   group2  effsize    n1    n2 magnitude
+* &lt;chr&gt;         &lt;chr&gt;    &lt;chr&gt;     &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;ord&gt;    
+1 reading.error posttest pretest   -1.04    22    22 large    </code></pre>
+</div>
+</div>
+</section>
+<section id="step3.-report-the-result-of-t-test-1" class="level3">
+<h3 class="anchored" data-anchor-id="step3.-report-the-result-of-t-test-1">STEP3. Report the result of <em>t</em>-test</h3>
+<p>*<em>t</em>-test 결과 표는 그냥 워드에서 직접 만드는게 빠를 수도 있음 주의</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">t.test</span>(reading<span class="sc">$</span>pretest, reading<span class="sc">$</span>posttest, <span class="at">paired =</span> T)</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> reading.l <span class="sc">%&gt;%</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">cohens_d</span>(reading.error <span class="sc">~</span> Group, <span class="at">paired=</span>T)</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> reading.l <span class="sc">%&gt;%</span></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>  rstatix<span class="sc">::</span><span class="fu">cohens_d</span>(reading.error <span class="sc">~</span> Group, <span class="at">paired=</span>T, <span class="at">hedges.correction=</span>T)</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(model, <span class="at">conf.int =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span><span class="fu">c</span>(estimate, method, alternative)) <span class="sc">%&gt;%</span> </span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">M.1 =</span> <span class="fu">mean</span>(reading<span class="sc">$</span>pretest), </span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">SD.1 =</span> <span class="fu">sd</span>(reading<span class="sc">$</span>pretest),</span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">n.1 =</span> <span class="fu">length</span>(reading<span class="sc">$</span>pretest),</span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">M.2 =</span> <span class="fu">mean</span>(reading<span class="sc">$</span>posttest),</span>
+<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">SD.2 =</span> <span class="fu">sd</span>(reading<span class="sc">$</span>posttest),</span>
+<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a>         <span class="at">n.2 =</span> <span class="fu">length</span>(reading<span class="sc">$</span>posttest),</span>
+<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a>         <span class="at">LB =</span> conf.low,</span>
+<span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a>         <span class="at">UB =</span> conf.high,</span>
+<span id="cb43-20"><a href="#cb43-20" aria-hidden="true" tabindex="-1"></a>         <span class="at">t =</span> statistic,</span>
+<span id="cb43-21"><a href="#cb43-21" aria-hidden="true" tabindex="-1"></a>         <span class="at">p =</span> p.value,</span>
+<span id="cb43-22"><a href="#cb43-22" aria-hidden="true" tabindex="-1"></a>         <span class="at">df =</span> parameter,</span>
+<span id="cb43-23"><a href="#cb43-23" aria-hidden="true" tabindex="-1"></a>         <span class="at">cohend =</span> d<span class="sc">$</span>effsize,</span>
+<span id="cb43-24"><a href="#cb43-24" aria-hidden="true" tabindex="-1"></a>         <span class="at">hedge =</span> g<span class="sc">$</span>effsize,</span>
+<span id="cb43-25"><a href="#cb43-25" aria-hidden="true" tabindex="-1"></a>         <span class="at">.keep =</span> <span class="st">"none"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb43-26"><a href="#cb43-26" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kbl</span>(<span class="at">caption =</span> <span class="st">"Table 2. Result of t-test and Descriptive Statistics for Reading Ability by Directed Reading Activity"</span>,</span>
+<span id="cb43-27"><a href="#cb43-27" aria-hidden="true" tabindex="-1"></a>      <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"M"</span>, <span class="st">"SD"</span>, <span class="st">"n"</span>, <span class="st">"M"</span>, <span class="st">"SD"</span>, <span class="st">"n"</span>, <span class="st">"LB"</span>, <span class="st">"UB"</span>, <span class="st">"t"</span>, <span class="st">"p"</span>, <span class="st">"df"</span>, <span class="st">"cohen's d"</span>, <span class="st">"hedges' g"</span>),</span>
+<span id="cb43-28"><a href="#cb43-28" aria-hidden="true" tabindex="-1"></a>      <span class="at">align =</span> <span class="st">"c"</span>, <span class="at">digits =</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb43-29"><a href="#cb43-29" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable_styling</span>(<span class="at">full_width =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb43-30"><a href="#cb43-30" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">add_header_above</span>(<span class="fu">c</span>(<span class="st">"Pre"</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">"Post"</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">"95% CI"</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">" "</span> <span class="ot">=</span> <span class="dv">5</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb43-31"><a href="#cb43-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_classic</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="table lightable-classic caption-top table-sm table-striped small">
+<caption>Table 2. Result of t-test and Descriptive Statistics for Reading Ability by Directed Reading Activity</caption>
+<colgroup>
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+</colgroup>
+<thead>
+<tr class="header">
+<th colspan="3" data-quarto-table-cell-role="th" style="text-align: center; border-bottom: hidden; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Pre
+</div></th>
+<th colspan="3" data-quarto-table-cell-role="th" style="text-align: center; border-bottom: hidden; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Post
+</div></th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-bottom: hidden; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+95% CI
+</div></th>
+<th colspan="5" data-quarto-table-cell-role="th" style="text-align: center; empty-cells: hide; border-bottom: hidden;"></th>
+</tr>
+<tr class="even">
+<th style="text-align: center;" data-quarto-table-cell-role="th">M</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">SD</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">n</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">M</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">SD</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">n</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">LB</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">UB</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">t</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">p</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">df</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">cohen's d</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">hedges' g</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">9.73</td>
+<td style="text-align: center;">2.69</td>
+<td style="text-align: center;">22</td>
+<td style="text-align: center;">6.23</td>
+<td style="text-align: center;">2.09</td>
+<td style="text-align: center;">22</td>
+<td style="text-align: center;">2.06</td>
+<td style="text-align: center;">4.94</td>
+<td style="text-align: center;">5.05</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">21</td>
+<td style="text-align: center;">-1.08</td>
+<td style="text-align: center;">-1.04</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Using an alpha level of .05, a paired-sample <em>t</em>-test was conducted to examine the influence of <em>Directed Reading-Thinking Activity</em> (DRTA) on the average reading ability of pupils. Before the test, the normality was confirmed based on the Shapiro-Wilk normality test (<em>p</em> = .33).</p>
+<p>As the Table 2 indicated, the result demonstrated a statistically significant decrease in reading errors after exposure to DRTA (<em>M</em>=6.23, <em>SD</em>=2.09) compared to before DRTA (<em>M</em>=9.73, <em>SD</em>=2.69), <em>t</em>(21) = 5.05, <em>p</em> &lt; .001, 95% CI [2.06, 4.94]. The effect size for this analysis was large (Cohen’s <em>d</em> = -1.08, Hedges’ <em>g</em> = -1.04). Therefore, based on the analysis results, we can conclude that DRTA has a positive effect on reducing reading errors.</p>
+</section>
+</section>
+</section>
+<section id="cf.-when-assumptions-are-violated-what-should-be-done" class="level1">
+<h1>Cf. When assumptions are violated, what should be done?</h1>
+<section id="normality" class="level3">
+<h3 class="anchored" data-anchor-id="normality">Normality</h3>
+<p>*The normality assumption is not a robust assumption.</p>
+<p><strong>Non-parametric method (e.g., Wilcoxon Signed-Rank Test)</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(festinger<span class="sc">$</span>attitude <span class="sc">~</span> festinger<span class="sc">$</span>condition, <span class="at">data =</span> festinger)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Wilcoxon rank sum test with continuity correction
+
+data:  festinger$attitude by festinger$condition
+W = 333, p-value = 0.0002748
+alternative hypothesis: true location shift is not equal to 0</code></pre>
+</div>
+</div>
+<p><strong>Robust <em>t</em>-test</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(WRS2)</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="fu">yuen</span>(attitude <span class="sc">~</span> condition, <span class="at">data =</span> festinger) <span class="co">#Yuen's test</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call:
+yuen(formula = attitude ~ condition, data = festinger)
+
+Test statistic: 4.4486 (df = 21.98), p-value = 2e-04
+
+Trimmed mean difference:  2.08333 
+95 percent confidence interval:
+1.112     3.0546 
+
+Explanatory measure of effect size: 0.77 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">akp.effect</span>(attitude <span class="sc">~</span> condition, <span class="at">data =</span> festinger) <span class="co">#Robust Cohen's d</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$AKPeffect
+[1] 1.532218
+
+$AKPci
+[1] 0.6294738 2.1703340
+
+$alpha
+[1] 0.05
+
+$call
+akp.effect(formula = attitude ~ condition, data = festinger)
+
+attr(,"class")
+[1] "AKP"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">yuenbt</span>(attitude <span class="sc">~</span> condition, <span class="at">data =</span> festinger, <span class="at">nboot =</span> <span class="dv">5000</span>) <span class="co"># Yuen's test bootstrapped</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call:
+yuenbt(formula = attitude ~ condition, data = festinger, nboot = 5000)
+
+Test statistic: 4.5287 (df = NA), p-value = 2e-04
+
+Trimmed mean difference:  2.08333 
+95 percent confidence interval:
+1.1     3.0667 </code></pre>
+</div>
+</div>
+</section>
+<section id="homogeneity-of-variance" class="level3">
+<h3 class="anchored" data-anchor-id="homogeneity-of-variance">Homogeneity of variance</h3>
+<p><strong>Welch’s <em>t</em>-test</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(attitude <span class="sc">~</span> condition, <span class="at">data =</span> festinger)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  attitude by condition
+t = 4.4488, df = 37.44, p-value = 7.48e-05
+alternative hypothesis: true difference in means between group $1 and group $20 is not equal to 0
+95 percent confidence interval:
+ 1.171185 3.128815
+sample estimates:
+ mean in group $1 mean in group $20 
+             5.10              2.95 </code></pre>
+</div>
+</div>
+
+
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
