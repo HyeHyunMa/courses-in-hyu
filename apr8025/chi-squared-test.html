@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>chi-squared-test – Courses in HYU</title>
+<title>chi-squared test – Courses in HYU</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -74,6 +109,35 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -470,18 +534,314 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#pearsons-chi2-적합도-검정-chi2-test-for-goodness-of-fit" id="toc-pearsons-chi2-적합도-검정-chi2-test-for-goodness-of-fit" class="nav-link active" data-scroll-target="#pearsons-chi2-적합도-검정-chi2-test-for-goodness-of-fit">5.5.1 Pearson’s <span class="math inline">\(\chi^2\)</span> 적합도 검정 (<span class="math inline">\(\chi^2\)</span> test for goodness of fit)</a>
+  <ul class="collapse">
+  <li><a href="#loading-and-exploring-data" id="toc-loading-and-exploring-data" class="nav-link" data-scroll-target="#loading-and-exploring-data">Loading and exploring data</a></li>
+  <li><a href="#conduct-chi2-test" id="toc-conduct-chi2-test" class="nav-link" data-scroll-target="#conduct-chi2-test">Conduct <span class="math inline">\(\chi^2\)</span>-test</a></li>
+  <li><a href="#calculate-effect-size" id="toc-calculate-effect-size" class="nav-link" data-scroll-target="#calculate-effect-size">Calculate effect size</a></li>
+  <li><a href="#report-the-result-of-chi2-test" id="toc-report-the-result-of-chi2-test" class="nav-link" data-scroll-target="#report-the-result-of-chi2-test">Report the result of <span class="math inline">\(\chi^2\)</span>-test</a></li>
+  </ul></li>
+  <li><a href="#pearsons-chi2-독립성-검정-chi2-test-for-independence" id="toc-pearsons-chi2-독립성-검정-chi2-test-for-independence" class="nav-link" data-scroll-target="#pearsons-chi2-독립성-검정-chi2-test-for-independence">5.5.2 Pearson’s <span class="math inline">\(\chi^2\)</span> 독립성 검정 (<span class="math inline">\(\chi^2\)</span> test for independence)</a>
+  <ul class="collapse">
+  <li><a href="#loading-and-exploring-data-1" id="toc-loading-and-exploring-data-1" class="nav-link" data-scroll-target="#loading-and-exploring-data-1">Loading and exploring data</a></li>
+  <li><a href="#conduct-chi2-test-1" id="toc-conduct-chi2-test-1" class="nav-link" data-scroll-target="#conduct-chi2-test-1">Conduct <span class="math inline">\(\chi^2\)</span>-test</a></li>
+  <li><a href="#observedexpected-frequency" id="toc-observedexpected-frequency" class="nav-link" data-scroll-target="#observedexpected-frequency">Observed/expected frequency</a></li>
+  <li><a href="#mosaic-plot" id="toc-mosaic-plot" class="nav-link" data-scroll-target="#mosaic-plot">Mosaic plot</a></li>
+  <li><a href="#report-the-result-of-chi2-test-1" id="toc-report-the-result-of-chi2-test-1" class="nav-link" data-scroll-target="#report-the-result-of-chi2-test-1">Report the result of <span class="math inline">\(\chi^2\)</span>-test</a></li>
+  </ul></li>
+  <li><a href="#fishers-exact-test" id="toc-fishers-exact-test" class="nav-link" data-scroll-target="#fishers-exact-test">5.5.3 Fisher’s exact test</a>
+  <ul class="collapse">
+  <li><a href="#loading-and-exploring-data-2" id="toc-loading-and-exploring-data-2" class="nav-link" data-scroll-target="#loading-and-exploring-data-2">Loading and exploring data</a></li>
+  <li><a href="#conduct-chi2-test-2" id="toc-conduct-chi2-test-2" class="nav-link" data-scroll-target="#conduct-chi2-test-2">Conduct <span class="math inline">\(\chi^2\)</span>-test</a></li>
+  <li><a href="#calculate-effect-size-1" id="toc-calculate-effect-size-1" class="nav-link" data-scroll-target="#calculate-effect-size-1">Calculate effect size</a></li>
+  <li><a href="#report-the-result-of-chi2-test-2" id="toc-report-the-result-of-chi2-test-2" class="nav-link" data-scroll-target="#report-the-result-of-chi2-test-2">Report the result of <span class="math inline">\(\chi^2\)</span>-test</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../apr8025/descriptive-statistics.html">Descriptive &amp; Inferential Statistics</a></li><li class="breadcrumb-item"><a href="../apr8025/chi-squared-test.html">Chi-Squared Test</a></li></ol></nav></header>
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../apr8025/descriptive-statistics.html">Descriptive &amp; Inferential Statistics</a></li><li class="breadcrumb-item"><a href="../apr8025/chi-squared-test.html">Chi-Squared Test</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">chi-squared test</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
 
 
+</header>
 
 
+<p><strong>Class date:</strong> Oct 29, 2026<br>
+<small> Based in part on lecture notes by Prof.&nbsp;Byoungkwan Lee and <em>이병관 (2023). 사회과학 연구자를 위한 R을 활용한 기초 통계. 한양대학교출판부.</em> </small></p>
+<iframe src="slides/chi-squared test.pdf" width="100%" height="750px" style="border: 1px solid #ddd; border-radius: 8px;">
+</iframe>
+<section id="pearsons-chi2-적합도-검정-chi2-test-for-goodness-of-fit" class="level2">
+<h2 class="anchored" data-anchor-id="pearsons-chi2-적합도-검정-chi2-test-for-goodness-of-fit">5.5.1 Pearson’s <span class="math inline">\(\chi^2\)</span> 적합도 검정 (<span class="math inline">\(\chi^2\)</span> test for goodness of fit)</h2>
+<p><strong>Exercise:</strong> 이 예제 데이터는 기혼 여성의 노동 시장으로의 통합을 다룬 연구 데이터의 일부로 원 데이터는 독일 5개 도시의 아이가 없는 223쌍의 신혼부부들의 총 13개의 가사 노동 분담에 대한 데이터를 담고 있다. 응답자들은 각각의 가사 노동에 누가 더 책임이 있는지를 응답하였다. 예제로 사용된 데이터는 13개의 가사 노동의 종류와 가사 노동을 담당하는 4개의 주체로 구성되어 있다.</p>
+<ul>
+<li><p><span class="math inline">\(H_{0}:\)</span> 가사 노동을 담당하는 각 주체의 가사 노동에 대한 책임은 동등하게 분포되어 있을 것이다.</p></li>
+<li><p><span class="math inline">\(H_{A}:\)</span> 가사 노동을 담당하는 각 주체의 가사 노동에 대한 책임은 동등하게 분포되어 있지 않을 것이다.</p></li>
+</ul>
+<section id="loading-and-exploring-data" class="level3">
+<h3 class="anchored" data-anchor-id="loading-and-exploring-data">Loading and exploring data</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(factoextra)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(housetasks)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(housetasks)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   13 obs. of  4 variables:
+ $ Wife       : int  156 124 77 82 53 32 33 12 10 13 ...
+ $ Alternating: int  14 20 11 36 11 24 23 46 51 13 ...
+ $ Husband    : int  2 5 7 15 1 4 9 23 75 21 ...
+ $ Jointly    : int  4 4 13 7 57 53 55 15 3 66 ...</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>works <span class="ot">&lt;-</span> <span class="fu">apply</span>(housetasks, <span class="dv">2</span>, sum)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>works</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       Wife Alternating     Husband     Jointly 
+        600         254         381         509 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(works)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="chi-squared-test_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="conduct-chi2-test" class="level3">
+<h3 class="anchored" data-anchor-id="conduct-chi2-test">Conduct <span class="math inline">\(\chi^2\)</span>-test</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(works)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Chi-squared test for given probabilities
+
+data:  works
+X-squared = 156.82, df = 3, p-value &lt; 2.2e-16</code></pre>
+</div>
+</div>
+</section>
+<section id="calculate-effect-size" class="level3">
+<h3 class="anchored" data-anchor-id="calculate-effect-size">Calculate effect size</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>chisq.results <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(works)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>observed <span class="ot">&lt;-</span> chisq.results<span class="sc">$</span>observed</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>expected <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(chisq.results<span class="sc">$</span>expected)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>observed; expected</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       Wife Alternating     Husband     Jointly 
+        600         254         381         509 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       Wife Alternating     Husband     Jointly 
+       0.25        0.25        0.25        0.25 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rcompanion)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cohenW</span>(observed, <span class="at">p=</span>expected)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Cohen w 
+ 0.2999 </code></pre>
+</div>
+</div>
+</section>
+<section id="report-the-result-of-chi2-test" class="level3">
+<h3 class="anchored" data-anchor-id="report-the-result-of-chi2-test">Report the result of <span class="math inline">\(\chi^2\)</span>-test</h3>
+<p>Chi-square goodness of fit test was conducted to confirm the difference between the expected frequency and the observed frequency of household task responsibility for each entity. The result showed that the observed frequency differ by each entity responsible for household task, <span class="math inline">\(\chi^2\)</span>(3) = 52.62, <em>p</em> &lt; .001. The effect size for this analysis was found as medium (Cohen’s <span class="math inline">\(\omega\)</span> = .30).</p>
+</section>
+</section>
+<section id="pearsons-chi2-독립성-검정-chi2-test-for-independence" class="level2">
+<h2 class="anchored" data-anchor-id="pearsons-chi2-독립성-검정-chi2-test-for-independence">5.5.2 Pearson’s <span class="math inline">\(\chi^2\)</span> 독립성 검정 (<span class="math inline">\(\chi^2\)</span> test for independence)</h2>
+<p><strong>Exercise:</strong> Arthritis 데이터는 특정의 처치가 관절염(arthritis) 환자의 개선에 긍정적인 영향을 미치는지 여부를 파악하기 위한 임상 결과를 담고 있다. Arthritis 데이터 셋은 84개의 관찰치와 5개의 변수가 있는 데이터 프레임으로 구성되었다.</p>
+<ul>
+<li><p><span class="math inline">\(H_{0}:\)</span> 모집단에서 처치의 유무는 환자의 관절염 개선과 독립적일 것이다. 즉, 모집단에서 처치의 유무는 환자의 관절염 개선과 유의적인 관련이 없을 것이다.</p></li>
+<li><p><span class="math inline">\(H_{A}:\)</span> 모집단에서 처치의 유무는 환자의 관절염 개선과 독립적이지 않을 것이다. 즉, 모집단에서 처치의 유무는 환자의 관절염 개선과 유의적인 관련이 있을 것이다.</p></li>
+</ul>
+<section id="loading-and-exploring-data-1" class="level3">
+<h3 class="anchored" data-anchor-id="loading-and-exploring-data-1">Loading and exploring data</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vcd)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Arthritis)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(Arthritis)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   84 obs. of  5 variables:
+ $ ID       : int  57 46 77 17 36 23 75 39 33 55 ...
+ $ Treatment: Factor w/ 2 levels "Placebo","Treated": 2 2 2 2 2 2 2 2 2 2 ...
+ $ Sex      : Factor w/ 2 levels "Female","Male": 2 2 2 2 2 2 2 2 2 2 ...
+ $ Age      : int  27 29 30 32 46 58 59 59 63 63 ...
+ $ Improved : Ord.factor w/ 3 levels "None"&lt;"Some"&lt;..: 2 1 1 3 3 3 1 3 1 1 ...</code></pre>
+</div>
+</div>
+</section>
+<section id="conduct-chi2-test-1" class="level3">
+<h3 class="anchored" data-anchor-id="conduct-chi2-test-1">Conduct <span class="math inline">\(\chi^2\)</span>-test</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>Art <span class="ot">&lt;-</span> <span class="fu">xtabs</span>(<span class="sc">~</span>Improved<span class="sc">+</span>Treatment, Arthritis)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">assocstats</span>(Art)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                    X^2 df  P(&gt; X^2)
+Likelihood Ratio 13.530  2 0.0011536
+Pearson          13.055  2 0.0014626
+
+Phi-Coefficient   : NA 
+Contingency Coeff.: 0.367 
+Cramer's V        : 0.394 </code></pre>
+</div>
+</div>
+</section>
+<section id="observedexpected-frequency" class="level3">
+<h3 class="anchored" data-anchor-id="observedexpected-frequency">Observed/expected frequency</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>chisq.results <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(Art)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>chisq.results<span class="sc">$</span>observed</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        Treatment
+Improved Placebo Treated
+  None        29      13
+  Some         7       7
+  Marked       7      21</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>chisq.results<span class="sc">$</span>expected</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        Treatment
+Improved   Placebo   Treated
+  None   21.500000 20.500000
+  Some    7.166667  6.833333
+  Marked 14.333333 13.666667</code></pre>
+</div>
+</div>
+</section>
+<section id="mosaic-plot" class="level3">
+<h3 class="anchored" data-anchor-id="mosaic-plot">Mosaic plot</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaic</span>(Art, <span class="at">gp =</span> shading_max)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="chi-squared-test_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="report-the-result-of-chi2-test-1" class="level3">
+<h3 class="anchored" data-anchor-id="report-the-result-of-chi2-test-1">Report the result of <span class="math inline">\(\chi^2\)</span>-test</h3>
+<p>Chi-square independence test was conducted to confirm the relationship between a new treatment and improvement of the patient’s arthritis. The result showed that there is a significant difference in improvement between the treatment groups, <span class="math inline">\(\chi^2 (2, 84) = 13.05, p &lt; .01.\)</span> In addition, Cramér’s <span class="math inline">\(V\)</span> was 0.394, which indicated that there was a large level of correlation. Thus, based on these results, we can conclude that the treatment provided has a significant impact on the improvement of patients’ arthritis.</p>
+</section>
+</section>
+<section id="fishers-exact-test" class="level2">
+<h2 class="anchored" data-anchor-id="fishers-exact-test">5.5.3 Fisher’s exact test</h2>
+<p><strong>Exercise:</strong> 흡연과 전문 운동선수 사이에 통계적으로 유의한 연관성이 있는지 여부를 확인하는 2×2 분할표를 만들어 Fisher’s exact 검정을 수행해보자. 2×2 분할표로 흡연 여부는 “Smoker”와 “Non-smoker”, 전문 운동선수 여부는 “Athlete”와 “Non-athlete”로 총 35명에 대한 데이터가 코딩되었다.</p>
+<ul>
+<li><p><span class="math inline">\(H_{0}:\)</span> 흡연과 전문 운동선수 사이에 통계적으로 유의한 연관성이 없을 것이다.</p></li>
+<li><p><span class="math inline">\(H_{A}:\)</span> 흡연과 전문 운동선수 사이에 통계적으로 유의한 연관성이 있을 것이다.</p></li>
+</ul>
+<section id="loading-and-exploring-data-2" class="level3">
+<h3 class="anchored" data-anchor-id="loading-and-exploring-data-2">Loading and exploring data</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">12</span>,<span class="dv">12</span>,<span class="dv">5</span>), <span class="at">nrow=</span><span class="dv">2</span>, <span class="at">byrow=</span>T, </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">dimnames=</span><span class="fu">list</span>(<span class="fu">c</span>(<span class="st">"Non-smoker"</span>,<span class="st">"Smoker"</span>), </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>                            <span class="fu">c</span>(<span class="st">"Athlete"</span>,<span class="st">"Non-athlete"</span>)))</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>dat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           Athlete Non-athlete
+Non-smoker       6          12
+Smoker          12           5</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaic</span>(dat, <span class="at">gp =</span> shading_max)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="chi-squared-test_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="conduct-chi2-test-2" class="level3">
+<h3 class="anchored" data-anchor-id="conduct-chi2-test-2">Conduct <span class="math inline">\(\chi^2\)</span>-test</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(dat) <span class="co">#Yates' continuity correction</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test with Yates' continuity correction
+
+data:  dat
+X-squared = 3.4808, df = 1, p-value = 0.06208</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fisher.test</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Fisher's Exact Test for Count Data
+
+data:  dat
+p-value = 0.04371
+alternative hypothesis: true odds ratio is not equal to 1
+95 percent confidence interval:
+ 0.03888003 1.05649145
+sample estimates:
+odds ratio 
+ 0.2189021 </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(exact2x2)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fisher.exact</span>(dat, <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Two-sided Fisher's Exact Test (usual method using minimum likelihood)
+
+data:  dat
+p-value = 0.04371
+alternative hypothesis: true odds ratio is not equal to 1
+95 percent confidence interval:
+ 0.0435 0.9170
+sample estimates:
+odds ratio 
+ 0.2189021 </code></pre>
+</div>
+</div>
+</section>
+<section id="calculate-effect-size-1" class="level3">
+<h3 class="anchored" data-anchor-id="calculate-effect-size-1">Calculate effect size</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">phi</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.37</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DescTools)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>DescTools<span class="sc">::</span><span class="fu">Phi</span>(dat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.372549</code></pre>
+</div>
+</div>
+</section>
+<section id="report-the-result-of-chi2-test-2" class="level3">
+<h3 class="anchored" data-anchor-id="report-the-result-of-chi2-test-2">Report the result of <span class="math inline">\(\chi^2\)</span>-test</h3>
+<p>Fisher’s exact test was conducted to confirm the relationship between smoking status (Smoker vs.&nbsp;Non-smoker) and athlete status (Athlete vs.&nbsp;Non-athlete). The result showed that there is a significant relation between smoking status and athlete status, <em>p</em> = .043. In addition, phi coefficient was -0.37, which indicated that there was a medium level of correlation.</p>
+
+
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
