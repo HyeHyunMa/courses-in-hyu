@@ -1,5 +1,16 @@
 [
   {
+    "objectID": "apr3044/introduction-vibe-coding.html#resources",
+    "href": "apr3044/introduction-vibe-coding.html#resources",
+    "title": "Vibecoding For beginners",
+    "section": "Resources",
+    "text": "Resources\n\nSoftware & Development Tools\n\nVisual Studio Code — Code editor\nPython — Python installation\nNode.js — JavaScript runtime\nOpenAI Codex — AI coding agent\nCodex IDE Documentation — IDE usage guide\nClaude Code — AI coding agent\nClaude Code Installation — CLI installation\nClaude Code VS Code Extension — VS Code installation\n\n\n\nPublic Data & APIs\n\nSeoul Open Data Plaza — Seoul public data portal\nSeoul Real-Time City Data API — Population, congestion, and urban data",
+    "crumbs": [
+      "AI Agents",
+      "Vibecoding For beginners"
+    ]
+  },
+  {
     "objectID": "apr3044/introduction-r-data-preprocessing.html",
     "href": "apr3044/introduction-r-data-preprocessing.html",
     "title": "R Programming Basics",
