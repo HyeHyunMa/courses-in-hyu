@@ -1,0 +1,65 @@
+{\rtf1\ansi\deff0 {\fonttbl {\f0 Times New Roman;}}
+\paperw15840 \paperh12240 \margl1440 \margr1440 \margt1440 \margb1440 \landscape 
+{\pard Table 2 \par}
+{\pard  \par}
+{\pard\i Result of One-way Between Subject ANOVA\par}
+{\pard  \par}
+{
+\trowd \trgaph100
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx1368 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx2232 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx3096 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx4392 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx5947 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx7502 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx8366 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx9230 
+\pard\sa0\sb0\intbl\qr{Predictor}\cell
+\pard\sa0\sb0\intbl\qc{{\i df\sub Num \nosupersub}}\cell
+\pard\sa0\sb0\intbl\qc{{\i df\sub Den \nosupersub}}\cell
+\pard\sa0\sb0\intbl\qc{{\i SS\sub Num \nosupersub}}\cell
+\pard\sa0\sb0\intbl\qc{{\i SS\sub Den \nosupersub}}\cell
+\pard\sa0\sb0\intbl\qc{{\i F}}\cell
+\pard\sa0\sb0\intbl\qc{{\i p}}\cell
+\pard\sa0\sb0\intbl\qc{{\u0951\ \super 2\nosupersub \sub g \nosupersub}}\cell
+\row
+}
+{
+\trowd \trgaph100
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx1368 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx2232 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx3096 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx4392 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx5947 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx7502 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx8366 
+\clbrdrt\brdrw15\brdrs
+\clvertalc\cellx9230 
+\pard\sa0\sb0\intbl\qr{format}\cell
+\pard\sa0\sb0\intbl\qc{2}\cell
+\pard\sa0\sb0\intbl\qc{87}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx778{136.60}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx156{144.16}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx311{41.22}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx130{.000}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx130{.49}\cell
+\row
+}
+{\pard \par}{\pard{\i Note.} {\i df\sub Num\nosupersub} indicates degrees of freedom numerator. {\i df\sub Den\nosupersub} indicates degrees of freedom denominator. {\i SS\sub Num\nosupersub} indicates sum of squares numerator. {\i SS\sub Den\nosupersub} indicates sum of squares denominator. {\u0951\ \super 2\nosupersub \sub g\nosupersub} indicates generalized eta-squared.
+\par}
+}

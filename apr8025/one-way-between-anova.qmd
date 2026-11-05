@@ -1,0 +1,163 @@
+---
+title: "One-way between subject ANOVA"
+class-date: "Nov 5, 2026"
+---
+
+**Class date:** {{< meta class-date >}}\
+<small> Based in part on lecture notes by Prof. Byoungkwan Lee and *이병관 (2023). 사회과학 연구자를 위한 R을 활용한 기초 통계. 한양대학교출판부.* </small>
+
+# 6.5. R을 이용한 분석 예제
+
+**Exercise:** 웹페이지의 구성 양식에 따른 충동구매를 탐색한 아딜라와 동료들(Adelaar et al., 2003)의 연구를 예를 들어 one-way between ANOVA를 수행해보자. 아딜라와 동료들(Adelaar et al., 2003)은 텍스트, 이미지, 동영상 등 세 가지 형식으로 만들어진 음악 CD 판매 웹페이지에 피험자들을 무선 배정하고 각 웹페이지에 노출된 후 그들의 충동구매 의도를 측정하였다. 연구자들은 웹페이지의 구성 양식에 따라 충동구매 의도가 달라지는가를 밝히기 위해 ANOVA를 통해 각 웹페이지의 구성 양식 간 충동구매 의도의 평균이 유의미한 차이가 있는지를 분석하였다.
+
+- $H_{0}:\mu_{\text{text}}=\mu_{\text{image}}=\mu_{\text{video}}$
+
+- $H_{A}:\text{at least two} \; \mu \;\text{are different}$
+
+## 6.5.1 데이터 로딩 및 기술통계
+
+#### 실습 데이터 다운로드: [media.csv](../data/media.csv){download="media.csv"}
+
+```{r}
+media <- read.csv("data/media.csv")
+
+library(rstatix)
+media %>%
+  group_by(format) %>%
+  get_summary_stats(impulse, type="common")
+
+library(ggpubr)
+ggboxplot(media, x="format", y="impulse",
+          add="jitter", shape="format")
+```
+
+## 6.5.2 통계적 가정 검증과 효과크기
+
+### STEP1. Check the normality assumption
+
+- **Detect Outliers**
+
+```{r}
+media %>%
+  group_by(format) %>%
+  identify_outliers(impulse)
+```
+
+- **Visual inspection (Q-Q plot)**
+
+```{r}
+# Build the linear model
+model <- lm(impulse ~ format, data = media)
+
+# Create a QQ plot of residuals
+ggqqplot(residuals(model))
+
+ggqqplot(media, "impulse", facet.by = "format")
+```
+
+- **Test statistics**
+
+```{r}
+media %>%
+  group_by(format) %>%
+  shapiro_test(impulse)
+```
+
+### STEP2. Check the homogeneity of variance
+
+```{r}
+media %>%
+  levene_test(impulse ~ format)
+```
+
+### STEP3. Conduct one-way between ANOVA
+
+\*There are many packages available for performing ANOVA, and here, we will practice using the `ez` package. Note that the "id" variable must always be specified as a factor.
+
+\*In the one-way ANOVA condition, $\eta^2$, $\eta_P^2$, $\eta_G^2$ effect size computes the same value.
+
+```{r}
+library(dplyr)
+str(media)
+
+media.f <- media %>%
+  mutate_at(vars(subjects, format), as.factor)
+str(media.f)
+
+library(ez)
+impulse <- ezANOVA(media.f,
+                   wid = .(subjects),
+                   dv = .(impulse),
+                   between = .(format),
+                   detailed = TRUE,
+                   return_aov = TRUE)
+impulse
+
+library(effectsize)
+eta_squared(impulse$aov)
+# eta_squared(impulse$aov, generalized = T)
+omega_squared(impulse$aov)
+```
+
+## 6.5.3 사후-검정
+
+```{r}
+TukeyHSD(impulse$aov)
+
+library(multcomp)
+tukey.media <- glht(impulse$aov, 
+                    linfct = mcp(format = "Tukey"))
+summary(tukey.media)
+```
+
+### STEP4. Report the result of one-way between ANOVA
+
+```{r}
+library(kableExtra)
+media %>%
+  group_by(format) %>%
+  get_summary_stats(impulse, type="common") %>%
+  dplyr::select(c(format, n, mean, sd)) %>%
+  rename(" " = format) %>%
+  kbl(digits = 3, align = "c",
+      caption = "Table1. Descriptive Statistics for the Impulsive Purchase Intentions by Webpage Format") %>% 
+  kable_paper()
+
+
+library(apaTables)
+apa.ezANOVA.table(impulse, filename = "tb_onewayb.doc",
+                  correction = "none", table.number = 2, 
+                  table.title = "Result of One-way Between Subject ANOVA")
+
+
+# res <- media.f %>% 
+#   anova_test(dv = impulse, wid = subjects, between = format, 
+#              type = 3, detailed = T)
+# get_anova_table(res) %>% kbl() %>% kable_styling()
+
+media.f %>% 
+  tukey_hsd(impulse ~ format) %>% 
+  dplyr::select(!c(term, null.value)) %>%
+  rename("Mean Difference" = estimate,
+         LB = conf.low,
+         UB = conf.high) %>%
+  kbl(digits = 3, align = "c",
+      caption = "Table 3. Comparison of Impulsive Purchase Intentions by Webpage Format") %>% 
+  kableExtra::add_header_above(c("Comparison" = 2, " " = 1, "95% CI" = 2, " " = 2)) %>% 
+  kable_paper()
+```
+
+A one-way between-subjects ANOVA was conducted to determine whether there were differences in impulsive purchase intentions among the different webpage formats (text vs. image vs. video) for a music CD sales site. The assumptions of normality and homogeneity of variance were assessed using the Shapiro-Wilk test and Levene's test, respectively. The results confirmed that both assumptions were met. Table 1 shows the descriptive statistics of the data.
+
+As the Table 2 indicated, the result demonstrated that there were significant differences between the format conditions, *F*(2, 87) = 41.22, *p* \< .001, with the format explaining approximately 49% of the variance, $\eta_G^2$ = .49. Additionally, post hoc comparisons using the Tukey HSD test revealed significant differences in impulsive purchase intentions across the formats (see Table 3). The mean impulsive purchase intention for the video format (*M* = 18.6, *SD* = 1.00) was significantly higher than that for the image format (*M* = 17.5, *SD* = 1.35) and the text format (*M* = 15.6, *SD* = 1.26). These results suggest that more sensory-rich formats, such as video and images, can significantly enhance impulsive purchase intentions compared to traditional text-based formats.
+
+# Cf. When *Homogeneity of variance assumption* is violated
+
+#### Welch's ANOVA
+
+```{r}
+oneway.test(impulse ~ format, data = media.f, var.equal = F)
+
+media.f %>% welch_anova_test(impulse ~ format)
+games_howell_test(data = media.f, impulse ~ format) #post-hoc
+```

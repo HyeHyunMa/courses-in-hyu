@@ -1,0 +1,216 @@
+---
+title: "One-way within subject ANOVA"
+class-date: "Nov 5, 2026"
+---
+
+**Class date:** {{< meta class-date >}}\
+<small> Based in part on lecture notes by Prof. Byoungkwan Lee and *이병관 (2023). 사회과학 연구자를 위한 R을 활용한 기초 통계. 한양대학교출판부.* </small>
+
+# 7.5. R을 이용한 분석 예제
+
+**Exercise:** 사람들의 다이어트 수행이 자존감에 긍정적인 영향을 미치는지를 탐색한 가상 데이터를 사용해 예제를 풀어보자. 이 데이터 셋에는 10명의 실험 참가자들의 다이어트 시작 전부터 세 시점(다이어트 시작 전, 다이어트 시행 3개월 후, 다이어트 시행 6개월 후)까지의 자존감 점수가 반복적으로 측정되었다. 실험 참가자의 각 시점에서의 자존감 점수 평균이 통계적으로 유의미한 차이가 있는지를 분석하기 위해 아래와 같은 영가설과 대안가설이 설정되었다.
+
+- $H_{0}:\mu_{\text{time1}}=\mu_{\text{time2}}=\mu_{\text{time3}}$
+
+- $H_{A}:\text{at least two} \; \mu \;\text{are different}$
+
+## 7.5.1 데이터 로딩 및 기술통계
+
+#### 실습 데이터 다운로드: [self_esteem.csv](../data/self_esteem.csv){download="self_esteem.csv"}
+
+```{r}
+###### loading data-set
+self_esteem <- read.csv("data/self_esteem.csv")
+str(self_esteem)
+head(self_esteem)
+
+library(rstatix)
+library(dplyr)
+library(tidyr)
+
+###### pivoting data frame
+se.l <- self_esteem %>%
+  gather(key = "time",
+         value = "score",
+         time.1, time.2, time.3) %>%
+  convert_as_factor(id, time)
+
+# se.l <- self_esteem %>%
+#   pivot_longer(cols = c(time.1, time.2, time.3),
+#                names_to = "time",
+#                values_to = "score") %>%
+#   mutate_at(vars(id, time), as.factor)
+
+head(se.l)
+
+###### descriptive statistics
+library(kableExtra)
+se.l %>%
+  group_by(time) %>%
+  get_summary_stats(score, type = "mean_sd") %>%
+  kable(digits = 2) %>% kable_paper("hover", full_width=F)
+
+###### eyeball inspection
+library(ggpubr)
+ggboxplot(se.l, x="time", y="score", add="jitter")
+```
+
+## 7.5.2 통계적 가정 검증과 효과크기
+
+### STEP1. Check the normality assumption
+
+- **Detect Outliers**
+
+```{r}
+se.l %>%
+  identify_outliers(score)
+```
+
+- **Visual inspection (Q-Q plot)**
+
+```{r}
+library(car)
+qqPlot(score ~ time, data=se.l, layout=c(1,3))
+```
+
+- **Test statistics**
+
+```{r}
+se.l %>%
+  group_by(time) %>%
+  shapiro_test(score) %>%
+  kbl() %>% kable_styling("hover")
+```
+
+### STEP2. Check the sphericity assumption
+
+```{r}
+#Mauchly's chi square by prof.bk
+mauchly.chi = function(k, n, W) {
+  d <- 1 - ((2 * ((k - 1)^2)+(k - 1)+2)/(6*(k - 1)*(n - 1)))
+  a <- -(n-1)*d*log(W)
+  b <- (k*(k - 1)/2) - 1
+  names(a)=c("Mauchly.chi^2")
+  names(b)=c("df")
+  print(c(a, b))
+}
+
+mauchly.chi(3, 10, 0.551)
+```
+
+### STEP3. Conduct one-way within ANOVA
+
+```{r}
+se.result <- se.l %>% anova_test(dv = score,
+                                 wid = id,
+                                 within = time)
+se.result
+
+
+library(ez)
+se.ez <- ezANOVA(se.l,
+                 wid = .(id),
+                 dv = .(score),
+                 within = .(time),
+                 detailed = TRUE,
+                 return_aov = TRUE)
+se.ez
+```
+
+## 7.5.3 사후-검정
+
+### STEP4. Conduct post-hoc
+
+```{r}
+se.l %>%
+  pairwise_t_test(score ~ time, paired = T, p.adjust.method = "bonferroni") %>%
+  kbl(digits = 3) %>%
+  kable_paper("hover", full_width = F)
+
+
+# plot
+se.aov <- anova_test(data = se.l, dv = score, 
+                     wid = id, within = time)
+
+tb <- get_anova_table(se.aov, correction = "none")
+
+pwc <- se.l %>%
+  pairwise_t_test(score ~ time, paired = TRUE, 
+                  p.adjust.method = "bonferroni") %>% 
+  add_xy_position(x = "time")
+
+bxp <- ggboxplot(se.l, x = "time", y = "score", add = "point",
+                 xlab = "Diet Program",
+                 ylab = "Self-esteem")
+
+bxp + stat_pvalue_manual(pwc) +
+  stat_summary(
+    fun.data = function(x)
+    data.frame(y=1, label = paste("Mean=", round(mean(x), digits = 2))),
+    geom="text", size=4) +
+  labs(subtitle = get_test_label(tb, detailed = TRUE), 
+       caption = get_pwc_label(pwc))
+
+# library(ggstatsplot)
+# ggwithinstats(
+#   data = se.l,
+#   x = time,
+#   y = score,
+#   id = id,
+#   type = "parametric",   # "parametric" or "robust" or "bayes"
+#   pairwise.comparisons = TRUE,
+#   pairwise.display = "significant",
+#   p.adjust.method = "bonferroni",
+#   conf.level = 0.95,
+#   sphericity.correction = "none",  # "GG" or "HF"
+#   ggtheme = theme_classic()
+#   )
+```
+
+### STEP5. Conduct trend analysis (optional\*)
+
+```{r}
+library(emmeans)
+model <- aov(formula = se.l$score ~ se.l$time + Error(se.l$id/se.l$time))
+em <- emmeans(model, ~time)
+
+trend <- as.data.frame(contr.poly(3))
+# trend <- as.data.frame(contr.poly(length(unique(se.l$time))))
+
+limcombs <- contrast(em, list(linear = trend$.L, 
+                              quadratic = trend$.Q))
+test(limcombs, adjust = "none")
+
+library(gplots)
+plotmeans(se.l$score ~ se.l$time, 
+          xlab = "Diet Program",
+          ylab = "Self-esteem",
+          main = "Mean Plot with 95% CI")
+```
+
+### STEP6. Report the result of one-way within ANOVA
+
+```{r}
+library(kableExtra)
+se.l %>%
+  group_by(time) %>%
+  get_summary_stats(score, type="common") %>%
+  dplyr::select(c(time, n, mean, sd)) %>%
+  rename(" " = time) %>%
+  kbl(digits = 3, align = "c",
+      caption = "Table1. Descriptive Statistics for the Perceived Self-esteem by Diet Program") %>% 
+  kable_paper()
+
+
+library(apaTables)
+apa.ezANOVA.table(se.ez, filename = "tb_onewayw.doc",
+                  correction = "none",   # "GG" or "HF"
+                  table.number = 2, 
+                  table.title = "Result of One-way Within Subject ANOVA")
+```
+
+An one-way repeated measures ANOVA was conducted to assess the effect of diet duration on participants' self-esteem scores across three time points (pre-diet, 3 months after diet initiation, and 6 months after diet initiation). The assumptions of normality and sphericity were assessed using the Shapiro-Wilk test and Mauchly’s test ($\chi^2(2)=4.77, p =.09$), respectively. The results confirmed that both assumptions were met. Table 1 shows the descriptive statistics of the data.
+
+As the Table 2 indicated, the result demonstrated that there was a statistically significant difference in self-esteem scores across the three time points at 95% confidence level, *F*(2, 18) = 55.47, *p* \< .001, $\eta_G^2$ = .83. In other words, approximately 83% of the variability in self-esteem scores can be attributed to the time elapsed since diet initiation. Additionally, a trend analysis indicated that data were well fit by a significant linear trend, $t(18)=10.46, p<.001$, suggesting that self-esteem scores increased steadily across time.
+
+Post-hoc comparisons using the Bonferroni correction indicated significant increases in self-esteem scores over time. The mean self-esteem score was lowest at the pre-diet stage (*M* = 3.14, *SD* = 0.55), increased significantly after 3 months of dieting (*M* = 4.93, *SD* = 0.86), and reached its highest average at 6 months (*M* = 7.64, *SD* = 1.14). Each of these differences was statistically significant. In summary, participants’ self-esteem scores showed marked improvement over the diet duration, indicating that continued adherence to the diet may have a positive effect on self-esteem over time.

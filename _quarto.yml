@@ -1,6 +1,9 @@
 
 project:
   type: website
+  resources:
+    - apr3044/data/*.csv
+    - apr8025/data/*.csv
   
 website:
   title: "Courses in HYU"
@@ -70,20 +73,14 @@ website:
             - href: apr3044/introduction-ai-agents.qmd
               text: "Introduction to AI Agents"
 
-            - href: apr3044/designing-ai-agent-workflows.qmd
-              text: "Designing AI Agent Workflows"
+            - href: apr3044/introduction-vibe-coding.qmd
+              text: "Vibecoding For beginners"
 
-            - href: apr3044/prompting-tools-data-grounded-responses.qmd
-              text: "Prompting, Tools, & Data-Grounded Responses"
+            - href: apr3044/llm-fundamentals-ai-agents.qmd
+              text: "LLM Fundamentals & AI Agents"
 
-            - href: apr3044/agentic-rag-context-engineering.qmd
-              text: "Agentic RAG & Context Engineering"
-
-            - href: apr3044/planning-memory-multi-agent.qmd
-              text: "Planning, Memory, & Multi-Agent Collaboration"
-
-            - href: apr3044/responsible-trustworthy-ai.qmd
-              text: "Responsible & Trustworthy AI Agents"
+            - href: apr3044/rag-agentic-rag.qmd
+              text: "RAG & Agentic RAG"
 
 
     # ============================================================

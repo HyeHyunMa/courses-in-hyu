@@ -1,0 +1,30 @@
+---
+title: "Vibecoding For beginners"
+toc: false
+---
+
+<iframe
+  src="slides/261104_Vibe_Coding.pdf"
+  width="100%"
+  height="750px"
+  style="border: 1px solid #ddd; border-radius: 8px;">
+</iframe>
+
+
+## Resources
+
+### Software & Development Tools
+
+- [Visual Studio Code](https://code.visualstudio.com/) — Code editor
+- [Python](https://www.python.org/downloads/) — Python installation
+- [Node.js](https://nodejs.org/) — JavaScript runtime
+- [OpenAI Codex](https://developers.openai.com/codex/) — AI coding agent
+- [Codex IDE Documentation](https://developers.openai.com/codex/ide) — IDE usage guide
+- [Claude Code](https://code.claude.com/docs/en/overview) — AI coding agent
+- [Claude Code Installation](https://code.claude.com/docs/en/setup) — CLI installation
+- [Claude Code VS Code Extension](https://marketplace.visualstudio.com/items?itemName=anthropic.claude-code) — VS Code installation
+
+### Public Data & APIs
+
+- [Seoul Open Data Plaza](https://data.seoul.go.kr/) — Seoul public data portal
+- [Seoul Real-Time City Data API](https://data.seoul.go.kr/dataList/OA-21285/F/1/datasetView.do) — Population, congestion, and urban data
