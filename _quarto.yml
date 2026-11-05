@@ -4,6 +4,7 @@ project:
   resources:
     - apr3044/data/*.csv
     - apr8025/data/*.csv
+    - "!apr3044/data/nyc_collisions_2025_q1_clean.csv"
   
 website:
   title: "Courses in HYU"
