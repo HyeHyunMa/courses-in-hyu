@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>one-way-between-anova – Courses in HYU</title>
+<title>One-way between subject ANOVA – Courses in HYU</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -73,7 +108,38 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
+<script src="../site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -470,18 +536,464 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#r을-이용한-분석-예제" id="toc-r을-이용한-분석-예제" class="nav-link active" data-scroll-target="#r을-이용한-분석-예제">6.5. R을 이용한 분석 예제</a>
+  <ul class="collapse">
+  <li><a href="#데이터-로딩-및-기술통계" id="toc-데이터-로딩-및-기술통계" class="nav-link" data-scroll-target="#데이터-로딩-및-기술통계">6.5.1 데이터 로딩 및 기술통계</a></li>
+  <li><a href="#통계적-가정-검증과-효과크기" id="toc-통계적-가정-검증과-효과크기" class="nav-link" data-scroll-target="#통계적-가정-검증과-효과크기">6.5.2 통계적 가정 검증과 효과크기</a>
+  <ul class="collapse">
+  <li><a href="#step1.-check-the-normality-assumption" id="toc-step1.-check-the-normality-assumption" class="nav-link" data-scroll-target="#step1.-check-the-normality-assumption">STEP1. Check the normality assumption</a></li>
+  <li><a href="#step2.-check-the-homogeneity-of-variance" id="toc-step2.-check-the-homogeneity-of-variance" class="nav-link" data-scroll-target="#step2.-check-the-homogeneity-of-variance">STEP2. Check the homogeneity of variance</a></li>
+  <li><a href="#step3.-conduct-one-way-between-anova" id="toc-step3.-conduct-one-way-between-anova" class="nav-link" data-scroll-target="#step3.-conduct-one-way-between-anova">STEP3. Conduct one-way between ANOVA</a></li>
+  </ul></li>
+  <li><a href="#사후-검정" id="toc-사후-검정" class="nav-link" data-scroll-target="#사후-검정">6.5.3 사후-검정</a>
+  <ul class="collapse">
+  <li><a href="#step4.-report-the-result-of-one-way-between-anova" id="toc-step4.-report-the-result-of-one-way-between-anova" class="nav-link" data-scroll-target="#step4.-report-the-result-of-one-way-between-anova">STEP4. Report the result of one-way between ANOVA</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#cf.-when-homogeneity-of-variance-assumption-is-violated" id="toc-cf.-when-homogeneity-of-variance-assumption-is-violated" class="nav-link" data-scroll-target="#cf.-when-homogeneity-of-variance-assumption-is-violated">Cf. When <em>Homogeneity of variance assumption</em> is violated</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../apr8025/one-way-between-anova.html">Analysis of Variance</a></li><li class="breadcrumb-item"><a href="../apr8025/one-way-between-anova.html">One-Way Between-Subjects ANOVA</a></li></ol></nav></header>
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../apr8025/one-way-between-anova.html">Analysis of Variance</a></li><li class="breadcrumb-item"><a href="../apr8025/one-way-between-anova.html">One-Way Between-Subjects ANOVA</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">One-way between subject ANOVA</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
 
 
+</header>
 
 
+<p><strong>Class date:</strong> Nov 5, 2026<br>
+<small> Based in part on lecture notes by Prof.&nbsp;Byoungkwan Lee and <em>이병관 (2023). 사회과학 연구자를 위한 R을 활용한 기초 통계. 한양대학교출판부.</em> </small></p>
+<section id="r을-이용한-분석-예제" class="level1">
+<h1>6.5. R을 이용한 분석 예제</h1>
+<p><strong>Exercise:</strong> 웹페이지의 구성 양식에 따른 충동구매를 탐색한 아딜라와 동료들(Adelaar et al., 2003)의 연구를 예를 들어 one-way between ANOVA를 수행해보자. 아딜라와 동료들(Adelaar et al., 2003)은 텍스트, 이미지, 동영상 등 세 가지 형식으로 만들어진 음악 CD 판매 웹페이지에 피험자들을 무선 배정하고 각 웹페이지에 노출된 후 그들의 충동구매 의도를 측정하였다. 연구자들은 웹페이지의 구성 양식에 따라 충동구매 의도가 달라지는가를 밝히기 위해 ANOVA를 통해 각 웹페이지의 구성 양식 간 충동구매 의도의 평균이 유의미한 차이가 있는지를 분석하였다.</p>
+<ul>
+<li><p><span class="math inline">\(H_{0}:\mu_{\text{text}}=\mu_{\text{image}}=\mu_{\text{video}}\)</span></p></li>
+<li><p><span class="math inline">\(H_{A}:\text{at least two} \; \mu \;\text{are different}\)</span></p></li>
+</ul>
+<section id="데이터-로딩-및-기술통계" class="level2">
+<h2 class="anchored" data-anchor-id="데이터-로딩-및-기술통계">6.5.1 데이터 로딩 및 기술통계</h2>
+<section id="실습-데이터-다운로드-media.csv" class="level4">
+<h4 class="anchored" data-anchor-id="실습-데이터-다운로드-media.csv">실습 데이터 다운로드: <a href="../data/media.csv" download="media.csv">media.csv</a></h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>media <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/media.csv"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstatix)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>media <span class="sc">%&gt;%</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(format) <span class="sc">%&gt;%</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_summary_stats</span>(impulse, <span class="at">type=</span><span class="st">"common"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 11
+  format variable     n   min   max median   iqr  mean    sd    se    ci
+  &lt;chr&gt;  &lt;fct&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 image  impulse     30  15.2  20.5   17.1  1.87  17.5  1.35 0.246 0.503
+2 text   impulse     30  13.2  19.9   15.4  1.77  15.6  1.46 0.267 0.547
+3 video  impulse     30  16.3  20.1   18.7  1.43  18.6  1.00 0.183 0.375</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggboxplot</span>(media, <span class="at">x=</span><span class="st">"format"</span>, <span class="at">y=</span><span class="st">"impulse"</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">add=</span><span class="st">"jitter"</span>, <span class="at">shape=</span><span class="st">"format"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="one-way-between-anova_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="통계적-가정-검증과-효과크기" class="level2">
+<h2 class="anchored" data-anchor-id="통계적-가정-검증과-효과크기">6.5.2 통계적 가정 검증과 효과크기</h2>
+<section id="step1.-check-the-normality-assumption" class="level3">
+<h3 class="anchored" data-anchor-id="step1.-check-the-normality-assumption">STEP1. Check the normality assumption</h3>
+<ul>
+<li><strong>Detect Outliers</strong></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>media <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(format) <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify_outliers</span>(impulse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 5
+  format subjects impulse is.outlier is.extreme
+  &lt;chr&gt;     &lt;int&gt;   &lt;dbl&gt; &lt;lgl&gt;      &lt;lgl&gt;     
+1 text         10    19.9 TRUE       FALSE     </code></pre>
+</div>
+</div>
+<ul>
+<li><strong>Visual inspection (Q-Q plot)</strong></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Build the linear model</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(impulse <span class="sc">~</span> format, <span class="at">data =</span> media)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a QQ plot of residuals</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggqqplot</span>(<span class="fu">residuals</span>(model))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="one-way-between-anova_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggqqplot</span>(media, <span class="st">"impulse"</span>, <span class="at">facet.by =</span> <span class="st">"format"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="one-way-between-anova_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>Test statistics</strong></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>media <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(format) <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shapiro_test</span>(impulse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 4
+  format variable statistic     p
+  &lt;chr&gt;  &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt;
+1 image  impulse      0.945 0.125
+2 text   impulse      0.947 0.143
+3 video  impulse      0.961 0.320</code></pre>
+</div>
+</div>
+</section>
+<section id="step2.-check-the-homogeneity-of-variance" class="level3">
+<h3 class="anchored" data-anchor-id="step2.-check-the-homogeneity-of-variance">STEP2. Check the homogeneity of variance</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>media <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">levene_test</span>(impulse <span class="sc">~</span> format)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+    df1   df2 statistic     p
+  &lt;int&gt; &lt;int&gt;     &lt;dbl&gt; &lt;dbl&gt;
+1     2    87      1.04 0.358</code></pre>
+</div>
+</div>
+</section>
+<section id="step3.-conduct-one-way-between-anova" class="level3">
+<h3 class="anchored" data-anchor-id="step3.-conduct-one-way-between-anova">STEP3. Conduct one-way between ANOVA</h3>
+<p>*There are many packages available for performing ANOVA, and here, we will practice using the <code>ez</code> package. Note that the “id” variable must always be specified as a factor.</p>
+<p>*In the one-way ANOVA condition, <span class="math inline">\(\eta^2\)</span>, <span class="math inline">\(\eta_P^2\)</span>, <span class="math inline">\(\eta_G^2\)</span> effect size computes the same value.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(media)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   90 obs. of  3 variables:
+ $ subjects: int  1 2 3 4 5 6 7 8 9 10 ...
+ $ format  : chr  "text" "text" "text" "text" ...
+ $ impulse : num  15.4 18 14.4 16 15.9 ...</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>media.f <span class="ot">&lt;-</span> media <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="fu">vars</span>(subjects, format), as.factor)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(media.f)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   90 obs. of  3 variables:
+ $ subjects: Factor w/ 90 levels "1","2","3","4",..: 1 2 3 4 5 6 7 8 9 10 ...
+ $ format  : Factor w/ 3 levels "image","text",..: 2 2 2 2 2 2 2 2 2 2 ...
+ $ impulse : num  15.4 18 14.4 16 15.9 ...</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ez)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>impulse <span class="ot">&lt;-</span> <span class="fu">ezANOVA</span>(media.f,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">wid =</span> .(subjects),</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">dv =</span> .(impulse),</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">between =</span> .(format),</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">detailed =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">return_aov =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>impulse</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$ANOVA
+  Effect DFn DFd      SSn      SSd        F            p p&lt;.05     ges
+1 format   2  87 136.5974 144.1611 41.21771 2.555082e-13     * 0.48653
+
+$`Levene's Test for Homogeneity of Variance`
+  DFn DFd      SSn      SSd       F         p p&lt;.05
+1   2  87 1.473811 61.72746 1.03861 0.3582926      
+
+$aov
+Call:
+   aov(formula = formula(aov_formula), data = data)
+
+Terms:
+                  format Residuals
+Sum of Squares  136.5975  144.1611
+Deg. of Freedom        2        87
+
+Residual standard error: 1.287254
+Estimated effects may be unbalanced</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(effectsize)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">eta_squared</span>(impulse<span class="sc">$</span>aov)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Effect Size for ANOVA
+
+Parameter | Eta2 |       95% CI
+-------------------------------
+format    | 0.49 | [0.36, 1.00]
+
+- One-sided CIs: upper bound fixed at [1.00].</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># eta_squared(impulse$aov, generalized = T)</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">omega_squared</span>(impulse<span class="sc">$</span>aov)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Effect Size for ANOVA
+
+Parameter | Omega2 |       95% CI
+---------------------------------
+format    |   0.47 | [0.34, 1.00]
+
+- One-sided CIs: upper bound fixed at [1.00].</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="사후-검정" class="level2">
+<h2 class="anchored" data-anchor-id="사후-검정">6.5.3 사후-검정</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(impulse<span class="sc">$</span>aov)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = formula(aov_formula), data = data)
+
+$format
+                 diff        lwr       upr     p adj
+text-image  -1.894572 -2.6870957 -1.102048 0.0000005
+video-image  1.086877  0.2943535  1.879401 0.0043554
+video-text   2.981449  2.1889254  3.773973 0.0000000</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(multcomp)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>tukey.media <span class="ot">&lt;-</span> <span class="fu">glht</span>(impulse<span class="sc">$</span>aov, </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">linfct =</span> <span class="fu">mcp</span>(<span class="at">format =</span> <span class="st">"Tukey"</span>))</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(tukey.media)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+     Simultaneous Tests for General Linear Hypotheses
+
+Multiple Comparisons of Means: Tukey Contrasts
+
+
+Fit: aov(formula = formula(aov_formula), data = data)
+
+Linear Hypotheses:
+                   Estimate Std. Error t value Pr(&gt;|t|)    
+text - image == 0   -1.8946     0.3324   -5.70  &lt; 0.001 ***
+video - image == 0   1.0869     0.3324    3.27  0.00438 ** 
+video - text == 0    2.9814     0.3324    8.97  &lt; 0.001 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+(Adjusted p values reported -- single-step method)</code></pre>
+</div>
+</div>
+<section id="step4.-report-the-result-of-one-way-between-anova" class="level3">
+<h3 class="anchored" data-anchor-id="step4.-report-the-result-of-one-way-between-anova">STEP4. Report the result of one-way between ANOVA</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>media <span class="sc">%&gt;%</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(format) <span class="sc">%&gt;%</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_summary_stats</span>(impulse, <span class="at">type=</span><span class="st">"common"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="fu">c</span>(format, n, mean, sd)) <span class="sc">%&gt;%</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">" "</span> <span class="ot">=</span> format) <span class="sc">%&gt;%</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">digits =</span> <span class="dv">3</span>, <span class="at">align =</span> <span class="st">"c"</span>,</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">"Table1. Descriptive Statistics for the Impulsive Purchase Intentions by Webpage Format"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="lightable-paper caption-top table table-sm table-striped small">
+<caption>Table1. Descriptive Statistics for the Impulsive Purchase Intentions by Webpage Format</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">n</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">mean</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">sd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">image</td>
+<td style="text-align: center;">30</td>
+<td style="text-align: center;">17.468</td>
+<td style="text-align: center;">1.348</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">text</td>
+<td style="text-align: center;">30</td>
+<td style="text-align: center;">15.573</td>
+<td style="text-align: center;">1.465</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">video</td>
+<td style="text-align: center;">30</td>
+<td style="text-align: center;">18.555</td>
+<td style="text-align: center;">1.005</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(apaTables)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">apa.ezANOVA.table</span>(impulse, <span class="at">filename =</span> <span class="st">"tb_onewayb.doc"</span>,</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">correction =</span> <span class="st">"none"</span>, <span class="at">table.number =</span> <span class="dv">2</span>, </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">table.title =</span> <span class="st">"Result of One-way Between Subject ANOVA"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+
+Table 2 
+
+Result of One-way Between Subject ANOVA 
+
+ Predictor df_num df_den SS_num SS_den     F    p ges
+    format      2     87 136.60 144.16 41.22 .000 .49
+
+Note. df_num indicates degrees of freedom numerator. df_den indicates degrees of freedom denominator. 
+SS_num indicates sum of squares numerator. SS_den indicates sum of squares denominator. 
+ges indicates generalized eta-squared.
+ </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># res &lt;- media.f %&gt;% </span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   anova_test(dv = impulse, wid = subjects, between = format, </span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co">#              type = 3, detailed = T)</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># get_anova_table(res) %&gt;% kbl() %&gt;% kable_styling()</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>media.f <span class="sc">%&gt;%</span> </span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tukey_hsd</span>(impulse <span class="sc">~</span> format) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">!</span><span class="fu">c</span>(term, null.value)) <span class="sc">%&gt;%</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">"Mean Difference"</span> <span class="ot">=</span> estimate,</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">LB =</span> conf.low,</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">UB =</span> conf.high) <span class="sc">%&gt;%</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">digits =</span> <span class="dv">3</span>, <span class="at">align =</span> <span class="st">"c"</span>,</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">"Table 3. Comparison of Impulsive Purchase Intentions by Webpage Format"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">add_header_above</span>(<span class="fu">c</span>(<span class="st">"Comparison"</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">" "</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="st">"95% CI"</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">" "</span> <span class="ot">=</span> <span class="dv">2</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="lightable-paper caption-top table table-sm table-striped small">
+<caption>Table 3. Comparison of Impulsive Purchase Intentions by Webpage Format</caption>
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-bottom: hidden; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Comparison
+</div></th>
+<th data-quarto-table-cell-role="th" style="text-align: center; empty-cells: hide; border-bottom: hidden;"></th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-bottom: hidden; padding-bottom: 0; padding-left: 3px; padding-right: 3px;"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+95% CI
+</div></th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; empty-cells: hide; border-bottom: hidden;"></th>
+</tr>
+<tr class="even">
+<th style="text-align: center;" data-quarto-table-cell-role="th">group1</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">group2</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">Mean Difference</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">LB</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">UB</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">p.adj</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">p.adj.signif</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">image</td>
+<td style="text-align: center;">text</td>
+<td style="text-align: center;">-1.895</td>
+<td style="text-align: center;">-2.687</td>
+<td style="text-align: center;">-1.102</td>
+<td style="text-align: center;">0.000</td>
+<td style="text-align: center;">****</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">image</td>
+<td style="text-align: center;">video</td>
+<td style="text-align: center;">1.087</td>
+<td style="text-align: center;">0.294</td>
+<td style="text-align: center;">1.879</td>
+<td style="text-align: center;">0.004</td>
+<td style="text-align: center;">**</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">text</td>
+<td style="text-align: center;">video</td>
+<td style="text-align: center;">2.981</td>
+<td style="text-align: center;">2.189</td>
+<td style="text-align: center;">3.774</td>
+<td style="text-align: center;">0.000</td>
+<td style="text-align: center;">****</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>A one-way between-subjects ANOVA was conducted to determine whether there were differences in impulsive purchase intentions among the different webpage formats (text vs.&nbsp;image vs.&nbsp;video) for a music CD sales site. The assumptions of normality and homogeneity of variance were assessed using the Shapiro-Wilk test and Levene’s test, respectively. The results confirmed that both assumptions were met. Table 1 shows the descriptive statistics of the data.</p>
+<p>As the Table 2 indicated, the result demonstrated that there were significant differences between the format conditions, <em>F</em>(2, 87) = 41.22, <em>p</em> &lt; .001, with the format explaining approximately 49% of the variance, <span class="math inline">\(\eta_G^2\)</span> = .49. Additionally, post hoc comparisons using the Tukey HSD test revealed significant differences in impulsive purchase intentions across the formats (see Table 3). The mean impulsive purchase intention for the video format (<em>M</em> = 18.6, <em>SD</em> = 1.00) was significantly higher than that for the image format (<em>M</em> = 17.5, <em>SD</em> = 1.35) and the text format (<em>M</em> = 15.6, <em>SD</em> = 1.26). These results suggest that more sensory-rich formats, such as video and images, can significantly enhance impulsive purchase intentions compared to traditional text-based formats.</p>
+</section>
+</section>
+</section>
+<section id="cf.-when-homogeneity-of-variance-assumption-is-violated" class="level1">
+<h1>Cf. When <em>Homogeneity of variance assumption</em> is violated</h1>
+<section id="welchs-anova" class="level4">
+<h4 class="anchored" data-anchor-id="welchs-anova">Welch’s ANOVA</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">oneway.test</span>(impulse <span class="sc">~</span> format, <span class="at">data =</span> media.f, <span class="at">var.equal =</span> F)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    One-way analysis of means (not assuming equal variances)
+
+data:  impulse and format
+F = 41.871, num df = 2.000, denom df = 56.339, p-value = 7.195e-12</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>media.f <span class="sc">%&gt;%</span> <span class="fu">welch_anova_test</span>(impulse <span class="sc">~</span> format)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 7
+  .y.         n statistic   DFn   DFd        p method     
+* &lt;chr&gt;   &lt;int&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;      
+1 impulse    90      41.9     2  56.3 7.20e-12 Welch ANOVA</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">games_howell_test</span>(<span class="at">data =</span> media.f, impulse <span class="sc">~</span> format) <span class="co">#post-hoc</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 8
+  .y.     group1 group2 estimate conf.low conf.high    p.adj p.adj.signif
+* &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;       
+1 impulse image  text      -1.89   -2.77      -1.02 7.74e- 6 ****        
+2 impulse image  video      1.09    0.347      1.83 2   e- 3 **          
+3 impulse text   video      2.98    2.20       3.76 1.62e-12 ****        </code></pre>
+</div>
+</div>
+
+
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>one-way-within-anova – Courses in HYU</title>
+<title>One-way within subject ANOVA – Courses in HYU</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -73,7 +108,38 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
+<script src="../site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -470,18 +536,557 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#r을-이용한-분석-예제" id="toc-r을-이용한-분석-예제" class="nav-link active" data-scroll-target="#r을-이용한-분석-예제">7.5. R을 이용한 분석 예제</a>
+  <ul class="collapse">
+  <li><a href="#데이터-로딩-및-기술통계" id="toc-데이터-로딩-및-기술통계" class="nav-link" data-scroll-target="#데이터-로딩-및-기술통계">7.5.1 데이터 로딩 및 기술통계</a></li>
+  <li><a href="#통계적-가정-검증과-효과크기" id="toc-통계적-가정-검증과-효과크기" class="nav-link" data-scroll-target="#통계적-가정-검증과-효과크기">7.5.2 통계적 가정 검증과 효과크기</a>
+  <ul class="collapse">
+  <li><a href="#step1.-check-the-normality-assumption" id="toc-step1.-check-the-normality-assumption" class="nav-link" data-scroll-target="#step1.-check-the-normality-assumption">STEP1. Check the normality assumption</a></li>
+  <li><a href="#step2.-check-the-sphericity-assumption" id="toc-step2.-check-the-sphericity-assumption" class="nav-link" data-scroll-target="#step2.-check-the-sphericity-assumption">STEP2. Check the sphericity assumption</a></li>
+  <li><a href="#step3.-conduct-one-way-within-anova" id="toc-step3.-conduct-one-way-within-anova" class="nav-link" data-scroll-target="#step3.-conduct-one-way-within-anova">STEP3. Conduct one-way within ANOVA</a></li>
+  </ul></li>
+  <li><a href="#사후-검정" id="toc-사후-검정" class="nav-link" data-scroll-target="#사후-검정">7.5.3 사후-검정</a>
+  <ul class="collapse">
+  <li><a href="#step4.-conduct-post-hoc" id="toc-step4.-conduct-post-hoc" class="nav-link" data-scroll-target="#step4.-conduct-post-hoc">STEP4. Conduct post-hoc</a></li>
+  <li><a href="#step5.-conduct-trend-analysis-optional" id="toc-step5.-conduct-trend-analysis-optional" class="nav-link" data-scroll-target="#step5.-conduct-trend-analysis-optional">STEP5. Conduct trend analysis (optional*)</a></li>
+  <li><a href="#step6.-report-the-result-of-one-way-within-anova" id="toc-step6.-report-the-result-of-one-way-within-anova" class="nav-link" data-scroll-target="#step6.-report-the-result-of-one-way-within-anova">STEP6. Report the result of one-way within ANOVA</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../apr8025/one-way-between-anova.html">Analysis of Variance</a></li><li class="breadcrumb-item"><a href="../apr8025/one-way-within-anova.html">One-Way Within-Subjects ANOVA</a></li></ol></nav></header>
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../apr8025/one-way-between-anova.html">Analysis of Variance</a></li><li class="breadcrumb-item"><a href="../apr8025/one-way-within-anova.html">One-Way Within-Subjects ANOVA</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">One-way within subject ANOVA</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
 
 
+</header>
 
 
+<p><strong>Class date:</strong> Nov 5, 2026<br>
+<small> Based in part on lecture notes by Prof.&nbsp;Byoungkwan Lee and <em>이병관 (2023). 사회과학 연구자를 위한 R을 활용한 기초 통계. 한양대학교출판부.</em> </small></p>
+<section id="r을-이용한-분석-예제" class="level1">
+<h1>7.5. R을 이용한 분석 예제</h1>
+<p><strong>Exercise:</strong> 사람들의 다이어트 수행이 자존감에 긍정적인 영향을 미치는지를 탐색한 가상 데이터를 사용해 예제를 풀어보자. 이 데이터 셋에는 10명의 실험 참가자들의 다이어트 시작 전부터 세 시점(다이어트 시작 전, 다이어트 시행 3개월 후, 다이어트 시행 6개월 후)까지의 자존감 점수가 반복적으로 측정되었다. 실험 참가자의 각 시점에서의 자존감 점수 평균이 통계적으로 유의미한 차이가 있는지를 분석하기 위해 아래와 같은 영가설과 대안가설이 설정되었다.</p>
+<ul>
+<li><p><span class="math inline">\(H_{0}:\mu_{\text{time1}}=\mu_{\text{time2}}=\mu_{\text{time3}}\)</span></p></li>
+<li><p><span class="math inline">\(H_{A}:\text{at least two} \; \mu \;\text{are different}\)</span></p></li>
+</ul>
+<section id="데이터-로딩-및-기술통계" class="level2">
+<h2 class="anchored" data-anchor-id="데이터-로딩-및-기술통계">7.5.1 데이터 로딩 및 기술통계</h2>
+<section id="실습-데이터-다운로드-self_esteem.csv" class="level4">
+<h4 class="anchored" data-anchor-id="실습-데이터-다운로드-self_esteem.csv">실습 데이터 다운로드: <a href="../data/self_esteem.csv" download="self_esteem.csv">self_esteem.csv</a></h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">###### loading data-set</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>self_esteem <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/self_esteem.csv"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(self_esteem)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   10 obs. of  4 variables:
+ $ id    : int  1 2 3 4 5 6 7 8 9 10
+ $ time.1: num  4.01 2.56 3.24 3.42 2.87 ...
+ $ time.2: num  5.18 6.91 4.44 4.71 3.91 ...
+ $ time.3: num  7.11 6.31 9.78 8.35 6.46 ...</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(self_esteem)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  id   time.1   time.2   time.3
+1  1 4.005027 5.182286 7.107831
+2  2 2.558124 6.912915 6.308434
+3  3 3.244241 4.443434 9.778410
+4  4 3.419538 4.711696 8.347124
+5  5 2.871243 3.908429 6.457287
+6  6 2.045868 5.340549 6.653224</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstatix)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="do">###### pivoting data frame</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>se.l <span class="ot">&lt;-</span> self_esteem <span class="sc">%&gt;%</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(<span class="at">key =</span> <span class="st">"time"</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">value =</span> <span class="st">"score"</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>         time<span class="fl">.1</span>, time<span class="fl">.2</span>, time<span class="fl">.3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">convert_as_factor</span>(id, time)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># se.l &lt;- self_esteem %&gt;%</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#   pivot_longer(cols = c(time.1, time.2, time.3),</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#                names_to = "time",</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#                values_to = "score") %&gt;%</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#   mutate_at(vars(id, time), as.factor)</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(se.l)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  id   time    score
+1  1 time.1 4.005027
+2  2 time.1 2.558124
+3  3 time.1 3.244241
+4  4 time.1 3.419538
+5  5 time.1 2.871243
+6  6 time.1 2.045868</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">###### descriptive statistics</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>se.l <span class="sc">%&gt;%</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(time) <span class="sc">%&gt;%</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_summary_stats</span>(score, <span class="at">type =</span> <span class="st">"mean_sd"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="fu">kable_paper</span>(<span class="st">"hover"</span>, <span class="at">full_width=</span>F)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="lightable-paper lightable-hover caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">time</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">variable</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">n</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">mean</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">sd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">time.1</td>
+<td style="text-align: left;">score</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">3.14</td>
+<td style="text-align: right;">0.55</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">time.2</td>
+<td style="text-align: left;">score</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">4.93</td>
+<td style="text-align: right;">0.86</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">time.3</td>
+<td style="text-align: left;">score</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">7.64</td>
+<td style="text-align: right;">1.14</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">###### eyeball inspection</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggboxplot</span>(se.l, <span class="at">x=</span><span class="st">"time"</span>, <span class="at">y=</span><span class="st">"score"</span>, <span class="at">add=</span><span class="st">"jitter"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="one-way-within-anova_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="통계적-가정-검증과-효과크기" class="level2">
+<h2 class="anchored" data-anchor-id="통계적-가정-검증과-효과크기">7.5.2 통계적 가정 검증과 효과크기</h2>
+<section id="step1.-check-the-normality-assumption" class="level3">
+<h3 class="anchored" data-anchor-id="step1.-check-the-normality-assumption">STEP1. Check the normality assumption</h3>
+<ul>
+<li><strong>Detect Outliers</strong></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>se.l <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">identify_outliers</span>(score)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] id         time       score      is.outlier is.extreme
+&lt;0 rows&gt; (or 0-length row.names)</code></pre>
+</div>
+</div>
+<ul>
+<li><strong>Visual inspection (Q-Q plot)</strong></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqPlot</span>(score <span class="sc">~</span> time, <span class="at">data=</span>se.l, <span class="at">layout=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="one-way-within-anova_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>Test statistics</strong></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>se.l <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(time) <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">shapiro_test</span>(score) <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>() <span class="sc">%&gt;%</span> <span class="fu">kable_styling</span>(<span class="st">"hover"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="table table-hover caption-top table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">time</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">variable</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">statistic</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">time.1</td>
+<td style="text-align: left;">score</td>
+<td style="text-align: right;">0.9666901</td>
+<td style="text-align: right;">0.8585757</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">time.2</td>
+<td style="text-align: left;">score</td>
+<td style="text-align: right;">0.8758846</td>
+<td style="text-align: right;">0.1169956</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">time.3</td>
+<td style="text-align: left;">score</td>
+<td style="text-align: right;">0.9227150</td>
+<td style="text-align: right;">0.3801563</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="step2.-check-the-sphericity-assumption" class="level3">
+<h3 class="anchored" data-anchor-id="step2.-check-the-sphericity-assumption">STEP2. Check the sphericity assumption</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Mauchly's chi square by prof.bk</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>mauchly.chi <span class="ot">=</span> <span class="cf">function</span>(k, n, W) {</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  d <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> ((<span class="dv">2</span> <span class="sc">*</span> ((k <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">^</span><span class="dv">2</span>)<span class="sc">+</span>(k <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">+</span><span class="dv">2</span>)<span class="sc">/</span>(<span class="dv">6</span><span class="sc">*</span>(k <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">*</span>(n <span class="sc">-</span> <span class="dv">1</span>)))</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  a <span class="ot">&lt;-</span> <span class="sc">-</span>(n<span class="dv">-1</span>)<span class="sc">*</span>d<span class="sc">*</span><span class="fu">log</span>(W)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  b <span class="ot">&lt;-</span> (k<span class="sc">*</span>(k <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">/</span><span class="dv">2</span>) <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(a)<span class="ot">=</span><span class="fu">c</span>(<span class="st">"Mauchly.chi^2"</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(b)<span class="ot">=</span><span class="fu">c</span>(<span class="st">"df"</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">c</span>(a, b))</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="fu">mauchly.chi</span>(<span class="dv">3</span>, <span class="dv">10</span>, <span class="fl">0.551</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Mauchly.chi^2            df 
+     4.768164      2.000000 </code></pre>
+</div>
+</div>
+</section>
+<section id="step3.-conduct-one-way-within-anova" class="level3">
+<h3 class="anchored" data-anchor-id="step3.-conduct-one-way-within-anova">STEP3. Conduct one-way within ANOVA</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>se.result <span class="ot">&lt;-</span> se.l <span class="sc">%&gt;%</span> <span class="fu">anova_test</span>(<span class="at">dv =</span> score,</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">wid =</span> id,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">within =</span> time)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>se.result</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>ANOVA Table (type III tests)
+
+$ANOVA
+  Effect DFn DFd      F        p p&lt;.05   ges
+1   time   2  18 55.469 2.01e-08     * 0.829
+
+$`Mauchly's Test for Sphericity`
+  Effect     W     p p&lt;.05
+1   time 0.551 0.092      
+
+$`Sphericity Corrections`
+  Effect  GGe      DF[GG]    p[GG] p[GG]&lt;.05   HFe      DF[HF]    p[HF]
+1   time 0.69 1.38, 12.42 2.16e-06         * 0.774 1.55, 13.94 6.03e-07
+  p[HF]&lt;.05
+1         *</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ez)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>se.ez <span class="ot">&lt;-</span> <span class="fu">ezANOVA</span>(se.l,</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">wid =</span> .(id),</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">dv =</span> .(score),</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">within =</span> .(time),</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">detailed =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">return_aov =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>se.ez</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$ANOVA
+       Effect DFn DFd      SSn       SSd          F            p p&lt;.05
+1 (Intercept)   1   9 822.7228  4.570442 1620.08505 1.795179e-11     *
+2        time   2  18 102.4558 16.623735   55.46903 2.013829e-08     *
+        ges
+1 0.9748859
+2 0.8285954
+
+$`Mauchly's Test for Sphericity`
+  Effect         W          p p&lt;.05
+2   time 0.5508534 0.09207551      
+
+$`Sphericity Corrections`
+  Effect       GGe        p[GG] p[GG]&lt;.05       HFe        p[HF] p[HF]&lt;.05
+2   time 0.6900613 2.161433e-06         * 0.7743711 6.032582e-07         *
+
+$aov
+
+Call:
+aov(formula = formula(aov_formula), data = data)
+
+Grand Mean: 5.236802
+
+Stratum 1: id
+
+Terms:
+                Residuals
+Sum of Squares   4.570442
+Deg. of Freedom         9
+
+Residual standard error: 0.7126198
+
+Stratum 2: id:time
+
+Terms:
+                     time Residuals
+Sum of Squares  102.45582  16.62374
+Deg. of Freedom         2        18
+
+Residual standard error: 0.9610103
+Estimated effects may be unbalanced</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="사후-검정" class="level2">
+<h2 class="anchored" data-anchor-id="사후-검정">7.5.3 사후-검정</h2>
+<section id="step4.-conduct-post-hoc" class="level3">
+<h3 class="anchored" data-anchor-id="step4.-conduct-post-hoc">STEP4. Conduct post-hoc</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>se.l <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pairwise_t_test</span>(score <span class="sc">~</span> time, <span class="at">paired =</span> T, <span class="at">p.adjust.method =</span> <span class="st">"bonferroni"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">digits =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>(<span class="st">"hover"</span>, <span class="at">full_width =</span> F)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="lightable-paper lightable-hover caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">.y.</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">group1</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">group2</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">n1</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">n2</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">statistic</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">df</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">p</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">p.adj</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">p.adj.signif</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">score</td>
+<td style="text-align: left;">time.1</td>
+<td style="text-align: left;">time.2</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">-4.968</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0.001</td>
+<td style="text-align: right;">0.002</td>
+<td style="text-align: left;">**</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">score</td>
+<td style="text-align: left;">time.1</td>
+<td style="text-align: left;">time.3</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">-13.228</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: right;">0.000</td>
+<td style="text-align: left;">****</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">score</td>
+<td style="text-align: left;">time.2</td>
+<td style="text-align: left;">time.3</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">-4.868</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">0.001</td>
+<td style="text-align: right;">0.003</td>
+<td style="text-align: left;">**</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>se.aov <span class="ot">&lt;-</span> <span class="fu">anova_test</span>(<span class="at">data =</span> se.l, <span class="at">dv =</span> score, </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">wid =</span> id, <span class="at">within =</span> time)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>tb <span class="ot">&lt;-</span> <span class="fu">get_anova_table</span>(se.aov, <span class="at">correction =</span> <span class="st">"none"</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>pwc <span class="ot">&lt;-</span> se.l <span class="sc">%&gt;%</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pairwise_t_test</span>(score <span class="sc">~</span> time, <span class="at">paired =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">p.adjust.method =</span> <span class="st">"bonferroni"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_xy_position</span>(<span class="at">x =</span> <span class="st">"time"</span>)</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>bxp <span class="ot">&lt;-</span> <span class="fu">ggboxplot</span>(se.l, <span class="at">x =</span> <span class="st">"time"</span>, <span class="at">y =</span> <span class="st">"score"</span>, <span class="at">add =</span> <span class="st">"point"</span>,</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>                 <span class="at">xlab =</span> <span class="st">"Diet Program"</span>,</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>                 <span class="at">ylab =</span> <span class="st">"Self-esteem"</span>)</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>bxp <span class="sc">+</span> <span class="fu">stat_pvalue_manual</span>(pwc) <span class="sc">+</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_summary</span>(</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">fun.data =</span> <span class="cf">function</span>(x)</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data.frame</span>(<span class="at">y=</span><span class="dv">1</span>, <span class="at">label =</span> <span class="fu">paste</span>(<span class="st">"Mean="</span>, <span class="fu">round</span>(<span class="fu">mean</span>(x), <span class="at">digits =</span> <span class="dv">2</span>))),</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">geom=</span><span class="st">"text"</span>, <span class="at">size=</span><span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="fu">get_test_label</span>(tb, <span class="at">detailed =</span> <span class="cn">TRUE</span>), </span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="fu">get_pwc_label</span>(pwc))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="one-way-within-anova_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library(ggstatsplot)</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ggwithinstats(</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   data = se.l,</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   x = time,</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   y = score,</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   id = id,</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   type = "parametric",   # "parametric" or "robust" or "bayes"</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   pairwise.comparisons = TRUE,</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co">#   pairwise.display = "significant",</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co">#   p.adjust.method = "bonferroni",</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   conf.level = 0.95,</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="co">#   sphericity.correction = "none",  # "GG" or "HF"</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="co">#   ggtheme = theme_classic()</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="co">#   )</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="step5.-conduct-trend-analysis-optional" class="level3">
+<h3 class="anchored" data-anchor-id="step5.-conduct-trend-analysis-optional">STEP5. Conduct trend analysis (optional*)</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">aov</span>(<span class="at">formula =</span> se.l<span class="sc">$</span>score <span class="sc">~</span> se.l<span class="sc">$</span>time <span class="sc">+</span> <span class="fu">Error</span>(se.l<span class="sc">$</span>id<span class="sc">/</span>se.l<span class="sc">$</span>time))</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>em <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(model, <span class="sc">~</span>time)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>trend <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">contr.poly</span>(<span class="dv">3</span>))</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co"># trend &lt;- as.data.frame(contr.poly(length(unique(se.l$time))))</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>limcombs <span class="ot">&lt;-</span> <span class="fu">contrast</span>(em, <span class="fu">list</span>(<span class="at">linear =</span> trend<span class="sc">$</span>.L, </span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>                              <span class="at">quadratic =</span> trend<span class="sc">$</span>.Q))</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="fu">test</span>(limcombs, <span class="at">adjust =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> contrast  estimate    SE df t.ratio p.value
+ linear       3.179 0.304 18  10.462  &lt;.0001
+ quadratic    0.371 0.304 18   1.221  0.2380</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gplots)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plotmeans</span>(se.l<span class="sc">$</span>score <span class="sc">~</span> se.l<span class="sc">$</span>time, </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">xlab =</span> <span class="st">"Diet Program"</span>,</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">ylab =</span> <span class="st">"Self-esteem"</span>,</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">main =</span> <span class="st">"Mean Plot with 95% CI"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="one-way-within-anova_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="step6.-report-the-result-of-one-way-within-anova" class="level3">
+<h3 class="anchored" data-anchor-id="step6.-report-the-result-of-one-way-within-anova">STEP6. Report the result of one-way within ANOVA</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>se.l <span class="sc">%&gt;%</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(time) <span class="sc">%&gt;%</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_summary_stats</span>(score, <span class="at">type=</span><span class="st">"common"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="fu">c</span>(time, n, mean, sd)) <span class="sc">%&gt;%</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">" "</span> <span class="ot">=</span> time) <span class="sc">%&gt;%</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">digits =</span> <span class="dv">3</span>, <span class="at">align =</span> <span class="st">"c"</span>,</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">caption =</span> <span class="st">"Table1. Descriptive Statistics for the Perceived Self-esteem by Diet Program"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="lightable-paper caption-top table table-sm table-striped small">
+<caption>Table1. Descriptive Statistics for the Perceived Self-esteem by Diet Program</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;" data-quarto-table-cell-role="th"></th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">n</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">mean</th>
+<th style="text-align: center;" data-quarto-table-cell-role="th">sd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">time.1</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">3.140</td>
+<td style="text-align: center;">0.552</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">time.2</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">4.934</td>
+<td style="text-align: center;">0.863</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">time.3</td>
+<td style="text-align: center;">10</td>
+<td style="text-align: center;">7.636</td>
+<td style="text-align: center;">1.143</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(apaTables)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">apa.ezANOVA.table</span>(se.ez, <span class="at">filename =</span> <span class="st">"tb_onewayw.doc"</span>,</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">correction =</span> <span class="st">"none"</span>,   <span class="co"># "GG" or "HF"</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">table.number =</span> <span class="dv">2</span>, </span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">table.title =</span> <span class="st">"Result of One-way Within Subject ANOVA"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+
+Table 2 
+
+Result of One-way Within Subject ANOVA 
+
+   Predictor df_num df_den SS_num SS_den       F    p ges
+ (Intercept)      1      9 822.72   4.57 1620.09 .000 .97
+        time      2     18 102.46  16.62   55.47 .000 .83
+
+Note. df_num indicates degrees of freedom numerator. df_den indicates degrees of freedom denominator. 
+p-values based on assumed sphericity. 
+p-values and degrees of freedom in the table incorporate this correction.
+SS_num indicates sum of squares numerator. SS_den indicates sum of squares denominator. 
+ges indicates generalized eta-squared.
+ </code></pre>
+</div>
+</div>
+<p>An one-way repeated measures ANOVA was conducted to assess the effect of diet duration on participants’ self-esteem scores across three time points (pre-diet, 3 months after diet initiation, and 6 months after diet initiation). The assumptions of normality and sphericity were assessed using the Shapiro-Wilk test and Mauchly’s test (<span class="math inline">\(\chi^2(2)=4.77, p =.09\)</span>), respectively. The results confirmed that both assumptions were met. Table 1 shows the descriptive statistics of the data.</p>
+<p>As the Table 2 indicated, the result demonstrated that there was a statistically significant difference in self-esteem scores across the three time points at 95% confidence level, <em>F</em>(2, 18) = 55.47, <em>p</em> &lt; .001, <span class="math inline">\(\eta_G^2\)</span> = .83. In other words, approximately 83% of the variability in self-esteem scores can be attributed to the time elapsed since diet initiation. Additionally, a trend analysis indicated that data were well fit by a significant linear trend, <span class="math inline">\(t(18)=10.46, p&lt;.001\)</span>, suggesting that self-esteem scores increased steadily across time.</p>
+<p>Post-hoc comparisons using the Bonferroni correction indicated significant increases in self-esteem scores over time. The mean self-esteem score was lowest at the pre-diet stage (<em>M</em> = 3.14, <em>SD</em> = 0.55), increased significantly after 3 months of dieting (<em>M</em> = 4.93, <em>SD</em> = 0.86), and reached its highest average at 6 months (<em>M</em> = 7.64, <em>SD</em> = 1.14). Each of these differences was statistically significant. In summary, participants’ self-esteem scores showed marked improvement over the diet duration, indicating that continued adherence to the diet may have a positive effect on self-esteem over time.</p>
+
+
+</section>
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
