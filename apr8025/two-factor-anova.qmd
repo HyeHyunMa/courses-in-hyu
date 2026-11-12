@@ -18,7 +18,7 @@ class-date: "Nov 12, 2026"
 
 ## 8.4.1 데이터 로딩 및 기술통계
 
-#### 실습 데이터 다운로드: [Beer_goggles.csv](/data/Beer_goggles.csv){download="Beer_goggles.csv"}
+#### 실습 데이터 다운로드: [Beer_goggles.csv](/apr8025/data/Beer_goggles.csv){download="Beer_goggles.csv"}
 
 ```{r}
 library(rstatix)
@@ -259,7 +259,7 @@ In final, there was a statistically significant interaction between the effects 
 
 ## 8.6.1 데이터 로딩 및 기술통계
 
-#### 실습 데이터 다운로드: [Looks_or_Personality.csv](/data/Looks_or_Personality.csv){download="Looks_or_Personality.csv"}
+#### 실습 데이터 다운로드: [Looks_or_Personality.csv](/apr8025/data/Looks_or_Personality.csv){download="Looks_or_Personality.csv"}
 
 ```{r}
 ###### loading data-set
