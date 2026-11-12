@@ -134,14 +134,8 @@ website:
             - href: apr8025/one-way-within-anova.qmd
               text: "One-Way Within-Subjects ANOVA"
 
-            - href: apr8025/two-way-between-anova.qmd
-              text: "Two-Way Between-Subjects ANOVA"
-
-            - href: apr8025/two-way-within-anova.qmd
-              text: "Two-Way Within-Subjects ANOVA"
-
-            - href: apr8025/two-way-mixed-anova.qmd
-              text: "Two-Way Mixed ANOVA"
+            - href: apr8025/two-factor-anova.qmd
+              text: "Two Factor ANOVA"
 
 
         - section: "Correlation & Regression"

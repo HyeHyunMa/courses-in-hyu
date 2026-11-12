@@ -1,0 +1,378 @@
+---
+title: "Two Factor ANOVA"
+class-date: "Nov 12, 2026"
+---
+
+**Class date:** {{< meta class-date >}}\
+<small> Based in part on lecture notes by Prof. Byoungkwan Lee and *이병관 (2023). 사회과학 연구자를 위한 R을 활용한 기초 통계. 한양대학교출판부.* </small>
+
+# 8.4. Two-way between ANOVA
+
+**Exercise:** 이 데이터 셋은 비어고글 효과 현상을 검증하기 위해 수행된 실제 실험을 바탕으로 만들어진 가상 데이터로(Field, 2017), 2(Face type) x 3(Alcohol level) 2-요인 완전랜덤화설계 실험을 통해 연구자는 다음과 같은 세 개의 가설을 검증하고자 한다.
+
+\(1\) 매력도(Face type)의 주효과
+
+\(2\) 알콜 강도(Alcohol level)의 주효과
+
+\(3\) 매력도와 알콜 강도의 상호작용효과
+
+## 8.4.1 데이터 로딩 및 기술통계
+
+#### 실습 데이터 다운로드: [Beer_goggles.csv](../data/Beer_goggles.csv){download="Beer_goggles.csv"}
+
+```{r}
+library(rstatix)
+library(dplyr)
+library(tidyr)
+library(kableExtra)
+
+###### loading data-set
+beer <- read.csv("data/Beer_goggles.csv")
+
+beer$Subject <- factor(beer$Subject)
+beer$FaceType <- factor(beer$FaceType, labels=c("unattractive", "attractive"))
+beer$Alcohol <- factor(beer$Alcohol, labels=c("placebo", "4%", "7%"))
+
+library(ggpubr)
+ggboxplot(beer, 
+          x = "Alcohol", y = "Attractiveness", 
+          add = "jitter", shape = "FaceType")
+```
+
+## 8.4.2 two-way ANOVA 분석과 가정 검정
+
+- Assumption check
+
+```{r}
+ggqqplot(beer, "Attractiveness",
+         facet.by = c("FaceType", "Alcohol"))
+
+beer %>%
+  group_by(FaceType, Alcohol) %>%
+  shapiro_test(Attractiveness) %>%
+  kbl(digits = 3) %>% kable_styling()
+```
+
+- Conduct two-way between ANOVA
+
+```{r}
+library(ez)
+
+beer_goggle <- ezANOVA(beer, 
+                       wid=.(Subject),
+                       dv=.(Attractiveness), 
+                       between=.(FaceType, Alcohol),
+                       type="II",
+                       detailed=TRUE, return_aov=T)
+beer_goggle
+
+#interaction plot
+library(ggplot2)
+beer %>%
+  ggplot() +
+  aes(x = Alcohol, linetype = FaceType, group = FaceType, y = Attractiveness) + 
+  stat_summary(fun = mean, geom = "point", size=2) +
+  stat_summary(fun = mean, geom = "line") +
+  theme_classic()
+```
+
+## 8.4.3 효과크기
+
+```{r}
+library(sjstats)
+eff <- anova_stats(beer_goggle$aov)
+eff %>% slice(1:3) %>% select(7, 1:6) %>% 
+  kbl() %>% kable_styling()
+```
+
+## 8.4.4 사후-검정과 계획 비교
+
+```{r}
+library(emmeans)
+
+#Simple effect of Alcohol across FaceType
+ph.cell.1 <- emmeans(beer_goggle$aov,
+                     pairwise ~ Alcohol | FaceType,
+                     adjust = "tukey")
+kbl(print(ph.cell.1$contrasts), digits = 3) %>%
+  kable_styling()
+
+#Simple effect of FaceType across Alcohol levels
+ph.cell.2 <- emmeans(beer_goggle$aov,
+                     pairwise ~ FaceType | Alcohol,
+                     adjust = "tukey")
+kbl(print(ph.cell.2$contrasts), digits = 3) %>%
+  kable_styling()
+```
+
+## Reporting
+
+```{r}
+library(apaTables)
+apa.2way.table(data = beer,
+               iv1 = FaceType, iv2 = Alcohol, 
+               dv = Attractiveness, 
+               filename = "beer_tb1.doc",
+               show.marginal.means = TRUE)
+
+apa.ezANOVA.table(beer_goggle, filename = "beer_tb2.doc",
+                  correction = "none", 
+                  table.title = "Result of Two-way Between Subject ANOVA")
+```
+
+A two-way between-subjects ANOVA was conducted to examine the effect of face type and alcohol on attractiveness ratings, and there was no major violation in assumptions. Table 1 shows the descriptive statistics of the data.
+
+As shown in the Table 2, the result indicated that there was a statistically significant effects in both face type and alcohol, and effect size presented a modest level of impact. Specifically, first, a statistically significant main effect of face type was found, $F(1,42) = 15.58, p < .001, \eta_G^2 = .27, \omega^2 = .16$. The results showed that attractiveness ratings were higher in participants belonging to the "Attractive" group (*M*=6.33, *SD*=0.96) compared to the "Unattractive" group (*M*=5, *SD*=1.82).
+
+Second, a statistically significant main effect of alcohol was found, $F (2,42) = 6.04, p < .01, \eta_G^2 = .22, \omega^2 = .11$. Tukey’s test was employed for post-hoc. The results showed that attractiveness ratings was higher in participants belonging to the "7%" group (*M*=6.38, *SD*=1.09) compared to the "placebo" group (*M*=4.94, *SD*=1.95), $M_{\text{diff}}=-1.437, t(42)=-3.475, p<.01.$
+
+In final, there was a statistically significant interaction between the effects of face type and alcohol on attractiveness ratings, $F (2,42) = 8.51, p < .001, \eta_G^2 = .29, \omega^2 = .17$. Simple effects analyses were performed to further examine this interaction. For unattractive faces, ratings in the "7%" group ($M = 6.38, SD = 1.09$) were significantly higher than those in the "placebo" group ($M = 4.94, SD = 1.95$), $M_{\text{diff}}=-3.125, t(42)=-5.342, p<.001.$ However, for attractive faces, alcohol level did not produce any significant differences. In addition, the difference between attractive and unattractive faces, which was significant under the "placebo" ($M_{\text{diff}}=-2.88, t(42)=-4.914, p < .001$) and "4%" ($M_{\text{diff}}=-1.62, t(42)=-2.778, p = .008$) groups, disappeared under the "7%" group ($p = .398$). These results suggest that alcohol increased the perceived attractiveness of unattractive faces, while ratings of attractive faces remained relatively unchanged (see Figure 1).
+
+# 8.5. Two-way within ANOVA
+
+**Exercise:** self-esteem2는 4주 다이어트 프로그램에 참가한 12명의 실험 참가자들로부터 측정한 데이터를 담고 있다. 이들 실험 참가자들은 두 개의 실험 조건, 즉 통제 조건(플라시보)과 특별 다이어트 조건에 모두 노출된 후, 3회(실험 시작: T1, 실험 중간: T2, 실험 종료: T3)에 걸쳐 그들의 자존감 점수가 측정되었다. 이 가상 실험은 단기 다이어트 프로그램이 시간이 지날수록 자존감 점수를 크게 높일 수 있는지를 조사하기 위한 것이다.
+
+\(1\) 다이어트 프로그램의 주효과
+
+\(2\) 시간의 주효과
+
+\(3\) 다이어트 프로그램과 시간의 상호작용효과
+
+## 8.5.1 데이터 로딩 및 기술통계
+
+```{r}
+###### loading data-set
+library(datarium)
+data("selfesteem2")
+
+###### pivoting data frame
+se.l <- selfesteem2 %>%
+  gather(key = "time",
+         value = "score",
+         t1:t3) %>%
+  convert_as_factor(id, time)
+
+library(ggpubr)
+ggboxplot (se.l, 
+           x = "time", y = "score", 
+           add = "jitter", shape = "treatment")
+```
+
+## 8.5.2 two-way within ANOVA 분석과 가정 검정
+
+- Assumption check
+
+```{r}
+ggqqplot(se.l, "score", ggtheme = theme_bw()) + 
+  facet_grid(time ~ treatment, labeller = "label_both")
+
+se.l %>%
+  group_by(treatment, time) %>%
+  shapiro_test(score) %>%
+  kbl(digits = 3) %>% kable_styling()
+```
+
+- Conduct two-way within ANOVA
+
+```{r}
+diet <- ezANOVA(se.l, 
+                wid=.(id),
+                dv=.(score), 
+                within=.(treatment, time),
+                type="II",
+                detailed=TRUE, return_aov=T)
+diet #epsilon = 0.6532010 => GG correction
+
+#Mauchly's chi square by prof.bk
+mauchly.chi = function(k, n, W) {
+  d <- 1 - ((2 * ((k - 1)^2)+(k - 1)+2)/(6*(k - 1)*(n - 1)))
+  a <- -(n-1)*d*log(W)
+  b <- (k*(k - 1)/2) - 1
+  names(a)=c("Mauchly.chi^2")
+  names(b)=c("df")
+  print(c(a, b))
+}
+
+mauchly.chi(3, 12, 0.4690776) #7.569871      2.000000 
+mauchly.chi(3, 12, 0.6160746) #4.843872      2.000000 
+
+#interaction plot
+library(ggplot2)
+se.l %>%
+  ggplot() +
+  aes(x = time, linetype = treatment, group = treatment, y = score) + 
+  stat_summary(fun = mean, geom = "point", size=2) +
+  stat_summary(fun = mean, geom = "line") +
+  theme_classic()
+```
+
+## 8.5.3 사후-검정
+
+```{r}
+#simple effect
+se.l %>%
+  group_by(treatment) %>%
+  anova_test(dv=score, wid=id, within=time) %>%
+  get_anova_table() %>%
+  adjust_pvalue(method = "bonferroni") %>%
+  kbl(digits = 3) %>% kable_styling()
+
+se.l %>%
+  group_by(treatment) %>%
+  filter(treatment == "ctr")%>%
+  pairwise_t_test(score ~ time,
+                  paired = T,
+                  p.adjust.method = "bonferroni") %>%
+  kbl(digits = 3) %>% kable_styling()
+```
+
+## Reporting
+
+```{r}
+library(apaTables)
+apa.2way.table(data = se.l,
+               iv1 = treatment, iv2 = time, 
+               dv = score, 
+               filename = "diet_tb1.doc",
+               show.marginal.means = TRUE)
+
+apa.ezANOVA.table(diet, filename = "diet_tb2.doc",
+                  correction = "GG", 
+                  table.title = "Result of Two-way Within Subject ANOVA")
+```
+
+A two-way within-subjects ANOVA was conducted to examine the effect of time and treatment on self-esteem score. Prior to the main analysis, assumptions were examined. The Shapiro–Wilk tests indicated that the normality assumption held across all cells except for the *t₁* condition in the control group ($p = .02$). However, visual inspection of Q–Q plots suggested no major deviation from normality; thus, the analysis proceeded as planned. The assumption of sphericity was tested using Mauchly’s test. The result showed that the sphericity assumption was violated for the main effect of time, $\chi^2(2) = 7.57, p < .05$, but not for the interaction between time and treatment, $\chi^2(2) = 4.84, p > .05$. Therefore, the Greenhouse–Geisser correction was applied to the main effect of time. Table 1 presents the descriptive statistics of the data.
+
+As shown in the Table 2, the result indicated that there was a statistically significant effects in both time and treatment. Specifically, first, a statistically significant main effect of time was found, $F(1.31,14.37) = 27.37, p < .001, \eta_G^2 = .05$, indicating that self-esteem scores varied significantly across time points. Second, a statistically significant main effect of treatment was also found, $F (1,11) = 15.54, p < .001, \eta_G^2 = .06$, showing that self-esteem differed depending on the treatment condition.
+
+In final, there was a statistically significant interaction between the effects of time and treatment on self-esteem score, $F (2,22) = 30.42, p < .001, \eta_G^2 = .05$. Thus, simple effects analyses were conducted to further examine the nature of this interaction. Within the control condition, self-esteem changed significantly over time, $F(2,22) = 39.70, p < .001$ (Bonferroni-adjusted), with all pairwise contrasts reaching significance—$t_1$ vs. $t_2$: $t(11)=4.53$, $t_1$ vs. $t_3$: $t(11)=6.91$, and $t_2$ vs. $t_3$: $t(11)=6.49$ (Bonferroni-adjusted $\text{all} \ ps < .001$). In contrast, within the Diet condition, the time effect was not significant, $F(2,22) = 0.078, p = .925$. These results indicate that the observed interaction was driven by significant temporal change in the control group, whereas self-esteem remained stable across time points in the Diet group (see Figure 1).
+
+# 8.6. Two-way mixed ANOVA
+
+**Exercise:** LooksOrPersonality 데이터는 10명의 남성과 10명의 여성이 스피드 데이트 이벤트에 참가해 “외모” 또는 “성격”이 다른 9명의 데이트 파트너에 대해 선호도를 평가한 2(성별: 여성, 남성)×3(외모: 매력적인, 평균, 못생긴)×3(카리스마: 높은, 약간, 없는) 3-way mixed 설계로 수집된 가상 데이터 셋이다. 본 예제에서는 포함된 데이터에서 외모에 대한 하위 데이터 셋만을 사용하였다. 성별을 between-subject 요인으로, 외모를 within-subject 요인으로 하는 2(성별: 여성, 남성) × 3(외모: 매력적인, 평균, 못생긴) two-way mixed 설계인 이 가상 실험은 데이트 상대를 평가하는 데 미치는 외모의 영향력이 성별에 따라 어떻게 달라지는지를 조사하기 위한 것이다. 다시 말해, 이성의 평가에 대해 성별과 외모 사이에 유의미한 상호작용이 있는지가 연구자의 주요 관심이다.
+
+\(1\) 성별의 주효과
+
+\(2\) 외모의 주효과
+
+\(3\) 성별과 외모의 상호작용효과
+
+## 8.6.1 데이터 로딩 및 기술통계
+
+#### 실습 데이터 다운로드: [Looks_or_Personality.csv](../data/Looks_or_Personality.csv){download="Looks_or_Personality.csv"}
+
+```{r}
+###### loading data-set
+looks <- read.csv("data/Looks_or_Personality.csv")
+
+###### pivoting data frame
+looks.l <- looks %>%
+  rename(id=participant,
+         attract=att_high,
+         average=av_high,
+         ugly=ug_high) %>%
+  select(1:5) %>%
+  gather(key = "attractiveness",
+         value = "rating",
+         3:5) %>%
+  convert_as_factor(id, gender, attractiveness)
+
+library(ggpubr)
+ggboxplot (looks.l, 
+           x = "attractiveness", y = "rating", 
+           add = "jitter", shape = "gender")
+```
+
+## 8.6.2 two-way mixed ANOVA 분석과 가정 검정
+
+- Assumption check
+
+```{r}
+ggqqplot(looks.l, "rating", ggtheme = theme_bw()) + 
+  facet_grid(attractiveness ~ gender, labeller = "label_both")
+
+looks.l %>%
+  group_by(gender, attractiveness) %>%
+  shapiro_test(rating) %>%
+  kbl(digits = 3) %>% kable_styling()
+
+looks.l %>%
+  group_by(attractiveness) %>%
+  levene_test(rating ~ gender)
+```
+
+- Conduct two-way mixed ANOVA
+
+```{r}
+look <- ezANOVA(looks.l, 
+                wid=.(id),
+                dv=.(rating), 
+                between=.(gender),
+                within=.(attractiveness),
+                type="II",
+                detailed=TRUE, return_aov=T)
+look
+
+#interaction plot
+library(ggplot2)
+looks.l %>%
+  ggplot() +
+  aes(x = attractiveness, linetype = gender, group = gender, y = rating) + 
+  stat_summary(fun = mean, geom = "point", size=2) +
+  stat_summary(fun = mean, geom = "line") +
+  theme_classic()
+```
+
+## 8.6.3 사후-검정
+
+```{r}
+looks.l %>%
+  pairwise_t_test(rating ~ attractiveness,
+                  paired = T,
+                  p.adjust.method = "bonferroni") %>%
+  kbl(digits = 3) %>% kable_styling()
+
+#simple effect - gender
+looks.l %>%
+  group_by(attractiveness) %>%
+  tukey_hsd(rating~gender) %>%
+  dplyr::select(-(null.value)) %>%
+  kbl(digits = 3) %>% kable_styling()
+
+#simple effect - attractiveness
+looks.l %>%
+  group_by(gender) %>%
+  anova_test(dv=rating,
+             wid=id, within = attractiveness) %>%
+  get_anova_table() %>%
+  adjust_pvalue(method = "bonferroni") %>%
+  kbl(digits = 3) %>% kable_styling()
+
+looks.l %>%
+  group_by(gender) %>%
+  pairwise_t_test(rating ~ attractiveness,
+                  paired = T,
+                  p.adjust.method = "bonferroni") %>%
+  kbl(digits = 3) %>% kable_styling()
+```
+
+## Reporting
+
+```{r}
+library(apaTables)
+apa.2way.table(data = looks.l,
+               iv1 = gender, iv2 = attractiveness, 
+               dv = rating, 
+               filename = "looks_tb1.doc",
+               show.marginal.means = TRUE)
+
+apa.ezANOVA.table(look, filename = "looks_tb2.doc",
+                  correction = "none", 
+                  table.title = "Result of Two-way mixed Subject ANOVA")
+```
+
+A two-way mixed-design ANOVA was conducted to examine the effects of gender (between-subjects factor) and partner attractiveness (within-subjects factor) on participants’ preference ratings. Prior to the main analysis, the assumptions of normality, homogeneity of variance, and sphericity were examined and all were met. Table 1 presents the descriptive statistics of the data.
+
+As shown in Table 2, the results revealed statistically significant main effects of both gender and attractiveness, as well as a significant interaction between the two factors. Specifically, a significant main effect of gender was found, $F(1,18) = 36.88, p < .001, \eta_G^2 = .49$, indicating that female participants reported higher overall preference ratings than male participants. A significant main effect of partner attractiveness was also observed, $F(2,36) = 49.29, p < .001, \eta_G^2 = .59$, showing that ratings increased as the partner’s attractiveness level rose. Finally, the interaction between gender and attractiveness was significant, $F(2,36) = 35.25, p < .001, \eta_G^2 = .51$.
+
+Simple-effects analyses were performed to further examine the interaction between gender and partner attractiveness. ... These findings indicate that men’s preference ratings were influenced by partner attractiveness, whereas women’s ratings remained relatively stable regardless of attractiveness level (see Figure 1).
