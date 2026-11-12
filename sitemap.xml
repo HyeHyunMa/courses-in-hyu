@@ -29,12 +29,8 @@
     <lastmod>2026-09-15T07:55:32.332Z</lastmod>
   </url>
   <url>
-    <loc>https://HyeHyunMa.github.io/courses-in-hyu/apr8025/two-way-within-anova.html</loc>
-    <lastmod>2026-09-13T11:04:53.945Z</lastmod>
-  </url>
-  <url>
-    <loc>https://HyeHyunMa.github.io/courses-in-hyu/apr8025/two-way-between-anova.html</loc>
-    <lastmod>2026-09-13T11:04:53.945Z</lastmod>
+    <loc>https://HyeHyunMa.github.io/courses-in-hyu/apr8025/one-way-between-anova.html</loc>
+    <lastmod>2026-11-05T06:33:01.806Z</lastmod>
   </url>
   <url>
     <loc>https://HyeHyunMa.github.io/courses-in-hyu/apr8025/chi-squared-test.html</loc>
@@ -45,19 +41,15 @@
     <lastmod>2026-09-13T11:04:53.945Z</lastmod>
   </url>
   <url>
-    <loc>https://HyeHyunMa.github.io/courses-in-hyu/apr8025/two-way-mixed-anova.html</loc>
+    <loc>https://HyeHyunMa.github.io/courses-in-hyu/apr8025/test.html</loc>
+    <lastmod>2026-10-22T07:47:31.097Z</lastmod>
+  </url>
+  <url>
+    <loc>https://HyeHyunMa.github.io/courses-in-hyu/apr8025/effect-size-power.html</loc>
     <lastmod>2026-09-13T11:04:53.945Z</lastmod>
   </url>
   <url>
-    <loc>https://HyeHyunMa.github.io/courses-in-hyu/apr8025/t-test.html</loc>
-    <lastmod>2026-10-29T05:37:08.939Z</lastmod>
-  </url>
-  <url>
-    <loc>https://HyeHyunMa.github.io/courses-in-hyu/apr8025/research-design.html</loc>
-    <lastmod>2026-09-13T11:04:53.946Z</lastmod>
-  </url>
-  <url>
-    <loc>https://HyeHyunMa.github.io/courses-in-hyu/apr8025/introduction-r.html</loc>
+    <loc>https://HyeHyunMa.github.io/courses-in-hyu/apr8025/inferential-statistics.html</loc>
     <lastmod>2026-09-13T11:04:53.946Z</lastmod>
   </url>
   <url>
@@ -65,16 +57,20 @@
     <lastmod>2026-11-05T03:57:04.016Z</lastmod>
   </url>
   <url>
-    <loc>https://HyeHyunMa.github.io/courses-in-hyu/apr8025/inferential-statistics.html</loc>
+    <loc>https://HyeHyunMa.github.io/courses-in-hyu/apr8025/two-factor-anova.html</loc>
+    <lastmod>2026-11-12T01:44:19.448Z</lastmod>
+  </url>
+  <url>
+    <loc>https://HyeHyunMa.github.io/courses-in-hyu/apr8025/introduction-r.html</loc>
     <lastmod>2026-09-13T11:04:53.946Z</lastmod>
   </url>
   <url>
-    <loc>https://HyeHyunMa.github.io/courses-in-hyu/apr8025/effect-size-power.html</loc>
-    <lastmod>2026-09-13T11:04:53.945Z</lastmod>
+    <loc>https://HyeHyunMa.github.io/courses-in-hyu/apr8025/research-design.html</loc>
+    <lastmod>2026-09-13T11:04:53.946Z</lastmod>
   </url>
   <url>
-    <loc>https://HyeHyunMa.github.io/courses-in-hyu/apr8025/test.html</loc>
-    <lastmod>2026-10-22T07:47:31.097Z</lastmod>
+    <loc>https://HyeHyunMa.github.io/courses-in-hyu/apr8025/t-test.html</loc>
+    <lastmod>2026-10-29T05:37:08.939Z</lastmod>
   </url>
   <url>
     <loc>https://HyeHyunMa.github.io/courses-in-hyu/apr8025/regression-diagnostics.html</loc>
@@ -87,10 +83,6 @@
   <url>
     <loc>https://HyeHyunMa.github.io/courses-in-hyu/apr8025/simple-regression.html</loc>
     <lastmod>2026-09-13T11:04:53.945Z</lastmod>
-  </url>
-  <url>
-    <loc>https://HyeHyunMa.github.io/courses-in-hyu/apr8025/one-way-between-anova.html</loc>
-    <lastmod>2026-11-05T03:57:02.847Z</lastmod>
   </url>
   <url>
     <loc>https://HyeHyunMa.github.io/courses-in-hyu/apr8025/descriptive-statistics.html</loc>
